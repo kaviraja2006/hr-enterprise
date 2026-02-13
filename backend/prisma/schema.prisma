@@ -1,0 +1,102 @@
+generator client {
+  provider        = "prisma-client-js"
+  output          = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  schemas  = ["hr"]
+}
+
+model Employee {
+  id             String   @id @default(uuid())
+  userId         String   @map("user_id")
+  employeeCode   String   @unique @map("employee_code")
+  firstName      String   @map("first_name")
+  lastName       String   @map("last_name")
+  departmentId   String?  @map("department_id")
+  designationId  String?  @map("designation_id")
+  status         String   @default("active")
+  joinDate       DateTime @map("join_date")
+
+  department     Department?    @relation(fields: [departmentId], references: [id])
+  designation    Designation?   @relation(fields: [designationId], references: [id])
+  attendances    Attendance[]
+  leaveRequests  LeaveRequest[]
+
+  createdAt      DateTime @default(now()) @map("created_at")
+  updatedAt      DateTime @updatedAt @map("updated_at")
+  deletedAt      DateTime? @map("deleted_at")
+
+  @@map("employees")
+  @@schema("hr")
+}
+
+model Department {
+  id          String   @id @default(uuid())
+  name        String   @unique
+  description String?
+
+  employees   Employee[]
+
+  @@map("departments")
+  @@schema("hr")
+}
+
+model Designation {
+  id    String @id @default(uuid())
+  title String @unique
+
+  employees Employee[]
+
+  @@map("designations")
+  @@schema("hr")
+}
+
+model LeaveRequest {
+  id              String    @id @default(uuid())
+  employeeId      String    @map("employee_id")
+  startDate       DateTime  @map("start_date")
+  endDate         DateTime  @map("end_date")
+  leaveType       String    @default("other") @map("leave_type")
+  reason          String?
+  workflowState   String?   @map("workflow_state")
+  status          String    @default("pending")
+  workflowId      String?   @map("workflow_id")
+  lastErrorCode   String?   @map("last_error_code")
+  lastErrorAt     DateTime? @map("last_error_at")
+  idempotencyKey  String?   @unique @map("idempotency_key")
+  approvedBy      String?   @map("approved_by")
+  approvedAt      DateTime? @map("approved_at")
+  rejectionReason String?   @map("rejection_reason")
+
+  employee        Employee  @relation(fields: [employeeId], references: [id])
+
+  createdAt       DateTime @default(now()) @map("created_at")
+  updatedAt       DateTime @updatedAt @map("updated_at")
+
+  @@map("leave_requests")
+  @@schema("hr")
+}
+
+model Attendance {
+  id              String    @id @default(uuid())
+  employeeId      String    @map("employee_id")
+  attendanceDate  DateTime  @map("attendance_date")
+  checkIn         DateTime? @map("check_in")
+  checkOut        DateTime? @map("check_out")
+  status          String
+  workHours       Float?    @map("work_hours")
+  overtimeHours   Float?    @map("overtime_hours")
+  isManualEntry   Boolean   @default(false) @map("is_manual_entry")
+  notes           String?
+
+  employee        Employee  @relation(fields: [employeeId], references: [id])
+
+  createdAt       DateTime @default(now()) @map("created_at")
+  updatedAt       DateTime @updatedAt @map("updated_at")
+
+  @@unique([employeeId, attendanceDate])
+  @@map("attendance")
+  @@schema("hr")
+}

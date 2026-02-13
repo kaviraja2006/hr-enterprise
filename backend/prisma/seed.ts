@@ -1,237 +1,805 @@
 import 'dotenv/config';
+import { PrismaClient } from '../generated/prisma';
+import * as bcrypt from 'bcrypt';
+
+// For Prisma 7.x, we need to use the driver adapter
+import { PrismaPg } from '@prisma/adapter-pg';
 import { Pool } from 'pg';
 
-const pool = new Pool({
+// Configure pool
+const pool = new Pool({ 
   connectionString: process.env.DATABASE_URL,
 });
 
-// Test employees matching auth user IDs
-// Using the same IDs as auth users so employee.id matches user.id
-const TEST_EMPLOYEES = [
-  {
-    id: '550e8400-e29b-41d4-a716-446655440000',
-    userId: '550e8400-e29b-41d4-a716-446655440000',
-    employeeCode: 'EMP001',
-    firstName: 'John',
-    lastName: 'Doe',
-    departmentName: 'Engineering',
-    designationTitle: 'Software Engineer',
-    joinDate: '2024-01-15',
-  },
-  {
-    id: '550e8400-e29b-41d4-a716-446655440001',
-    userId: '550e8400-e29b-41d4-a716-446655440001',
-    employeeCode: 'EMP002',
-    firstName: 'Jane',
-    lastName: 'Smith',
-    departmentName: 'Human Resources',
-    designationTitle: 'HR Manager',
-    joinDate: '2023-06-01',
-  },
-  {
-    id: '550e8400-e29b-41d4-a716-446655440002',
-    userId: '550e8400-e29b-41d4-a716-446655440002',
-    employeeCode: 'EMP003',
-    firstName: 'Robert',
-    lastName: 'Johnson',
-    departmentName: 'Finance',
-    designationTitle: 'Financial Analyst',
-    joinDate: '2023-03-15',
-  },
-  {
-    id: '550e8400-e29b-41d4-a716-446655440003',
-    userId: '550e8400-e29b-41d4-a716-446655440003',
-    employeeCode: 'EMP004',
-    firstName: 'Emily',
-    lastName: 'Davis',
-    departmentName: 'Sales',
-    designationTitle: 'Sales Executive',
-    joinDate: '2024-02-01',
-  },
-];
+const adapter = new PrismaPg(pool);
+const prisma = new PrismaClient({ adapter });
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-async function main(): Promise<any> {
-  console.log('🌱 Starting HR database seed...\n');
+async function main() {
+  console.log('🌱 Starting database seed...\n');
 
-  // Debug: Check connection
-  console.log('Database URL:', process.env.DATABASE_URL);
-  const dbCheck = await pool.query(
-    'SELECT current_database(), current_schema()',
-  );
-  console.log('Connected to:', dbCheck.rows[0]);
+  // ============================================
+  // 1. Create Departments
+  // ============================================
+  console.log('🏢 Creating departments...');
+  
+  const departments = await Promise.all([
+    prisma.department.upsert({
+      where: { name: 'Engineering' },
+      update: {},
+      create: {
+        name: 'Engineering',
+        description: 'Software development and technical operations',
+      },
+    }),
+    prisma.department.upsert({
+      where: { name: 'Human Resources' },
+      update: {},
+      create: {
+        name: 'Human Resources',
+        description: 'Employee management and recruitment',
+      },
+    }),
+    prisma.department.upsert({
+      where: { name: 'Sales' },
+      update: {},
+      create: {
+        name: 'Sales',
+        description: 'Business development and sales operations',
+      },
+    }),
+    prisma.department.upsert({
+      where: { name: 'Finance' },
+      update: {},
+      create: {
+        name: 'Finance',
+        description: 'Financial planning and accounting',
+      },
+    }),
+    prisma.department.upsert({
+      where: { name: 'Marketing' },
+      update: {},
+      create: {
+        name: 'Marketing',
+        description: 'Marketing and brand management',
+      },
+    }),
+  ]);
 
-  // List all schemas
-  const schemas = await pool.query(
-    'SELECT schema_name FROM information_schema.schemata',
-  );
-  console.log(
-    'Available schemas:',
-    schemas.rows.map((r: { schema_name: string }) => r.schema_name),
-  );
+  console.log(`✅ Created ${departments.length} departments\n`);
 
-  // Ensure hr schema is in search path
-  await pool.query('SET search_path TO hr, public');
-  console.log('✅ Set search path to hr schema\n');
+  // ============================================
+  // 2. Create Leave Types
+  // ============================================
+  console.log('🏖️ Creating leave types...');
+  
+  const leaveTypes = await Promise.all([
+    prisma.leaveType.upsert({
+      where: { name: 'Annual Leave' },
+      update: {},
+      create: {
+        name: 'Annual Leave',
+        description: 'Regular paid time off',
+        annualLimit: 20,
+        carryForwardAllowed: true,
+        maxCarryForward: 5,
+      },
+    }),
+    prisma.leaveType.upsert({
+      where: { name: 'Sick Leave' },
+      update: {},
+      create: {
+        name: 'Sick Leave',
+        description: 'Medical leave for illness',
+        annualLimit: 10,
+        carryForwardAllowed: false,
+      },
+    }),
+    prisma.leaveType.upsert({
+      where: { name: 'Casual Leave' },
+      update: {},
+      create: {
+        name: 'Casual Leave',
+        description: 'Short notice personal leave',
+        annualLimit: 8,
+        carryForwardAllowed: false,
+      },
+    }),
+    prisma.leaveType.upsert({
+      where: { name: 'Maternity Leave' },
+      update: {},
+      create: {
+        name: 'Maternity Leave',
+        description: 'Leave for new mothers',
+        annualLimit: 180,
+        carryForwardAllowed: false,
+      },
+    }),
+    prisma.leaveType.upsert({
+      where: { name: 'Paternity Leave' },
+      update: {},
+      create: {
+        name: 'Paternity Leave',
+        description: 'Leave for new fathers',
+        annualLimit: 14,
+        carryForwardAllowed: false,
+      },
+    }),
+  ]);
 
-  // Create departments using raw SQL
-  const departments = [
-    {
-      name: 'Engineering',
-      description: 'Software development and technical teams',
+  console.log(`✅ Created ${leaveTypes.length} leave types\n`);
+
+  // ============================================
+  // 3. Create Default Roles and Permissions
+  // ============================================
+  console.log('🔐 Creating roles and permissions...');
+
+  // Default permissions
+  const defaultPermissions = [
+    // User permissions
+    { name: 'View Users', resource: 'users', action: 'read' },
+    { name: 'Create Users', resource: 'users', action: 'create' },
+    { name: 'Update Users', resource: 'users', action: 'update' },
+    { name: 'Delete Users', resource: 'users', action: 'delete' },
+    // Role permissions
+    { name: 'View Roles', resource: 'roles', action: 'read' },
+    { name: 'Create Roles', resource: 'roles', action: 'create' },
+    { name: 'Update Roles', resource: 'roles', action: 'update' },
+    { name: 'Delete Roles', resource: 'roles', action: 'delete' },
+    // Employee permissions
+    { name: 'View Employees', resource: 'employees', action: 'read' },
+    { name: 'Create Employees', resource: 'employees', action: 'create' },
+    { name: 'Update Employees', resource: 'employees', action: 'update' },
+    { name: 'Delete Employees', resource: 'employees', action: 'delete' },
+    // Department permissions
+    { name: 'View Departments', resource: 'departments', action: 'read' },
+    { name: 'Create Departments', resource: 'departments', action: 'create' },
+    { name: 'Update Departments', resource: 'departments', action: 'update' },
+    { name: 'Delete Departments', resource: 'departments', action: 'delete' },
+    // Attendance permissions
+    { name: 'View Attendance', resource: 'attendance', action: 'read' },
+    { name: 'Create Attendance', resource: 'attendance', action: 'create' },
+    { name: 'Update Attendance', resource: 'attendance', action: 'update' },
+    { name: 'Delete Attendance', resource: 'attendance', action: 'delete' },
+    // Leave permissions
+    { name: 'View Leave', resource: 'leave', action: 'read' },
+    { name: 'Create Leave', resource: 'leave', action: 'create' },
+    { name: 'Approve Leave', resource: 'leave', action: 'approve' },
+    { name: 'Manage Leave Types', resource: 'leave', action: 'manage' },
+  ];
+
+  // Create all permissions
+  for (const perm of defaultPermissions) {
+    await prisma.permission.upsert({
+      where: {
+        resource_action: {
+          resource: perm.resource,
+          action: perm.action,
+        },
+      },
+      update: {},
+      create: perm,
+    });
+  }
+
+  // Get all permissions
+  const allPermissions = await prisma.permission.findMany();
+
+  // Create roles
+  const adminRole = await prisma.role.upsert({
+    where: { name: 'admin' },
+    update: {},
+    create: {
+      name: 'admin',
+      description: 'Administrator with full access',
+      isSystem: true,
     },
-    { name: 'Human Resources', description: 'HR and employee management' },
-    { name: 'Sales', description: 'Sales and business development' },
-    { name: 'Finance', description: 'Financial planning and accounting' },
-    { name: 'Marketing', description: 'Marketing and communications' },
-  ];
+  });
 
-  console.log('Creating departments...');
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const createdDepartments: any[] = [];
-  for (const dept of departments) {
-    try {
-      const result = await pool.query(
-        'INSERT INTO hr.departments (id, name, description) VALUES (gen_random_uuid(), $1, $2) ON CONFLICT (name) DO UPDATE SET name = $1 RETURNING *',
-        [dept.name, dept.description],
-      );
-      createdDepartments.push(result.rows[0]);
-      console.log(`  ✅ ${result.rows[0].name}`);
-    } catch (error) {
-      console.error(`  ❌ Failed to create ${dept.name}:`, error);
+  const hrRole = await prisma.role.upsert({
+    where: { name: 'hr_manager' },
+    update: {},
+    create: {
+      name: 'hr_manager',
+      description: 'HR Manager with employee management access',
+      isSystem: true,
+    },
+  });
+
+  const managerRole = await prisma.role.upsert({
+    where: { name: 'manager' },
+    update: {},
+    create: {
+      name: 'manager',
+      description: 'Department manager with team oversight',
+      isSystem: true,
+    },
+  });
+
+  const employeeRole = await prisma.role.upsert({
+    where: { name: 'employee' },
+    update: {},
+    create: {
+      name: 'employee',
+      description: 'Standard employee with limited access',
+      isSystem: true,
+    },
+  });
+
+  // Assign permissions to roles
+  // Admin gets all permissions
+  await prisma.rolePermission.deleteMany({ where: { roleId: adminRole.id } });
+  await prisma.rolePermission.createMany({
+    data: allPermissions.map((p) => ({
+      roleId: adminRole.id,
+      permissionId: p.id,
+    })),
+  });
+
+  // HR Manager gets HR-related permissions
+  const hrPermissions = allPermissions.filter(
+    (p) =>
+      p.resource === 'employees' ||
+      p.resource === 'attendance' ||
+      p.resource === 'leave' ||
+      p.resource === 'departments' ||
+      p.resource === 'users'
+  );
+  await prisma.rolePermission.deleteMany({ where: { roleId: hrRole.id } });
+  await prisma.rolePermission.createMany({
+    data: hrPermissions.map((p) => ({
+      roleId: hrRole.id,
+      permissionId: p.id,
+    })),
+  });
+
+  // Manager gets read access to employees, attendance, leave
+  const managerPermissions = allPermissions.filter(
+    (p) =>
+      (p.resource === 'employees' && p.action === 'read') ||
+      (p.resource === 'attendance' && ['read', 'create', 'update'].includes(p.action)) ||
+      (p.resource === 'leave' && ['read', 'create', 'approve'].includes(p.action)) ||
+      (p.resource === 'departments' && p.action === 'read')
+  );
+  await prisma.rolePermission.deleteMany({ where: { roleId: managerRole.id } });
+  await prisma.rolePermission.createMany({
+    data: managerPermissions.map((p) => ({
+      roleId: managerRole.id,
+      permissionId: p.id,
+    })),
+  });
+
+  // Employee gets basic read and create permissions
+  const employeePermissions = allPermissions.filter(
+    (p) =>
+      (p.resource === 'employees' && p.action === 'read') ||
+      (p.resource === 'attendance' && ['read', 'create'].includes(p.action)) ||
+      (p.resource === 'leave' && ['read', 'create'].includes(p.action)) ||
+      (p.resource === 'departments' && p.action === 'read')
+  );
+  await prisma.rolePermission.deleteMany({ where: { roleId: employeeRole.id } });
+  await prisma.rolePermission.createMany({
+    data: employeePermissions.map((p) => ({
+      roleId: employeeRole.id,
+      permissionId: p.id,
+    })),
+  });
+
+  console.log(`✅ Created ${allPermissions.length} permissions and 4 roles\n`);
+
+  // ============================================
+  // 4. Create Admin Employee
+  // ============================================
+  console.log('👤 Creating admin employee and user...');
+
+  const adminEmployee = await prisma.employee.upsert({
+    where: { employeeCode: 'EMP001' },
+    update: {},
+    create: {
+      employeeCode: 'EMP001',
+      firstName: 'System',
+      lastName: 'Administrator',
+      email: 'admin@hrenterprise.com',
+      phone: '+1234567890',
+      departmentId: departments[1].id, // HR department
+      designation: 'System Administrator',
+      dateOfJoining: new Date('2020-01-01'),
+      employmentStatus: 'active',
+    },
+  });
+
+  // Hash password for admin
+  const adminPasswordHash = await bcrypt.hash('Admin@123', 12);
+
+  const adminUser = await prisma.user.upsert({
+    where: { email: 'admin@hrenterprise.com' },
+    update: {},
+    create: {
+      email: 'admin@hrenterprise.com',
+      passwordHash: adminPasswordHash,
+      isActive: true,
+      emailVerified: true,
+      roleId: adminRole.id,
+      employeeId: adminEmployee.id,
+    },
+  });
+
+  console.log('✅ Created admin user: admin@hrenterprise.com / Admin@123\n');
+
+  // ============================================
+  // 5. Create HR Manager
+  // ============================================
+  console.log('👤 Creating HR manager...');
+
+  const hrManagerEmployee = await prisma.employee.upsert({
+    where: { employeeCode: 'EMP002' },
+    update: {},
+    create: {
+      employeeCode: 'EMP002',
+      firstName: 'Sarah',
+      lastName: 'Johnson',
+      email: 'sarah.johnson@hrenterprise.com',
+      phone: '+1234567891',
+      departmentId: departments[1].id, // HR department
+      designation: 'HR Manager',
+      dateOfJoining: new Date('2020-03-15'),
+      employmentStatus: 'active',
+    },
+  });
+
+  // Make HR manager head of HR department
+  await prisma.department.update({
+    where: { id: departments[1].id },
+    data: { headId: hrManagerEmployee.id },
+  });
+
+  const hrPasswordHash = await bcrypt.hash('HrManager@123', 12);
+
+  const hrUser = await prisma.user.upsert({
+    where: { email: 'sarah.johnson@hrenterprise.com' },
+    update: {},
+    create: {
+      email: 'sarah.johnson@hrenterprise.com',
+      passwordHash: hrPasswordHash,
+      isActive: true,
+      emailVerified: true,
+      roleId: hrRole.id,
+      employeeId: hrManagerEmployee.id,
+    },
+  });
+
+  console.log('✅ Created HR manager: sarah.johnson@hrenterprise.com / HrManager@123\n');
+
+  // ============================================
+  // 6. Create Engineering Team
+  // ============================================
+  console.log('👥 Creating engineering team...');
+
+  const engManager = await prisma.employee.create({
+    data: {
+      employeeCode: 'EMP003',
+      firstName: 'Michael',
+      lastName: 'Chen',
+      email: 'michael.chen@hrenterprise.com',
+      phone: '+1234567892',
+      departmentId: departments[0].id, // Engineering
+      designation: 'Engineering Manager',
+      dateOfJoining: new Date('2020-06-01'),
+      employmentStatus: 'active',
+    },
+  });
+
+  // Make Michael head of Engineering
+  await prisma.department.update({
+    where: { id: departments[0].id },
+    data: { headId: engManager.id },
+  });
+
+  const engManagerUser = await prisma.user.create({
+    data: {
+      email: 'michael.chen@hrenterprise.com',
+      passwordHash: await bcrypt.hash('Manager@123', 12),
+      isActive: true,
+      emailVerified: true,
+      roleId: managerRole.id,
+      employeeId: engManager.id,
+    },
+  });
+
+  // Create engineering team members
+  const engineers = await Promise.all([
+    prisma.employee.create({
+      data: {
+        employeeCode: 'EMP004',
+        firstName: 'Emily',
+        lastName: 'Davis',
+        email: 'emily.davis@hrenterprise.com',
+        phone: '+1234567893',
+        departmentId: departments[0].id,
+        designation: 'Senior Software Engineer',
+        managerId: engManager.id,
+        dateOfJoining: new Date('2021-02-15'),
+        employmentStatus: 'active',
+      },
+    }),
+    prisma.employee.create({
+      data: {
+        employeeCode: 'EMP005',
+        firstName: 'James',
+        lastName: 'Wilson',
+        email: 'james.wilson@hrenterprise.com',
+        phone: '+1234567894',
+        departmentId: departments[0].id,
+        designation: 'Software Engineer',
+        managerId: engManager.id,
+        dateOfJoining: new Date('2021-08-20'),
+        employmentStatus: 'active',
+      },
+    }),
+    prisma.employee.create({
+      data: {
+        employeeCode: 'EMP006',
+        firstName: 'Lisa',
+        lastName: 'Anderson',
+        email: 'lisa.anderson@hrenterprise.com',
+        phone: '+1234567895',
+        departmentId: departments[0].id,
+        designation: 'DevOps Engineer',
+        managerId: engManager.id,
+        dateOfJoining: new Date('2022-01-10'),
+        employmentStatus: 'active',
+      },
+    }),
+  ]);
+
+  // Create users for engineers
+  for (const engineer of engineers) {
+    await prisma.user.create({
+      data: {
+        email: engineer.email,
+        passwordHash: await bcrypt.hash('Employee@123', 12),
+        isActive: true,
+        emailVerified: true,
+        roleId: employeeRole.id,
+        employeeId: engineer.id,
+      },
+    });
+  }
+
+  console.log(`✅ Created engineering team with 1 manager and ${engineers.length} engineers\n`);
+
+  // ============================================
+  // 7. Create Sales Team
+  // ============================================
+  console.log('👥 Creating sales team...');
+
+  const salesManager = await prisma.employee.create({
+    data: {
+      employeeCode: 'EMP007',
+      firstName: 'Robert',
+      lastName: 'Taylor',
+      email: 'robert.taylor@hrenterprise.com',
+      phone: '+1234567896',
+      departmentId: departments[2].id, // Sales
+      designation: 'Sales Director',
+      dateOfJoining: new Date('2019-11-01'),
+      employmentStatus: 'active',
+    },
+  });
+
+  await prisma.department.update({
+    where: { id: departments[2].id },
+    data: { headId: salesManager.id },
+  });
+
+  await prisma.user.create({
+    data: {
+      email: 'robert.taylor@hrenterprise.com',
+      passwordHash: await bcrypt.hash('Manager@123', 12),
+      isActive: true,
+      emailVerified: true,
+      roleId: managerRole.id,
+      employeeId: salesManager.id,
+    },
+  });
+
+  const salesReps = await Promise.all([
+    prisma.employee.create({
+      data: {
+        employeeCode: 'EMP008',
+        firstName: 'Jennifer',
+        lastName: 'Brown',
+        email: 'jennifer.brown@hrenterprise.com',
+        phone: '+1234567897',
+        departmentId: departments[2].id,
+        designation: 'Senior Sales Representative',
+        managerId: salesManager.id,
+        dateOfJoining: new Date('2021-05-15'),
+        employmentStatus: 'active',
+      },
+    }),
+    prisma.employee.create({
+      data: {
+        employeeCode: 'EMP009',
+        firstName: 'David',
+        lastName: 'Martinez',
+        email: 'david.martinez@hrenterprise.com',
+        phone: '+1234567898',
+        departmentId: departments[2].id,
+        designation: 'Sales Representative',
+        managerId: salesManager.id,
+        dateOfJoining: new Date('2022-03-01'),
+        employmentStatus: 'active',
+      },
+    }),
+  ]);
+
+  for (const rep of salesReps) {
+    await prisma.user.create({
+      data: {
+        email: rep.email,
+        passwordHash: await bcrypt.hash('Employee@123', 12),
+        isActive: true,
+        emailVerified: true,
+        roleId: employeeRole.id,
+        employeeId: rep.id,
+      },
+    });
+  }
+
+  console.log(`✅ Created sales team with 1 manager and ${salesReps.length} representatives\n`);
+
+  // ============================================
+  // 8. Create Finance & Marketing Employees
+  // ============================================
+  console.log('👥 Creating finance and marketing employees...');
+
+  const financeHead = await prisma.employee.create({
+    data: {
+      employeeCode: 'EMP010',
+      firstName: 'Amanda',
+      lastName: 'White',
+      email: 'amanda.white@hrenterprise.com',
+      phone: '+1234567899',
+      departmentId: departments[3].id, // Finance
+      designation: 'Finance Director',
+      dateOfJoining: new Date('2019-08-01'),
+      employmentStatus: 'active',
+    },
+  });
+
+  await prisma.department.update({
+    where: { id: departments[3].id },
+    data: { headId: financeHead.id },
+  });
+
+  await prisma.user.create({
+    data: {
+      email: 'amanda.white@hrenterprise.com',
+      passwordHash: await bcrypt.hash('Manager@123', 12),
+      isActive: true,
+      emailVerified: true,
+      roleId: managerRole.id,
+      employeeId: financeHead.id,
+    },
+  });
+
+  const marketingHead = await prisma.employee.create({
+    data: {
+      employeeCode: 'EMP011',
+      firstName: 'Kevin',
+      lastName: 'Lee',
+      email: 'kevin.lee@hrenterprise.com',
+      phone: '+1234567900',
+      departmentId: departments[4].id, // Marketing
+      designation: 'Marketing Director',
+      dateOfJoining: new Date('2020-02-15'),
+      employmentStatus: 'active',
+    },
+  });
+
+  await prisma.department.update({
+    where: { id: departments[4].id },
+    data: { headId: marketingHead.id },
+  });
+
+  await prisma.user.create({
+    data: {
+      email: 'kevin.lee@hrenterprise.com',
+      passwordHash: await bcrypt.hash('Manager@123', 12),
+      isActive: true,
+      emailVerified: true,
+      roleId: managerRole.id,
+      employeeId: marketingHead.id,
+    },
+  });
+
+  console.log('✅ Created finance and marketing department heads\n');
+
+  // ============================================
+  // 9. Create Sample Attendance Records
+  // ============================================
+  console.log('📊 Creating sample attendance records...');
+
+  const today = new Date();
+  const employees = await prisma.employee.findMany({
+    where: { employmentStatus: 'active' },
+    take: 5,
+  });
+
+  for (const employee of employees) {
+    // Create attendance for the last 7 days
+    for (let i = 1; i <= 7; i++) {
+      const date = new Date(today);
+      date.setDate(date.getDate() - i);
+      
+      // Skip weekends
+      if (date.getDay() === 0 || date.getDay() === 6) continue;
+
+      const checkIn = new Date(date);
+      checkIn.setHours(9, Math.floor(Math.random() * 30), 0, 0);
+
+      const checkOut = new Date(date);
+      checkOut.setHours(17, 30 + Math.floor(Math.random() * 30), 0, 0);
+
+      const workMinutes = Math.floor((checkOut.getTime() - checkIn.getTime()) / (1000 * 60));
+      const lateMinutes = checkIn.getHours() >= 9 && checkIn.getMinutes() > 15 ? 
+        (checkIn.getHours() - 9) * 60 + checkIn.getMinutes() - 15 : 0;
+
+      await prisma.attendance.upsert({
+        where: {
+          employeeId_date: {
+            employeeId: employee.id,
+            date: new Date(date.toISOString().split('T')[0]),
+          },
+        },
+        update: {},
+        create: {
+          employeeId: employee.id,
+          date: new Date(date.toISOString().split('T')[0]),
+          checkIn,
+          checkOut,
+          status: lateMinutes > 0 ? 'late' : 'present',
+          lateMinutes,
+          workMinutes,
+          overtimeMinutes: workMinutes > 480 ? workMinutes - 480 : 0,
+        },
+      });
     }
   }
-  console.log(`✅ Processed ${createdDepartments.length} departments\n`);
 
-  // Create designations
-  const designations = [
-    { title: 'Software Engineer' },
-    { title: 'Senior Software Engineer' },
-    { title: 'Engineering Manager' },
-    { title: 'Product Manager' },
-    { title: 'HR Manager' },
-    { title: 'Sales Executive' },
-    { title: 'Financial Analyst' },
-    { title: 'Marketing Specialist' },
-    { title: 'Team Lead' },
-    { title: 'Director' },
-  ];
+  console.log(`✅ Created attendance records for ${employees.length} employees\n`);
 
-  console.log('Creating designations...');
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const createdDesignations: any[] = [];
-  for (const desig of designations) {
-    try {
-      const result = await pool.query(
-        'INSERT INTO hr.designations (id, title) VALUES (gen_random_uuid(), $1) ON CONFLICT (title) DO UPDATE SET title = $1 RETURNING *',
-        [desig.title],
-      );
-      createdDesignations.push(result.rows[0]);
-      console.log(`  ✅ ${result.rows[0].title}`);
-    } catch (error) {
-      console.error(`  ❌ Failed to create ${desig.title}:`, error);
-    }
-  }
-  console.log(`✅ Processed ${createdDesignations.length} designations\n`);
+  // ============================================
+  // 10. Create Sample Leave Balances
+  // ============================================
+  console.log('🏖️ Creating leave balances...');
 
-  // Create sample employees
-  console.log('Creating sample employees...');
+  const year = today.getFullYear();
+  const allEmployees = await prisma.employee.findMany({
+    where: { employmentStatus: 'active' },
+  });
 
-  for (const emp of TEST_EMPLOYEES) {
-    // Find department
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const department = createdDepartments.find(
-      (d: any) => d.name === emp.departmentName,
-    );
-    // Find designation
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const designation = createdDesignations.find(
-      (d: any) => d.title === emp.designationTitle,
-    );
-
-    if (!department || !designation) {
-      console.error(
-        `  ❌ Skipping ${emp.employeeCode}: Department or designation not found`,
-      );
-      continue;
-    }
-
-    try {
-      // Check if employee already exists by employee_code
-      const existingResult = await pool.query(
-        'SELECT id FROM hr.employees WHERE employee_code = $1',
-        [emp.employeeCode],
-      );
-
-      if (existingResult.rows.length === 0) {
-        // Insert new employee with fixed ID (same as user_id)
-        await pool.query(
-          `INSERT INTO hr.employees (id, user_id, employee_code, first_name, last_name, department_id, designation_id, join_date, status, created_at, updated_at) 
-           VALUES ($1, $2, $3, $4, $5, $6, $7, $8, 'active', NOW(), NOW())
-           ON CONFLICT (id) DO UPDATE SET 
-             user_id = EXCLUDED.user_id,
-             employee_code = EXCLUDED.employee_code,
-             first_name = EXCLUDED.first_name,
-             last_name = EXCLUDED.last_name,
-             department_id = EXCLUDED.department_id,
-             designation_id = EXCLUDED.designation_id,
-             join_date = EXCLUDED.join_date,
-             updated_at = NOW()`,
-          [
-            emp.id,
-            emp.userId,
-            emp.employeeCode,
-            emp.firstName,
-            emp.lastName,
-            department.id,
-            designation.id,
-            emp.joinDate,
-          ],
-        );
-        console.log(
-          `✅ Created employee: ${emp.firstName} ${emp.lastName} (${emp.employeeCode}) - ID: ${emp.id}`,
-        );
-      } else {
-        // Update existing employee to ensure ID matches user_id
-        await pool.query(
-          `UPDATE hr.employees 
-           SET id = $1, 
-               user_id = $2,
-               first_name = $3,
-               last_name = $4,
-               department_id = $5,
-               designation_id = $6,
-               join_date = $7,
-               updated_at = NOW()
-           WHERE employee_code = $8`,
-          [
-            emp.id,
-            emp.userId,
-            emp.firstName,
-            emp.lastName,
-            department.id,
-            designation.id,
-            emp.joinDate,
-            emp.employeeCode,
-          ],
-        );
-        console.log(
-          `ℹ️  Updated employee: ${emp.firstName} ${emp.lastName} (${emp.employeeCode}) - ID: ${emp.id}`,
-        );
-      }
-    } catch (error) {
-      console.error(
-        `❌ Failed to create/update employee ${emp.employeeCode}:`,
-        error,
-      );
+  for (const employee of allEmployees) {
+    for (const leaveType of leaveTypes) {
+      await prisma.leaveBalance.upsert({
+        where: {
+          employeeId_leaveTypeId_year: {
+            employeeId: employee.id,
+            leaveTypeId: leaveType.id,
+            year,
+          },
+        },
+        update: {},
+        create: {
+          employeeId: employee.id,
+          leaveTypeId: leaveType.id,
+          year,
+          totalDays: leaveType.annualLimit,
+          remainingDays: leaveType.annualLimit,
+          usedDays: 0,
+          pendingDays: 0,
+          carriedForward: 0,
+        },
+      });
     }
   }
 
-  console.log('\n🎉 Seed completed successfully!');
-  await pool.end();
+  console.log(`✅ Created leave balances for ${allEmployees.length} employees\n`);
+
+  // ============================================
+  // 11. Create Sample Leave Requests
+  // ============================================
+  console.log('📝 Creating sample leave requests...');
+
+  const leaveRequests = await Promise.all([
+    prisma.leaveRequest.create({
+      data: {
+        employeeId: engineers[0].id,
+        leaveTypeId: leaveTypes[0].id, // Annual Leave
+        startDate: new Date(today.getFullYear(), today.getMonth(), today.getDate() + 5),
+        endDate: new Date(today.getFullYear(), today.getMonth(), today.getDate() + 7),
+        days: 3,
+        reason: 'Family vacation',
+        status: 'pending',
+      },
+    }),
+    prisma.leaveRequest.create({
+      data: {
+        employeeId: engineers[1].id,
+        leaveTypeId: leaveTypes[1].id, // Sick Leave
+        startDate: new Date(today.getFullYear(), today.getMonth(), today.getDate() - 3),
+        endDate: new Date(today.getFullYear(), today.getMonth(), today.getDate() - 2),
+        days: 2,
+        reason: 'Flu',
+        status: 'approved',
+        approvedBy: engManager.id,
+        approvedAt: new Date(),
+      },
+    }),
+    prisma.leaveRequest.create({
+      data: {
+        employeeId: salesReps[0].id,
+        leaveTypeId: leaveTypes[2].id, // Casual Leave
+        startDate: new Date(today.getFullYear(), today.getMonth(), today.getDate() + 10),
+        endDate: new Date(today.getFullYear(), today.getMonth(), today.getDate() + 10),
+        days: 1,
+        reason: 'Personal work',
+        status: 'pending',
+      },
+    }),
+  ]);
+
+  // Update leave balances for approved requests
+  const approvedRequest = leaveRequests.find(r => r.status === 'approved');
+  if (approvedRequest) {
+    await prisma.leaveBalance.update({
+      where: {
+        employeeId_leaveTypeId_year: {
+          employeeId: approvedRequest.employeeId,
+          leaveTypeId: approvedRequest.leaveTypeId,
+          year,
+        },
+      },
+      data: {
+        remainingDays: { decrement: approvedRequest.days },
+        usedDays: { increment: approvedRequest.days },
+      },
+    });
+  }
+
+  console.log(`✅ Created ${leaveRequests.length} leave requests\n`);
+
+  // ============================================
+  // Summary
+  // ============================================
+  console.log('🎉 Seed completed successfully!\n');
+  console.log('=================================');
+  console.log('📊 Database Summary:');
+  console.log('=================================');
+  console.log(`• Departments: ${await prisma.department.count()}`);
+  console.log(`• Leave Types: ${await prisma.leaveType.count()}`);
+  console.log(`• Roles: ${await prisma.role.count()}`);
+  console.log(`• Permissions: ${await prisma.permission.count()}`);
+  console.log(`• Employees: ${await prisma.employee.count()}`);
+  console.log(`• Users: ${await prisma.user.count()}`);
+  console.log(`• Attendance Records: ${await prisma.attendance.count()}`);
+  console.log(`• Leave Requests: ${await prisma.leaveRequest.count()}`);
+  console.log('=================================\n');
+
+  console.log('🔑 Login Credentials:');
+  console.log('---------------------------------');
+  console.log('Admin: admin@hrenterprise.com / Admin@123');
+  console.log('HR Manager: sarah.johnson@hrenterprise.com / HrManager@123');
+  console.log('Manager: michael.chen@hrenterprise.com / Manager@123');
+  console.log('Employees: <email> / Employee@123');
+  console.log('---------------------------------\n');
 }
 
-main().catch((e) => {
-  console.error('❌ Seed failed:', e);
-  process.exit(1);
-});
+main()
+  .catch((e) => {
+    console.error('❌ Seed failed:', e);
+    process.exit(1);
+  })
+  .finally(async () => {
+    await prisma.$disconnect();
+  });

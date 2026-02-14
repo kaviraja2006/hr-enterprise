@@ -234,6 +234,45 @@ export class AuthService {
     this.logger.log(`All sessions revoked for user: ${userId}`);
   }
 
+  async getProfile(userId: string): Promise<{ user: any; permissions: string[] }> {
+    const user = await this.prisma.user.findUnique({
+      where: { id: userId },
+      include: {
+        role: {
+          include: {
+            permissions: {
+              include: {
+                permission: true,
+              },
+            },
+          },
+        },
+        employee: true,
+      },
+    });
+
+    if (!user) {
+      throw new UnauthorizedException('User not found');
+    }
+
+    const permissions = user.role?.permissions.map(
+      (rp: any) => `${rp.permission.resource}:${rp.permission.action}`,
+    ) || [];
+
+    return {
+      user: {
+        id: user.id,
+        email: user.email,
+        roleId: user.roleId,
+        roleName: user.role?.name,
+        employeeId: user.employeeId,
+        isActive: user.isActive,
+        lastLoginAt: user.lastLoginAt,
+      },
+      permissions,
+    };
+  }
+
   async changePassword(
     userId: string,
     currentPassword: string,

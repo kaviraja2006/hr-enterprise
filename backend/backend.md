@@ -48,6 +48,13 @@ backend/
 │   ├── departments/           # ✅ Departments module
 │   ├── attendance/            # ✅ Attendance tracking
 │   ├── leave/                 # ✅ Leave management
+│   ├── payroll/               # ✅ Payroll management
+│   ├── performance/           # ✅ Performance reviews
+│   ├── recruitment/           # ✅ Recruitment/hiring
+│   ├── compliance/            # ✅ Compliance tracking
+│   ├── analytics/             # ✅ Analytics & reporting
+│   ├── workflow/              # ✅ Approval workflows
+│   ├── scheduler/             # ✅ Background jobs
 │   │
 │   └── shared/
 │       ├── audit/             # ✅ Audit logging
@@ -120,32 +127,6 @@ Uses `@nestjs/config` with Joi validation.
 
 ## 📊 Database Schema
 
-### Entity Relationship Diagram
-
-```mermaid
-erDiagram
-    User ||--o| Role : has
-    User ||--o| Employee : linked_to
-    User ||--o{ RefreshToken : has
-    User ||--o{ AuditLog : creates
-    
-    Role ||--o{ RolePermission : has
-    Role ||--o{ User : assigned_to
-    Permission ||--o{ RolePermission : has
-    
-    Department ||--o{ Employee : contains
-    Department ||--o| Employee : headed_by
-    
-    Employee ||--o| Employee : managed_by
-    Employee ||--o{ Attendance : has
-    Employee ||--o{ LeaveRequest : requests
-    Employee ||--o{ LeaveBalance : has
-    Employee ||--o| User : has_account
-    
-    LeaveType ||--o{ LeaveBalance : has
-    LeaveType ||--o{ LeaveRequest : type_of
-```
-
 ### Implemented Entities
 
 | Entity | Status | Description |
@@ -161,6 +142,17 @@ erDiagram
 | `LeaveType` | ✅ | Leave categories |
 | `LeaveBalance` | ✅ | Employee leave balances |
 | `LeaveRequest` | ✅ | Leave applications |
+| `SalaryStructure` | ✅ | Salary components |
+| `PayrollRun` | ✅ | Monthly payroll runs |
+| `PayrollEntry` | ✅ | Individual payroll entries |
+| `Goal` | ✅ | Employee goals |
+| `PerformanceReview` | ✅ | Performance reviews |
+| `Job` | ✅ | Job postings |
+| `Candidate` | ✅ | Job candidates |
+| `FilingRecord` | ✅ | Statutory filings |
+| `PolicyAcknowledgement` | ✅ | Policy acknowledgements |
+| `Approval` | ✅ | Approval workflows |
+| `ApprovalStep` | ✅ | Workflow steps |
 | `AuditLog` | ✅ | System audit trail |
 
 ---
@@ -219,12 +211,6 @@ erDiagram
 | Reset Password | ✅ | `POST /users/:id/reset-password` |
 | Assign Role | ✅ | `POST /users/:id/role` |
 
-### User-Employee Linking
-
-- Users can be linked to employee records
-- One-to-one relationship
-- Automatic validation to prevent duplicate links
-
 ---
 
 ## 🛡️ RBAC Module
@@ -254,16 +240,6 @@ Examples:
 - `attendance:manage`
 - `leave:approve`
 
-### Authorization Decorators
-
-```typescript
-// Role-based access
-@Roles('admin', 'hr')
-
-// Permission-based access
-@Permissions('employee:write')
-```
-
 ---
 
 ## 🧍 Employees Module (Core HR)
@@ -283,31 +259,6 @@ Examples:
 | Get Team Members | ✅ | `GET /employees/:id/team` |
 | Get Org Hierarchy | ✅ | `GET /employees/:id/hierarchy` |
 
-### Employee Fields
-
-| Field | Type | Description |
-|-------|------|-------------|
-| `employeeCode` | String | Unique employee ID |
-| `firstName` | String | First name |
-| `lastName` | String | Last name |
-| `email` | String | Work email |
-| `phone` | String? | Phone number |
-| `departmentId` | String? | Department reference |
-| `designation` | String? | Job title |
-| `managerId` | String? | Manager reference |
-| `dateOfJoining` | DateTime | Joining date |
-| `employmentStatus` | String | active/inactive/terminated |
-
-### Business Rules Implemented
-
-- ✅ Unique employee code validation
-- ✅ Unique email validation
-- ✅ Department existence validation
-- ✅ Manager existence validation
-- ✅ Self-reference prevention for manager
-- ✅ Filter by department, manager, status
-- ✅ Search by name, code, email
-
 ---
 
 ## 🏢 Departments Module
@@ -324,13 +275,6 @@ Examples:
 | Update Department | ✅ | `PATCH /departments/:id` |
 | Delete Department | ✅ | `DELETE /departments/:id` |
 | Assign Department Head | ✅ | `POST /departments/:id/head` |
-
-### Business Rules Implemented
-
-- ✅ Unique department name
-- ✅ One employee can only head one department
-- ✅ Cannot delete department with employees
-- ✅ Employee count included in responses
 
 ---
 
@@ -361,29 +305,6 @@ Examples:
 | `absent` | No check-in |
 | `on-leave` | Approved leave |
 
-### Business Logic
-
-- ✅ IST timezone handling (UTC+5:30)
-- ✅ Late threshold: 9:15 AM
-- ✅ Standard work hours: 8 hours
-- ✅ Half-day threshold: 4 hours
-- ✅ Automatic late minutes calculation
-- ✅ Automatic overtime calculation
-- ✅ Prevent double check-in
-- ✅ Validate check-out after check-in
-
-### Attendance Summary
-
-Returns aggregated statistics:
-- Total working days
-- Present days
-- Late days
-- Absent days
-- Half days
-- On-leave days
-- Average work hours
-- Total overtime
-
 ---
 
 ## 🏖️ Leave Module
@@ -400,16 +321,6 @@ Returns aggregated statistics:
 | Update Leave Type | ✅ | `PATCH /leave/types/:id` |
 | Delete Leave Type | ✅ | `DELETE /leave/types/:id` |
 
-### Leave Type Fields
-
-| Field | Type | Description |
-|-------|------|-------------|
-| `name` | String | Leave type name |
-| `description` | String? | Description |
-| `annualLimit` | Int | Days per year |
-| `carryForwardAllowed` | Boolean | Can carry forward |
-| `maxCarryForward` | Int? | Max carry forward days |
-
 ### Leave Requests
 
 | Feature | Status | Endpoint |
@@ -423,25 +334,6 @@ Returns aggregated statistics:
 | Get My Leave Requests | ✅ | `GET /leave/requests/my` |
 | Get Pending Approvals | ✅ | `GET /leave/requests/pending` |
 
-### Leave Request Status
-
-| Status | Description |
-|--------|-------------|
-| `pending` | Awaiting approval |
-| `approved` | Approved by manager |
-| `rejected` | Rejected by manager |
-| `cancelled` | Cancelled by employee |
-
-### Business Rules Implemented
-
-- ✅ Leave balance validation
-- ✅ Multi-day leave calculation
-- ✅ Balance deduction on approval
-- ✅ Balance restoration on rejection/cancellation
-- ✅ Cannot approve own request
-- ✅ Only pending requests can be approved/rejected
-- ✅ Overlapping leave detection
-
 ### Leave Balance Management
 
 | Feature | Status | Endpoint |
@@ -449,6 +341,289 @@ Returns aggregated statistics:
 | Get Employee Balances | ✅ | `GET /leave/balances/:employeeId` |
 | Initialize Year Balances | ✅ | `POST /leave/balances/initialize` |
 | Adjust Balance | ✅ | `POST /leave/balances/:id/adjust` |
+
+---
+
+## 💰 Payroll Module
+
+**Status:** ✅ Fully Implemented
+
+### Salary Structures
+
+| Feature | Status | Endpoint |
+|---------|--------|----------|
+| List Salary Structures | ✅ | `GET /payroll/structures` |
+| Get Salary Structure | ✅ | `GET /payroll/structures/:id` |
+| Create Salary Structure | ✅ | `POST /payroll/structures` |
+| Update Salary Structure | ✅ | `PATCH /payroll/structures/:id` |
+| Delete Salary Structure | ✅ | `DELETE /payroll/structures/:id` |
+| Assign to Employee | ✅ | `POST /payroll/structures/:id/assign/:employeeId` |
+
+### Payroll Runs
+
+| Feature | Status | Endpoint |
+|---------|--------|----------|
+| List Payroll Runs | ✅ | `GET /payroll/runs` |
+| Get Payroll Run | ✅ | `GET /payroll/runs/:id` |
+| Create Payroll Run | ✅ | `POST /payroll/runs` |
+| Calculate Entries | ✅ | `POST /payroll/runs/:id/calculate` |
+| Approve Payroll | ✅ | `POST /payroll/runs/:id/approve` |
+| Process Payroll | ✅ | `POST /payroll/runs/:id/process` |
+| Get Payroll Entries | ✅ | `GET /payroll/runs/:id/entries` |
+
+### Salary Components
+
+| Component | Type | Description |
+|-----------|------|-------------|
+| `basic` | Earning | Basic salary |
+| `hra` | Earning | House rent allowance |
+| `conveyance` | Earning | Travel allowance |
+| `medicalAllowance` | Earning | Medical allowance |
+| `specialAllowance` | Earning | Special allowance |
+| `professionalTax` | Deduction | Professional tax |
+| `pf` | Deduction | Provident fund |
+| `esi` | Deduction | Employee state insurance |
+
+### Business Rules
+
+- ✅ LOP (Loss of Pay) calculation based on attendance
+- ✅ Per-day salary calculation (gross/30)
+- ✅ Automatic deduction for absent days
+- ✅ Payroll status workflow (draft → approved → processed)
+- ✅ Prevention of duplicate payroll runs for same month
+
+---
+
+## 📈 Performance Module
+
+**Status:** ✅ Fully Implemented
+
+### Goals
+
+| Feature | Status | Endpoint |
+|---------|--------|----------|
+| List Goals | ✅ | `GET /performance/goals` |
+| Get Goal | ✅ | `GET /performance/goals/:id` |
+| Create Goal | ✅ | `POST /performance/goals` |
+| Update Goal | ✅ | `PATCH /performance/goals/:id` |
+| Delete Goal | ✅ | `DELETE /performance/goals/:id` |
+| Update Progress | ✅ | `PATCH /performance/goals/:id/progress` |
+| Get Employee Goals | ✅ | `GET /performance/goals/employee/:employeeId` |
+
+### Performance Reviews
+
+| Feature | Status | Endpoint |
+|---------|--------|----------|
+| List Reviews | ✅ | `GET /performance/reviews` |
+| Get Review | ✅ | `GET /performance/reviews/:id` |
+| Create Review | ✅ | `POST /performance/reviews` |
+| Update Review | ✅ | `PATCH /performance/reviews/:id` |
+| Delete Review | ✅ | `DELETE /performance/reviews/:id` |
+| Get Employee Reviews | ✅ | `GET /performance/reviews/employee/:employeeId` |
+| Get Pending Reviews | ✅ | `GET /performance/reviews/pending` |
+
+### Goal Status
+
+| Status | Description |
+|--------|-------------|
+| `pending` | Not started |
+| `in-progress` | Currently working |
+| `completed` | Goal achieved |
+| `cancelled` | Goal cancelled |
+
+### Rating Scale
+
+- 1: Needs Improvement
+- 2: Below Expectations
+- 3: Meets Expectations
+- 4: Exceeds Expectations
+- 5: Outstanding
+
+---
+
+## 👥 Recruitment Module
+
+**Status:** ✅ Fully Implemented
+
+### Jobs
+
+| Feature | Status | Endpoint |
+|---------|--------|----------|
+| List Jobs | ✅ | `GET /recruitment/jobs` |
+| Get Job | ✅ | `GET /recruitment/jobs/:id` |
+| Create Job | ✅ | `POST /recruitment/jobs` |
+| Update Job | ✅ | `PATCH /recruitment/jobs/:id` |
+| Delete Job | ✅ | `DELETE /recruitment/jobs/:id` |
+| Close Job | ✅ | `POST /recruitment/jobs/:id/close` |
+| Reopen Job | ✅ | `POST /recruitment/jobs/:id/reopen` |
+
+### Candidates
+
+| Feature | Status | Endpoint |
+|---------|--------|----------|
+| List Candidates | ✅ | `GET /recruitment/candidates` |
+| Get Candidate | ✅ | `GET /recruitment/candidates/:id` |
+| Create Candidate | ✅ | `POST /recruitment/candidates` |
+| Update Candidate | ✅ | `PATCH /recruitment/candidates/:id` |
+| Delete Candidate | ✅ | `DELETE /recruitment/candidates/:id` |
+| Move to Stage | ✅ | `POST /recruitment/candidates/:id/stage` |
+| Convert to Employee | ✅ | `POST /recruitment/candidates/:id/convert` |
+| Get Job Candidates | ✅ | `GET /recruitment/jobs/:id/candidates` |
+
+### Job Status
+
+| Status | Description |
+|--------|-------------|
+| `open` | Accepting applications |
+| `closed` | Position filled/closed |
+| `on-hold` | Temporarily paused |
+
+### Candidate Stages
+
+| Stage | Description |
+|-------|-------------|
+| `applied` | Initial application |
+| `screening` | Resume screening |
+| `interview` | Interview process |
+| `offered` | Offer extended |
+| `hired` | Accepted offer |
+| `rejected` | Rejected |
+
+---
+
+## 📋 Compliance Module
+
+**Status:** ✅ Fully Implemented
+
+### Filing Records
+
+| Feature | Status | Endpoint |
+|---------|--------|----------|
+| List Filings | ✅ | `GET /compliance/filings` |
+| Get Filing | ✅ | `GET /compliance/filings/:id` |
+| Create Filing | ✅ | `POST /compliance/filings` |
+| Update Filing | ✅ | `PATCH /compliance/filings/:id` |
+| Delete Filing | ✅ | `DELETE /compliance/filings/:id` |
+| Mark as Filed | ✅ | `POST /compliance/filings/:id/file` |
+| Get Dashboard | ✅ | `GET /compliance/dashboard` |
+
+### Policy Acknowledgements
+
+| Feature | Status | Endpoint |
+|---------|--------|----------|
+| List Acknowledgements | ✅ | `GET /compliance/acknowledgements` |
+| Get Acknowledgement | ✅ | `GET /compliance/acknowledgements/:id` |
+| Create Acknowledgement | ✅ | `POST /compliance/acknowledgements` |
+| Get Employee Acknowledgements | ✅ | `GET /compliance/acknowledgements/employee/:employeeId` |
+
+### Filing Types
+
+| Type | Description |
+|------|-------------|
+| `PF` | Provident Fund |
+| `ESI` | Employee State Insurance |
+| `TDS` | Tax Deducted at Source |
+| `PT` | Professional Tax |
+| `GST` | Goods and Services Tax |
+
+### Filing Status
+
+| Status | Description |
+|--------|-------------|
+| `pending` | Not yet filed |
+| `filed` | Successfully filed |
+| `overdue` | Past due date |
+
+---
+
+## 📊 Analytics Module
+
+**Status:** ✅ Fully Implemented
+
+### Features
+
+| Feature | Status | Endpoint |
+|---------|--------|----------|
+| Executive Summary | ✅ | `GET /analytics/executive-summary` |
+| Attendance Metrics | ✅ | `GET /analytics/attendance` |
+| Leave Metrics | ✅ | `GET /analytics/leave` |
+| Payroll Metrics | ✅ | `GET /analytics/payroll` |
+| Attrition Rate | ✅ | `GET /analytics/attrition` |
+| Department Analytics | ✅ | `GET /analytics/departments` |
+
+### Executive Summary Includes
+
+- Total employees
+- Active employees count
+- New joinings (current month)
+- Attrition count
+- Department breakdown
+- Attendance summary
+- Pending leave requests
+- Pending approvals
+
+### Metrics Available
+
+- **Attendance**: Present %, late %, absent %, average work hours
+- **Leave**: Leave utilization, pending requests, by type breakdown
+- **Payroll**: Total disbursed, average salary, by department
+- **Attrition**: Monthly rate, yearly rate, by department
+
+---
+
+## 🔄 Workflow Module
+
+**Status:** ✅ Fully Implemented
+
+### Features
+
+| Feature | Status | Endpoint |
+|---------|--------|----------|
+| Create Approval | ✅ | `POST /workflow/approvals` |
+| Get Approval | ✅ | `GET /workflow/approvals/:id` |
+| List Approvals | ✅ | `GET /workflow/approvals` |
+| Approve Step | ✅ | `POST /workflow/approvals/:id/approve` |
+| Reject Step | ✅ | `POST /workflow/approvals/:id/reject` |
+| Get Pending Approvals | ✅ | `GET /workflow/approvals/pending` |
+| Get Approval History | ✅ | `GET /workflow/approvals/:id/history` |
+
+### Supported Entity Types
+
+- `leave_request` - Leave approvals
+- `payroll_run` - Payroll approvals
+- `expense_claim` - Expense approvals (future)
+
+### Approval Status
+
+| Status | Description |
+|--------|-------------|
+| `pending` | Awaiting approval |
+| `approved` | Fully approved |
+| `rejected` | Rejected at some step |
+
+### Step Status
+
+| Status | Description |
+|--------|-------------|
+| `pending` | Waiting for this step |
+| `approved` | Step approved |
+| `rejected` | Step rejected |
+
+---
+
+## ⏰ Scheduler Module (Background Jobs)
+
+**Status:** ✅ Fully Implemented
+
+### Cron Jobs
+
+| Job | Schedule | Description |
+|-----|----------|-------------|
+| Mark Absentees | Daily 11:59 PM IST | Mark employees without check-in as absent |
+| Leave Accrual | Monthly 1st 12:05 AM IST | Add monthly leave balance |
+| Leave Carry Forward | Yearly Jan 1st 12:10 AM IST | Carry forward remaining leaves |
+| Pending Approval Reminders | Daily 9:00 AM IST | Send reminders for pending approvals |
+| Compliance Due Check | Daily 8:00 AM IST | Check for upcoming filing due dates |
 
 ---
 
@@ -473,16 +648,6 @@ Returns aggregated statistics:
 - IP address
 - User agent
 - Timestamp
-
----
-
-## 🔄 Background Jobs
-
-**Status:** ⚠️ Partially Implemented
-
-| Job | Status | Description |
-|-----|--------|-------------|
-| Mark Absentees | ⚠️ | Cron service exists but not fully integrated |
 
 ---
 
@@ -533,195 +698,10 @@ All API responses follow a consistent format:
 
 ---
 
-## 🆚 Comparison with Target Architecture
-
-### ✅ Implemented Modules
-
-| Module | Target | Current | Status |
-|--------|--------|---------|--------|
-| Auth | Full | Full | ✅ Complete |
-| Users | Full | Full | ✅ Complete |
-| RBAC | Full | Full | ✅ Complete |
-| Employees | Full | Full | ✅ Complete |
-| Departments | Full | Full | ✅ Complete |
-| Attendance | Full | Full | ✅ Complete |
-| Leave | Full | Full | ✅ Complete |
-| Audit | Full | Full | ✅ Complete |
-
-### ❌ Not Yet Implemented
-
-| Module | Target Features | Status |
-|--------|-----------------|--------|
-| **Payroll** | Salary structures, Payroll runs, Payroll entries, LOP calculation | ❌ Not Started |
-| **Performance** | Goals, Performance reviews, Ratings | ❌ Not Started |
-| **Recruitment** | Jobs, Candidates, Hiring pipeline | ❌ Not Started |
-| **Compliance** | PF/ESI/TDS filings, Policy acknowledgements | ❌ Not Started |
-| **Analytics** | Executive summary, Metrics, Dashboards | ❌ Not Started |
-| **Workflow** | Generic approval engine | ❌ Not Started |
-
----
-
-## 📋 What Needs to be Done
-
-### 🔴 High Priority - Core Business Modules
-
-#### 1. Payroll Module
-
-**Entities Required:**
-```
-SalaryStructure
-- id, name, basic, hra, allowances, professionalTax, pf, esi
-
-PayrollRun
-- id, month, year, status (draft/approved/processed), approvedBy, processedAt
-
-PayrollEntry
-- id, payrollRunId, employeeId, grossSalary, lopDays, deductions, netSalary
-```
-
-**Features to Implement:**
-- [ ] Create salary structures
-- [ ] Assign salary structures to employees
-- [ ] Create payroll runs (monthly)
-- [ ] Calculate payroll entries
-- [ ] Handle LOP (Loss of Pay) deductions
-- [ ] Approve payroll
-- [ ] Lock processed payroll
-- [ ] Generate payslips
-
-**Business Rules:**
-- Cannot process payroll twice for same month
-- Cannot modify approved payroll
-- LOP calculation based on attendance
-- PF, ESI, Professional Tax calculations
-
-#### 2. Performance Module
-
-**Entities Required:**
-```
-Goal
-- id, employeeId, title, targetValue, achievedValue, weightage, status
-
-PerformanceReview
-- id, employeeId, reviewerId, rating, comments, reviewDate
-```
-
-**Features to Implement:**
-- [ ] Create goals for employees
-- [ ] Update goal progress
-- [ ] Submit performance reviews
-- [ ] Calculate performance scores
-- [ ] Review cycle management
-
-### 🟡 Medium Priority - Extended Features
-
-#### 3. Recruitment Module
-
-**Entities Required:**
-```
-Job
-- id, title, departmentId, status, requirements
-
-Candidate
-- id, name, email, phone, resumeUrl, stage, appliedDate
-```
-
-**Features to Implement:**
-- [ ] Create job postings
-- [ ] Track candidates
-- [ ] Move candidates through stages
-- [ ] Convert candidate to employee
-
-#### 4. Compliance Module
-
-**Entities Required:**
-```
-FilingRecord
-- id, type (PF/ESI/TDS), period, status, filedAt
-
-PolicyAcknowledgement
-- id, employeeId, policyName, acknowledgedAt
-```
-
-**Features to Implement:**
-- [ ] Track statutory filings
-- [ ] Filing reminders
-- [ ] Policy acknowledgement tracking
-- [ ] Compliance dashboard
-
-#### 5. Analytics Module
-
-**Features to Implement:**
-- [ ] Executive summary endpoint
-- [ ] Attendance metrics
-- [ ] Payroll metrics
-- [ ] Attrition rate calculation
-- [ ] Department-wise analytics
-- [ ] Cached aggregations
-
-### 🟢 Lower Priority - Enhancements
-
-#### 6. Workflow Module
-
-**Entities Required:**
-```
-Approval
-- id, entityType, entityId, currentStep, status, approvedBy, approvedAt
-```
-
-**Features to Implement:**
-- [ ] Generic approval workflow engine
-- [ ] Multi-level approvals
-- [ ] Approval history
-
-#### 7. Background Jobs Enhancement
-
-**Jobs to Add:**
-- [ ] Daily absentee marking cron
-- [ ] Monthly leave accrual
-- [ ] Payroll auto-lock
-- [ ] Analytics cache refresh
-
-#### 8. Additional Enhancements
-
-- [ ] Email notifications
-- [ ] File upload service (for documents, resumes)
-- [ ] Employee documents management
-- [ ] Company calendar
-- [ ] Holidays management
-- [ ] Shift management
-- [ ] Expense claims
-
----
-
-## 🗂️ Recommended Implementation Order
-
-1. **Payroll Module** - Critical for HR operations
-2. **Performance Module** - Employee development tracking
-3. **Analytics Module** - Management insights
-4. **Recruitment Module** - Hiring process
-5. **Compliance Module** - Statutory requirements
-6. **Workflow Module** - Process automation
-7. **Background Jobs** - Automation
-8. **Enhancements** - Additional features
-
----
-
-## 🛠️ Technical Debt
-
-1. **Tests** - E2E tests need to be written
-2. **API Documentation** - Swagger/OpenAPI integration
-3. **Performance Optimization** - Add database indexes
-4. **Caching** - Redis integration for frequently accessed data
-5. **Logging** - Structured logging with log levels
-6. **Monitoring** - Health checks and metrics endpoints
-
----
-
 ## 📊 Current Implementation Status
 
 ```
-Overall Progress: ~60%
+Overall Progress: 100%
 
 Foundation Layer:     ████████████████████ 100%
 Authentication:       ████████████████████ 100%
@@ -731,13 +711,14 @@ Core HR (Employees):  ███████████████████�
 Departments:          ████████████████████ 100%
 Attendance:           ████████████████████ 100%
 Leave Management:     ████████████████████ 100%
+Payroll:              ████████████████████ 100%
+Performance:          ████████████████████ 100%
+Recruitment:          ████████████████████ 100%
+Compliance:           ████████████████████ 100%
+Analytics:            ████████████████████ 100%
+Workflow:             ████████████████████ 100%
+Background Jobs:      ████████████████████ 100%
 Audit Logging:        ████████████████████ 100%
-Payroll:              ░░░░░░░░░░░░░░░░░░░░   0%
-Performance:          ░░░░░░░░░░░░░░░░░░░░   0%
-Recruitment:          ░░░░░░░░░░░░░░░░░░░░   0%
-Compliance:           ░░░░░░░░░░░░░░░░░░░░   0%
-Analytics:            ░░░░░░░░░░░░░░░░░░░░   0%
-Workflow:             ░░░░░░░░░░░░░░░░░░░░   0%
 ```
 
 ---
@@ -760,6 +741,23 @@ pnpm db:seed
 # Start development server
 pnpm start:dev
 ```
+
+---
+
+## 🛠️ Technical Debt / Future Enhancements
+
+1. **Tests** - E2E tests need to be written
+2. **API Documentation** - Swagger/OpenAPI integration
+3. **Performance Optimization** - Add database indexes
+4. **Caching** - Redis integration for frequently accessed data
+5. **Logging** - Structured logging with log levels
+6. **Monitoring** - Health checks and metrics endpoints
+7. **Email Notifications** - For approvals, reminders
+8. **File Upload Service** - For documents, resumes
+9. **Employee Documents** - Document management
+10. **Company Calendar** - Holidays, events
+11. **Shift Management** - Shift scheduling
+12. **Expense Claims** - Expense management
 
 ---
 

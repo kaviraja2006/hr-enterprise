@@ -1,4 +1,4 @@
-grep -n "PrismaClient\|adapter" backend/generated/prisma/index.d.ts | head -3-- CreateTable
+-- CreateTable
 CREATE TABLE "users" (
     "id" TEXT NOT NULL,
     "email" TEXT NOT NULL,

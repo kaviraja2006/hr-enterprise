@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { APP_GUARD } from '@nestjs/core';
 import { ThrottlerModule } from '@nestjs/throttler';
+import { ScheduleModule } from '@nestjs/schedule';
 import configuration from './config/configuration';
 import { validationSchema } from './config/validation';
 import { PrismaModule } from './database/prisma.module';
@@ -13,6 +14,13 @@ import { EmployeesModule } from './employees/employees.module';
 import { DepartmentsModule } from './departments/departments.module';
 import { AttendanceModule } from './attendance/attendance.module';
 import { LeaveModule } from './leave/leave.module';
+import { PayrollModule } from './payroll/payroll.module';
+import { PerformanceModule } from './performance/performance.module';
+import { RecruitmentModule } from './recruitment/recruitment.module';
+import { ComplianceModule } from './compliance/compliance.module';
+import { AnalyticsModule } from './analytics/analytics.module';
+import { WorkflowModule } from './workflow/workflow.module';
+import { SchedulerModule } from './scheduler/scheduler.module';
 import { JwtAuthGuard, RolesGuard, PermissionsGuard } from './common/guards';
 
 @Module({
@@ -32,6 +40,8 @@ import { JwtAuthGuard, RolesGuard, PermissionsGuard } from './common/guards';
         },
       ],
     }),
+    // Background jobs
+    ScheduleModule.forRoot(),
     // Database
     PrismaModule,
     // Shared
@@ -44,6 +54,13 @@ import { JwtAuthGuard, RolesGuard, PermissionsGuard } from './common/guards';
     DepartmentsModule,
     AttendanceModule,
     LeaveModule,
+    PayrollModule,
+    PerformanceModule,
+    RecruitmentModule,
+    ComplianceModule,
+    AnalyticsModule,
+    WorkflowModule,
+    SchedulerModule,
   ],
   providers: [
     // Global guards - disabled by default, use @UseGuards() decorator

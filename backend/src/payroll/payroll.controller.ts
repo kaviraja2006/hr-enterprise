@@ -1,0 +1,126 @@
+import {
+  Controller,
+  Get,
+  Post,
+  Patch,
+  Delete,
+  Body,
+  Param,
+  Query,
+  UseGuards,
+  Request,
+} from '@nestjs/common';
+import { PayrollService } from './payroll.service';
+import { JwtAuthGuard } from '../common/guards/jwt-auth.guard';
+import { RolesGuard } from '../common/guards/roles.guard';
+import { Roles } from '../common/decorators/roles.decorator';
+import { CreateSalaryStructureDto } from './dto/create-salary-structure.dto';
+import { UpdateSalaryStructureDto } from './dto/update-salary-structure.dto';
+import { CreatePayrollRunDto } from './dto/create-payroll-run.dto';
+
+@Controller('payroll')
+@UseGuards(JwtAuthGuard, RolesGuard)
+export class PayrollController {
+  constructor(private readonly payrollService: PayrollService) {}
+
+  // ============ Salary Structure Endpoints ============
+
+  @Post('structures')
+  @Roles('admin', 'hr')
+  async createSalaryStructure(@Body() createDto: CreateSalaryStructureDto) {
+    return this.payrollService.createSalaryStructure(createDto);
+  }
+
+  @Get('structures')
+  async findAllSalaryStructures() {
+    return this.payrollService.findAllSalaryStructures();
+  }
+
+  @Get('structures/:id')
+  async findSalaryStructureById(@Param('id') id: string) {
+    return this.payrollService.findSalaryStructureById(id);
+  }
+
+  @Patch('structures/:id')
+  @Roles('admin', 'hr')
+  async updateSalaryStructure(
+    @Param('id') id: string,
+    @Body() updateDto: UpdateSalaryStructureDto,
+  ) {
+    return this.payrollService.updateSalaryStructure(id, updateDto);
+  }
+
+  @Delete('structures/:id')
+  @Roles('admin')
+  async deleteSalaryStructure(@Param('id') id: string) {
+    return this.payrollService.deleteSalaryStructure(id);
+  }
+
+  // ============ Payroll Run Endpoints ============
+
+  @Post('runs')
+  @Roles('admin', 'hr')
+  async createPayrollRun(@Body() createDto: CreatePayrollRunDto) {
+    return this.payrollService.createPayrollRun(createDto);
+  }
+
+  @Get('runs')
+  async findAllPayrollRuns() {
+    return this.payrollService.findAllPayrollRuns();
+  }
+
+  @Get('runs/:id')
+  async findPayrollRunById(@Param('id') id: string) {
+    return this.payrollService.findPayrollRunById(id);
+  }
+
+  @Post('runs/:id/calculate')
+  @Roles('admin', 'hr')
+  async calculatePayrollEntries(@Param('id') id: string) {
+    return this.payrollService.calculatePayrollEntries(id);
+  }
+
+  @Post('runs/:id/approve')
+  @Roles('admin', 'hr')
+  async approvePayrollRun(
+    @Param('id') id: string,
+    @Request() req: any,
+  ) {
+    return this.payrollService.approvePayrollRun(id, req.user.id);
+  }
+
+  @Post('runs/:id/process')
+  @Roles('admin')
+  async processPayrollRun(@Param('id') id: string) {
+    return this.payrollService.processPayrollRun(id);
+  }
+
+  @Delete('runs/:id')
+  @Roles('admin')
+  async deletePayrollRun(@Param('id') id: string) {
+    return this.payrollService.deletePayrollRun(id);
+  }
+
+  // ============ Payroll Entry Endpoints ============
+
+  @Get('entries/:id')
+  async findPayrollEntryById(@Param('id') id: string) {
+    return this.payrollService.findPayrollEntryById(id);
+  }
+
+  @Patch('entries/:id')
+  @Roles('admin', 'hr')
+  async updatePayrollEntry(
+    @Param('id') id: string,
+    @Body() data: { lopDays?: number; notes?: string },
+  ) {
+    return this.payrollService.updatePayrollEntry(id, data);
+  }
+
+  // ============ Reports ============
+
+  @Get('runs/:id/summary')
+  async getPayrollSummary(@Param('id') id: string) {
+    return this.payrollService.getPayrollSummary(id);
+  }
+}

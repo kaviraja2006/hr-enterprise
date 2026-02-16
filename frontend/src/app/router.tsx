@@ -1,8 +1,9 @@
 import { createBrowserRouter, Navigate } from 'react-router-dom';
 import { ProtectedRoute } from '../core/auth/protected-route';
-import { useAuthContext } from '../core/auth/auth-context';
 import { DashboardLayout } from '../core/layout/DashboardLayout';
-import { lazy, Suspense } from 'react';
+import { lazy } from 'react';
+import { SuspenseWrapper } from './components/loading-components';
+import PublicRoute from './components/public-route';
 
 // Lazy load modules
 const LoginPage = lazy(() => import('../modules/auth/pages/LoginPage'));
@@ -32,35 +33,6 @@ const ApprovalsPage = lazy(() => import('../modules/workflow/pages/ApprovalsPage
 const RolesPage = lazy(() => import('../modules/settings/pages/RolesPage'));
 const PermissionsPage = lazy(() => import('../modules/settings/pages/PermissionsPage'));
 const SystemSettings = lazy(() => import('../modules/settings/pages/SystemSettings'));
-
-const LoadingFallback = () => (
-  <div className="flex items-center justify-center min-h-screen">
-    <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
-  </div>
-);
-
-const SuspenseWrapper = ({ children }: { children: React.ReactNode }) => (
-  <Suspense fallback={<LoadingFallback />}>{children}</Suspense>
-);
-
-// Public route wrapper - redirects to dashboard if already authenticated
-function PublicRoute({ children }: { children: React.ReactNode }) {
-  const { user, isLoading } = useAuthContext();
-
-  if (isLoading) {
-    return (
-      <div className="flex items-center justify-center min-h-screen">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
-      </div>
-    );
-  }
-
-  if (user) {
-    return <Navigate to="/dashboard" replace />;
-  }
-
-  return <>{children}</>;
-}
 
 export const router = createBrowserRouter([
   {

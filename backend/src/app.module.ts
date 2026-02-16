@@ -63,20 +63,19 @@ import { JwtAuthGuard, RolesGuard, PermissionsGuard } from './common/guards';
     SchedulerModule,
   ],
   providers: [
-    // Global guards - disabled by default, use @UseGuards() decorator
-    // Uncomment to enable global authentication
-    // {
-    //   provide: APP_GUARD,
-    //   useClass: JwtAuthGuard,
-    // },
-    // {
-    //   provide: APP_GUARD,
-    //   useClass: RolesGuard,
-    // },
-    // {
-    //   provide: APP_GUARD,
-    //   useClass: PermissionsGuard,
-    // },
+    // Global guards - enabled for security
+    {
+      provide: APP_GUARD,
+      useClass: JwtAuthGuard,
+    },
+    {
+      provide: APP_GUARD,
+      useClass: RolesGuard,
+    },
+    {
+      provide: APP_GUARD,
+      useClass: PermissionsGuard,
+    },
   ],
 })
 export class AppModule {}

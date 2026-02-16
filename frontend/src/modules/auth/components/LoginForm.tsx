@@ -1,6 +1,6 @@
 import { useState, type FormEvent } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { useAuthContext } from '../../../core/auth/auth-context';
+import { useAuthContext } from '../../../core/auth/use-auth-context';
 
 export default function LoginForm() {
   const [email, setEmail] = useState('');

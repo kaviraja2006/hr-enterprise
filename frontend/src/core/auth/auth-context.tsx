@@ -1,13 +1,14 @@
-import { createContext, useContext, useState, useEffect, type ReactNode } from 'react';
+import { useState, useEffect, type ReactNode } from 'react';
 import type { User } from '../types/user.types';
 import { authService } from './auth-service';
+import { AuthContext } from './auth-context-def';
 
 interface ProfileResponse {
   user: User;
   permissions: string[];
 }
 
-interface AuthContextType {
+export interface AuthContextType {
   user: User | null;
   permissions: string[];
   isLoading: boolean;
@@ -16,8 +17,6 @@ interface AuthContextType {
   hasPermission: (permission: string) => boolean;
   hasAnyPermission: (permissions: string[]) => boolean;
 }
-
-const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 interface AuthProviderProps {
   children: ReactNode;
@@ -95,12 +94,4 @@ export function AuthProvider({ children }: AuthProviderProps) {
       {children}
     </AuthContext.Provider>
   );
-}
-
-export function useAuthContext() {
-  const context = useContext(AuthContext);
-  if (context === undefined) {
-    throw new Error('useAuthContext must be used within an AuthProvider');
-  }
-  return context;
 }

@@ -32,11 +32,15 @@ axiosInstance.interceptors.response.use(
       try {
         const refreshToken = localStorage.getItem('refreshToken');
         if (refreshToken) {
+          // Use axiosInstance to go through interceptors, but skip the 401 retry to avoid infinite loop
           const response = await axios.post(`${env.apiBaseUrl}/auth/refresh`, {
             refreshToken,
           });
           
-          const { accessToken, refreshToken: newRefreshToken } = response.data;
+          // Backend wraps response: { data: { tokens: { accessToken, refreshToken, expiresIn } } }
+          const tokens = response.data.data.tokens;
+          const { accessToken, refreshToken: newRefreshToken } = tokens;
+          
           localStorage.setItem('accessToken', accessToken);
           localStorage.setItem('refreshToken', newRefreshToken);
           
@@ -44,7 +48,7 @@ axiosInstance.interceptors.response.use(
           if (originalRequest.headers) {
             originalRequest.headers.Authorization = `Bearer ${accessToken}`;
           }
-          return axios(originalRequest);
+          return axiosInstance(originalRequest);
         }
       } catch (refreshError) {
         // Refresh failed - clear tokens and redirect to login

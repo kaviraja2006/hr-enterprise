@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 import { navigation, type NavItem } from '../../config/navigation';
-import { useAuthContext } from '../auth/auth-context';
+import { useAuthContext } from '../auth/use-auth-context';
 import { cn } from '../../shared/utils/cn';
 
 export function Sidebar() {

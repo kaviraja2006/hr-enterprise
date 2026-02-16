@@ -13,23 +13,26 @@ import { LoginDto } from './dto/login.dto';
 import { RefreshTokenDto } from './dto/refresh-token.dto';
 import { ChangePasswordDto } from './dto/change-password.dto';
 import { JwtAuthGuard } from '../common/guards/jwt-auth.guard';
-import { CurrentUser, CurrentUserPayload } from '../common/decorators';
+import { Public, CurrentUser, CurrentUserPayload } from '../common/decorators';
 
 @Controller('auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
+  @Public()
   @Post('register')
   async register(@Body() registerDto: RegisterDto) {
     return this.authService.register(registerDto);
   }
 
+  @Public()
   @Post('login')
   @HttpCode(HttpStatus.OK)
   async login(@Body() loginDto: LoginDto) {
     return this.authService.login(loginDto);
   }
 
+  @Public()
   @Post('refresh')
   @HttpCode(HttpStatus.OK)
   async refreshTokens(@Body() refreshTokenDto: RefreshTokenDto) {

@@ -1,4 +1,4 @@
-import { useAuthContext } from '../auth/auth-context';
+import { useAuthContext } from '../auth/use-auth-context';
 
 export function usePermission(permission: string): boolean {
   const { hasPermission } = useAuthContext();

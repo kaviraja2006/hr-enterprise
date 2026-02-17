@@ -55,11 +55,18 @@ export interface LeaveBalance {
 }
 
 export interface CreateLeaveRequestDto {
-  employeeId: string;
+  employeeId?: string;
   leaveTypeId: string;
   startDate: string;
   endDate: string;
   reason: string;
+}
+
+export interface LeaveSummary {
+  totalRequests: number;
+  totalDaysTaken: number;
+  pendingRequests: number;
+  approvedRequests: number;
 }
 
 export interface LeaveListParams {

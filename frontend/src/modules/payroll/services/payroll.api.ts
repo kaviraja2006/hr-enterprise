@@ -33,8 +33,9 @@ export const payrollApi = {
     return apiClient.post<PayrollRun>(`/payroll/runs/${id}/process`);
   },
 
-  getPayrollEntries: (runId: string): Promise<PayrollEntry[]> => {
-    return apiClient.get<PayrollEntry[]>(`/payroll/runs/${runId}/entries`);
+  getPayrollEntries: async (runId: string): Promise<PayrollEntry[]> => {
+    const run = await apiClient.get<PayrollRun>(`/payroll/runs/${runId}`);
+    return run.entries || [];
   },
 
   // Salary Structures

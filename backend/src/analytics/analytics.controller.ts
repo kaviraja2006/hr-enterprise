@@ -29,13 +29,19 @@ export class AnalyticsController {
   @Get('attendance/metrics')
   @Permissions('analytics:read')
   async getAttendanceMetrics(
-    @Query('startDate') startDate: string,
-    @Query('endDate') endDate: string,
+    @Query('startDate') startDate?: string,
+    @Query('endDate') endDate?: string,
     @Query('departmentId') departmentId?: string,
   ) {
+    const end = endDate ? new Date(endDate) : new Date();
+    const start = startDate ? new Date(startDate) : new Date();
+    if (!startDate) {
+      start.setMonth(start.getMonth() - 1); // Default to last 30 days
+    }
+
     return this.analyticsService.getAttendanceMetrics({
-      startDate: new Date(startDate),
-      endDate: new Date(endDate),
+      startDate: isNaN(start.getTime()) ? new Date(Date.now() - 30 * 24 * 60 * 60 * 1000) : start,
+      endDate: isNaN(end.getTime()) ? new Date() : end,
       departmentId,
     });
   }
@@ -43,28 +49,28 @@ export class AnalyticsController {
   @Get('leave/metrics')
   @Permissions('analytics:read')
   async getLeaveMetrics(
-    @Query('year') year: string,
+    @Query('year') year?: string,
     @Query('departmentId') departmentId?: string,
   ) {
     return this.analyticsService.getLeaveMetrics({
-      year: parseInt(year, 10),
+      year: year ? parseInt(year, 10) : undefined,
       departmentId,
     });
   }
 
   @Get('payroll/metrics')
   @Permissions('analytics:read')
-  async getPayrollMetrics(@Query('year') year: string) {
+  async getPayrollMetrics(@Query('year') year?: string) {
     return this.analyticsService.getPayrollMetrics({
-      year: parseInt(year, 10),
+      year: year ? parseInt(year, 10) : undefined,
     });
   }
 
   @Get('attrition')
   @Permissions('analytics:read')
-  async getAttritionRate(@Query('year') year: string) {
+  async getAttritionRate(@Query('year') year?: string) {
     return this.analyticsService.getAttritionRate({
-      year: parseInt(year, 10),
+      year: year ? parseInt(year, 10) : undefined,
     });
   }
 

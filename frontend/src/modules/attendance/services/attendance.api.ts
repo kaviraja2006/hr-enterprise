@@ -35,8 +35,11 @@ export const attendanceApi = {
   },
 
   // Get employee attendance
-  getEmployeeAttendance: (employeeId: string, params?: AttendanceListParams): Promise<Attendance[]> => {
-    return apiClient.get<Attendance[]>(`/attendance/employee/${employeeId}`, { params });
+  getEmployeeAttendance: async (employeeId: string, params?: AttendanceListParams): Promise<Attendance[]> => {
+    const response = await apiClient.getPaginated<Attendance>('/attendance', { 
+      params: { ...params, employeeId } 
+    });
+    return response.data;
   },
 
   // Get employee attendance summary

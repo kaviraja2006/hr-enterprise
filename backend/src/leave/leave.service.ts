@@ -630,10 +630,12 @@ export class LeaveService {
       employeeId,
       year: targetYear,
       requests,
-      summary: stats.reduce((acc, s) => {
-        acc[s.status] = s._sum.days || 0;
-        return acc;
-      }, {} as Record<string, number>),
+      summary: {
+        totalRequests: requests.length,
+        totalDaysTaken: stats.find(s => s.status === 'approved')?._sum.days || 0,
+        pendingRequests: requests.filter(r => r.status === 'pending').length,
+        approvedRequests: requests.filter(r => r.status === 'approved').length,
+      }
     };
   }
 }

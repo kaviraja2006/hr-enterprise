@@ -29,6 +29,10 @@ export default function AttendanceDashboard() {
   const checkInMutation = useCheckIn();
   const checkOutMutation = useCheckOut();
 
+  const userAttendance = recentAttendance?.data?.find(a => a.employeeId === user?.employeeId);
+  const isCheckedIn = !!userAttendance?.checkIn;
+  const isCheckedOut = !!userAttendance?.checkOut;
+
   const handlePunchIn = async () => {
     if (!user?.employeeId) {
       alert('No employee record found for your user account.');
@@ -152,9 +156,9 @@ export default function AttendanceDashboard() {
         <div className="lg:col-span-1 space-y-10">
           <Card title="Operational Terminal" subtitle="Manual override & protocol logic">
             <div className="grid grid-cols-2 gap-8">
-               <button 
+                <button 
                   onClick={handlePunchIn}
-                  disabled={checkInMutation.isPending || !user?.employeeId}
+                  disabled={checkInMutation.isPending || isCheckedIn || !user?.employeeId}
                   className="group flex flex-col items-center justify-center p-12 bg-white/40 border border-white/60 rounded-[3rem] hover:bg-white hover:border-white/80 transition-all duration-700 shadow-[0_20px_40px_-15px_rgba(0,0,0,0.08)] hover:shadow-[0_30px_60px_-15px_rgba(0,0,0,0.12)] hover:-translate-y-2 active:scale-95 text-slate-400 hover:text-slate-900 disabled:opacity-50 disabled:cursor-not-allowed ring-1 ring-white/10 backdrop-blur-md gloss-overlay"
                >
                   <div className="w-20 h-20 bg-white/60 rounded-[1.5rem] shadow-sm flex items-center justify-center text-slate-400 group-hover:bg-emerald-500 group-hover:text-white transition-all duration-700 border border-white group-hover:scale-110 group-hover:rotate-3">
@@ -167,12 +171,12 @@ export default function AttendanceDashboard() {
                     )}
                   </div>
                   <span className="mt-8 text-[11px] font-black group-hover:text-slate-900 uppercase tracking-[0.4em] transition-colors leading-none">
-                    {checkInMutation.isPending ? 'PROCESSING' : 'PUNCH IN'}
+                    {checkInMutation.isPending ? 'PROCESSING' : isCheckedIn ? 'CHECKED IN' : 'PUNCH IN'}
                   </span>
                </button>
                <button 
                   onClick={handlePunchOut}
-                  disabled={checkOutMutation.isPending || !user?.employeeId}
+                  disabled={checkOutMutation.isPending || isCheckedOut || !isCheckedIn || !user?.employeeId}
                   className="group flex flex-col items-center justify-center p-12 bg-white/40 border border-white/60 rounded-[3rem] hover:bg-white hover:border-white/80 transition-all duration-700 shadow-[0_20px_40px_-15px_rgba(0,0,0,0.08)] hover:shadow-[0_30px_60px_-15px_rgba(0,0,0,0.12)] hover:-translate-y-2 active:scale-95 text-slate-400 hover:text-rose-600 disabled:opacity-50 disabled:cursor-not-allowed ring-1 ring-white/10 backdrop-blur-md gloss-overlay"
                >
                   <div className="w-20 h-20 bg-white/60 rounded-[1.5rem] shadow-sm flex items-center justify-center text-slate-400 group-hover:bg-rose-500 group-hover:text-white transition-all duration-700 border border-white group-hover:scale-110 group-hover:-rotate-3">
@@ -185,7 +189,7 @@ export default function AttendanceDashboard() {
                      )}
                   </div>
                   <span className="mt-8 text-[11px] font-black group-hover:text-rose-600 uppercase tracking-[0.4em] transition-colors leading-none">
-                    {checkOutMutation.isPending ? 'PROCESSING' : 'PUNCH OUT'}
+                    {checkOutMutation.isPending ? 'PROCESSING' : isCheckedOut ? 'CHECKED OUT' : 'PUNCH OUT'}
                   </span>
                </button>
             </div>

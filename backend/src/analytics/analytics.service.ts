@@ -142,8 +142,9 @@ export class AnalyticsService {
 
   // ============ Leave Analytics ============
 
-  async getLeaveMetrics(params: { year: number; departmentId?: string }) {
-    const { year, departmentId } = params;
+  async getLeaveMetrics(params: { year?: number; departmentId?: string }) {
+    const year = Number(params.year) || new Date().getFullYear();
+    const { departmentId } = params;
 
     const startDate = new Date(year, 0, 1);
     const endDate = new Date(year, 11, 31);
@@ -205,8 +206,8 @@ export class AnalyticsService {
 
   // ============ Payroll Analytics ============
 
-  async getPayrollMetrics(params: { year: number }) {
-    const { year } = params;
+  async getPayrollMetrics(params: { year?: number }) {
+    const year = Number(params.year) || new Date().getFullYear();
 
     const payrollRuns = await this.prisma.payrollRun.findMany({
       where: {
@@ -249,8 +250,8 @@ export class AnalyticsService {
 
   // ============ Attrition Analytics ============
 
-  async getAttritionRate(params: { year: number }) {
-    const { year } = params;
+  async getAttritionRate(params: { year?: number }) {
+    const year = Number(params.year) || new Date().getFullYear();
 
     const startOfYear = new Date(year, 0, 1);
     const endOfYear = new Date(year, 11, 31);

@@ -230,8 +230,15 @@ export default function LeaveRequests() {
 
       <DataTable
         columns={columns}
-        data={data || []}
+        data={data?.data || []}
         isLoading={isLoading}
+        pagination={data?.meta ? {
+          currentPage: data.meta.page,
+          totalPages: data.meta.totalPages,
+          totalItems: data.meta.total,
+          itemsPerPage: data.meta.limit,
+          onPageChange: (page) => handleParamsChange({ page })
+        } : undefined}
       />
 
       {/* Reject Modal */}

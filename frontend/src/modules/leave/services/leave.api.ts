@@ -1,8 +1,9 @@
-import { apiClient } from '../../../core/api/api-client';
+import { apiClient, type PaginatedResponse } from '../../../core/api/api-client';
 import type {
   LeaveType,
   LeaveRequest,
   LeaveBalance,
+  LeaveSummary,
   CreateLeaveRequestDto,
   LeaveListParams,
 } from '../types';
@@ -22,8 +23,8 @@ export const leaveApi = {
   },
 
   // Leave Requests
-  getLeaveRequests: (params?: LeaveListParams): Promise<LeaveRequest[]> => {
-    return apiClient.get<LeaveRequest[]>('/leave-requests', { params });
+  getLeaveRequests: (params?: LeaveListParams): Promise<PaginatedResponse<LeaveRequest>> => {
+    return apiClient.get('/leave-requests', { params });
   },
 
   getLeaveRequest: (id: string): Promise<LeaveRequest> => {
@@ -50,18 +51,16 @@ export const leaveApi = {
     return apiClient.get<LeaveRequest[]>('/leave-requests/my-requests');
   },
 
-  getPendingApprovals: (): Promise<LeaveRequest[]> => {
-    // Backend uses findAll with status=pending for this generally, 
-    // or a specialized endpoint. For now, let's use the list with status pending.
-    return apiClient.get<LeaveRequest[]>('/leave-requests', { params: { status: 'pending' } });
+  getPendingApprovals: (): Promise<PaginatedResponse<LeaveRequest>> => {
+    return apiClient.get('/leave-requests', { params: { status: 'pending' } });
   },
 
   // Leave Balances & Summary
-  getLeaveBalance: (year: number): Promise<LeaveBalance[]> => {
-    return apiClient.get<LeaveBalance[]>('/leave-requests/balance', { params: { year } });
+  getLeaveBalance: (year: number): Promise<{ balances: LeaveBalance[] }> => {
+    return apiClient.get('/leave-requests/balance', { params: { year } });
   },
 
-  getLeaveSummary: (year: number): Promise<Record<string, unknown>> => {
-    return apiClient.get<Record<string, unknown>>('/leave-requests/summary', { params: { year } });
+  getLeaveSummary: (year: number): Promise<{ summary: LeaveSummary }> => {
+    return apiClient.get('/leave-requests/summary', { params: { year } });
   },
 };

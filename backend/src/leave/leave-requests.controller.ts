@@ -121,6 +121,10 @@ export class LeaveRequestsController {
     if (!user.employeeId) {
       throw new Error('User is not linked to an employee');
     }
+    // Only admin@hrenterprise.com can approve leave requests
+    if (user.email !== 'admin@hrenterprise.com') {
+      throw new Error('Only admin@hrenterprise.com can approve leave requests');
+    }
     return this.leaveService.approveLeaveRequest(id, user.employeeId);
   }
 
@@ -133,6 +137,10 @@ export class LeaveRequestsController {
   ) {
     if (!user.employeeId) {
       throw new Error('User is not linked to an employee');
+    }
+    // Only admin@hrenterprise.com can reject leave requests
+    if (user.email !== 'admin@hrenterprise.com') {
+      throw new Error('Only admin@hrenterprise.com can reject leave requests');
     }
     return this.leaveService.approveLeaveRequest(
       id,

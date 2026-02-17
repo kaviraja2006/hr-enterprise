@@ -426,7 +426,7 @@ export class RecruitmentService {
       totalJobs,
       openJobs,
       totalCandidates,
-      candidatesByStage: candidatesByStage.reduce((acc, item) => {
+      candidatesByStage: candidatesByStage.reduce((acc: Record<string, number>, item: { stage: string; _count: number }) => {
         acc[item.stage] = item._count;
         return acc;
       }, {} as Record<string, number>),

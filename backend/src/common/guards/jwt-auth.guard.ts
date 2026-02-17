@@ -9,6 +9,7 @@ import { JwtService } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
 import { Request } from 'express';
 import { IS_PUBLIC_KEY } from '../decorators/public.decorator';
+import { PrismaService } from '../../database/prisma.service';
 
 interface RequestWithUser extends Request {
   user?: {
@@ -27,6 +28,7 @@ export class JwtAuthGuard implements CanActivate {
     private readonly jwtService: JwtService,
     private readonly configService: ConfigService,
     private readonly reflector: Reflector,
+    private readonly prisma: PrismaService,
   ) {}
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
@@ -51,15 +53,40 @@ export class JwtAuthGuard implements CanActivate {
         secret: this.configService.get<string>('jwt.secret'),
       });
 
+      // Fetch fresh permissions from DB to handle stale tokens
+      const user = await this.prisma.user.findUnique({
+        where: { id: payload.sub },
+        include: {
+          role: {
+            include: {
+              permissions: {
+                include: {
+                  permission: true,
+                },
+              },
+            },
+          },
+        },
+      });
+
+      if (!user) {
+         throw new UnauthorizedException('User not found');
+      }
+
+      const freshPermissions = user.role?.permissions.map(
+        (rp: any) => `${rp.permission.resource}:${rp.permission.action}`,
+      ) || [];
+
       request.user = {
         userId: payload.sub,
         email: payload.email,
         roleId: payload.roleId,
         roleName: payload.roleName,
         employeeId: payload.employeeId,
-        permissions: payload.permissions || [],
+        permissions: freshPermissions.length > 0 ? freshPermissions : (payload.permissions || []),
       };
-    } catch {
+    } catch (error) {
+      console.error('JwtAuthGuard Error:', error);
       throw new UnauthorizedException('Invalid or expired token');
     }
 

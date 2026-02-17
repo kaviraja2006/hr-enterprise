@@ -7,6 +7,7 @@ import {
   ForbiddenException,
 } from '@nestjs/common';
 import { PrismaService } from '../database/prisma.service';
+import { WorkflowService } from '../workflow/workflow.service';
 import { CreateLeaveTypeDto } from './dto/create-leave-type.dto';
 import { UpdateLeaveTypeDto } from './dto/update-leave-type.dto';
 import { CreateLeaveRequestDto } from './dto/create-leave-request.dto';
@@ -15,7 +16,10 @@ import { CreateLeaveRequestDto } from './dto/create-leave-request.dto';
 export class LeaveService {
   private readonly logger = new Logger(LeaveService.name);
 
-  constructor(private readonly prisma: PrismaService) { }
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly workflowService: WorkflowService,
+  ) { }
 
   // ============ Leave Type Methods ============
 
@@ -239,6 +243,28 @@ export class LeaveService {
         pendingDays: { increment: days },
       },
     });
+
+    // Get admin employee ID for workflow approval
+    const adminUser = await this.prisma.user.findUnique({
+      where: { email: 'admin@hrenterprise.com' },
+      select: { employeeId: true },
+    });
+
+    // Create workflow approval for admin
+    if (adminUser?.employeeId) {
+      try {
+        await this.workflowService.createApproval({
+          entityType: 'leave_request',
+          entityId: leaveRequest.id,
+          requesterId: employeeId,
+          approverIds: [adminUser.employeeId],
+          comments: `Leave request for ${days} day(s) from ${start.toLocaleDateString()} to ${end.toLocaleDateString()}`,
+        });
+        this.logger.log(`Workflow approval created for leave request ${leaveRequest.id}`);
+      } catch (error) {
+        this.logger.warn(`Failed to create workflow approval: ${error instanceof Error ? error.message : 'Unknown error'}`);
+      }
+    }
 
     this.logger.log(`Leave request created for employee ${employeeId}`);
 

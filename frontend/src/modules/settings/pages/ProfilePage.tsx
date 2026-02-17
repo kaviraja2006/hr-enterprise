@@ -64,7 +64,7 @@ export default function ProfilePage() {
             </div>
             
             <h2 className="mt-8 text-2xl font-black text-slate-900 tracking-tighter">{user?.firstName} {user?.lastName}</h2>
-            <p className="text-xs font-black text-slate-400 uppercase tracking-widest mt-2 opacity-70">{user?.roleName || 'Consultant'}</p>
+            <p className="text-xs font-black text-slate-400 uppercase tracking-widest mt-2 opacity-70">{user?.role?.name || 'Consultant'}</p>
             
             <div className="mt-10 pt-10 border-t border-slate-100 flex justify-center gap-6">
               <div className="text-center">
@@ -92,7 +92,7 @@ export default function ProfilePage() {
                 </div>
                 <div className="flex justify-between items-center p-4 bg-slate-50/50 rounded-2xl border border-slate-100">
                    <span className="text-[11px] font-black text-slate-400 uppercase tracking-[0.2em]">Access Level</span>
-                   <span className="text-xs font-black text-slate-900 tracking-tighter">{user?.roleName}</span>
+                   <span className="text-xs font-black text-slate-900 tracking-tighter">{user?.role?.name}</span>
                 </div>
                 <div className="flex justify-between items-center p-4 bg-slate-50/50 rounded-2xl border border-slate-100">
                    <span className="text-[11px] font-black text-slate-400 uppercase tracking-[0.2em]">Employee ID</span>

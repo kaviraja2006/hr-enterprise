@@ -1,5 +1,4 @@
 import { apiClient } from '../../../core/api/api-client';
-import type { CreateEmployeeDto } from '../../employees/types';
 import type { Job, Candidate, CreateJobDto, CreateCandidateDto, RecruitmentSummary, CandidateListResponse } from '../types';
 
 export const recruitmentApi = {
@@ -26,11 +25,11 @@ export const recruitmentApi = {
   },
 
   updateCandidateStage: (id: string, stage: string): Promise<Candidate> => {
-    return apiClient.post<Candidate>(`/recruitment/candidates/${id}/stage`, { stage });
+    return apiClient.patch<Candidate>(`/recruitment/candidates/${id}/stage`, { stage });
   },
 
-  convertToEmployee: (id: string, employeeData: CreateEmployeeDto): Promise<void> => {
-    return apiClient.post(`/recruitment/candidates/${id}/convert`, employeeData);
+  convertToEmployee: (id: string): Promise<void> => {
+    return apiClient.post(`/recruitment/candidates/${id}/convert`);
   },
 
   deleteCandidate: (id: string): Promise<void> => {

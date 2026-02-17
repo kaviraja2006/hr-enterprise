@@ -198,10 +198,10 @@ export function Sidebar({ collapsed, onToggle }: SidebarProps) {
           {!collapsed && (
             <div className="flex-1 min-w-0 pr-2">
               <p className="text-[11px] font-black text-slate-900 tracking-tighter leading-none mb-1 truncate">
-                {user?.fullName || 'User Account'}
+                {user?.firstName} {user?.lastName}
               </p>
               <p className="text-[8px] text-slate-400 font-black uppercase tracking-[0.2em] opacity-60 truncate">
-                {user?.roleName || 'System Admin'}
+                {user?.role?.name || 'System Admin'}
               </p>
             </div>
           )}

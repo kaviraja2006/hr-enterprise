@@ -7,9 +7,9 @@ export interface LeaveType {
   id: string;
   name: string;
   description?: string;
-  daysPerYear: number;
-  isPaid: boolean;
-  isCarryForward: boolean;
+  annualLimit: number;
+  carryForwardAllowed?: boolean;
+  maxCarryForward?: number;
   createdAt: string;
   updatedAt: string;
 }

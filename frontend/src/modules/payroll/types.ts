@@ -4,19 +4,17 @@ export type PayrollRunStatus = 'DRAFT' | 'CALCULATED' | 'APPROVED' | 'PROCESSED'
 
 export interface SalaryStructure {
   id: string;
-  employeeId: string;
+  name: string;
+  description?: string;
   basic: number;
   hra: number;
-  conveyance: number;
-  medicalAllowance: number;
-  specialAllowance: number;
-  professionalTax: number;
-  pf: number;
-  esi: number;
-  grossSalary: number;
-  totalDeductions: number;
-  netSalary: number;
-  effectiveFrom: string;
+  conveyance?: number;
+  medicalAllowance?: number;
+  specialAllowance?: number;
+  professionalTax?: number;
+  pf?: number;
+  esi?: number;
+  isActive?: boolean;
   createdAt: string;
   updatedAt: string;
 }
@@ -70,13 +68,14 @@ export interface CreatePayrollRunDto {
 }
 
 export interface CreateSalaryStructureDto {
-  employeeId: string;
+  name: string;
+  description?: string;
   basic: number;
   hra: number;
-  conveyance: number;
-  medicalAllowance: number;
-  specialAllowance: number;
-  professionalTax: number;
-  pf: number;
-  esi: number;
+  conveyance?: number;
+  medicalAllowance?: number;
+  specialAllowance?: number;
+  professionalTax?: number;
+  pf?: number;
+  esi?: number;
 }

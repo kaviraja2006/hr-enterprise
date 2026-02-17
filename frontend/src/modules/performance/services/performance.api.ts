@@ -25,7 +25,7 @@ export const performanceApi = {
   },
 
   getPendingReviews: (): Promise<PerformanceReview[]> => {
-    return apiClient.get<PerformanceReview[]>('/performance/reviews/pending');
+    return apiClient.get<PerformanceReview[]>('/performance/reviews', { params: { status: 'DRAFT' } });
   },
 
   submitReview: (id: string): Promise<PerformanceReview> => {

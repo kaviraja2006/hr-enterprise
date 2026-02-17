@@ -54,13 +54,15 @@ interface StatCardProps {
   action?: ReactNode;
   className?: string;
   style?: React.CSSProperties;
+  square?: boolean;
 }
 
-export function StatCard({ title, value, icon, trend, progress, action, className, style }: StatCardProps) {
+export function StatCard({ title, value, icon, trend, progress, action, className, style, square }: StatCardProps) {
   return (
     <GlassEffect
       className={cn(
         'glass-mirror glass-rim rounded-[3.5rem] p-10 group transition-all duration-1000 hover:shadow-[0_60px_100px_-20px_rgba(0,0,0,0.15)] hover:-translate-y-3 flex flex-col relative overflow-hidden',
+        square && 'aspect-square',
         className
       )}
       style={style}

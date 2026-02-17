@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useReviews, useCreateReview, useSubmitReview, useAcknowledgeReview } from '../hooks/usePerformance';
+import { useAuthContext } from '../../../core/auth/use-auth-context';
 import { useEmployees } from '../../employees/hooks/useEmployee';
 import type { ReviewStatus } from '../types';
 import { Badge } from '../../../shared/components/ui/Badge';
@@ -17,6 +18,7 @@ const statusColors: Record<ReviewStatus, 'success' | 'warning' | 'default'> = {
 
 export default function ReviewsPage() {
   const [statusFilter, setStatusFilter] = useState<ReviewStatus | ''>('');
+  const { user } = useAuthContext();
   const { data: reviews, isLoading } = useReviews();
   const { data: employees } = useEmployees({ limit: 100 });
   
@@ -27,7 +29,7 @@ export default function ReviewsPage() {
   const [showCreateModal, setShowCreateModal] = useState(false);
   const [newReview, setNewReview] = useState({
     employeeId: '',
-    period: '',
+    reviewPeriod: '',
     rating: 3,
     comments: '',
     strengths: '',
@@ -37,12 +39,13 @@ export default function ReviewsPage() {
   const handleCreate = async () => {
     await createMutation.mutateAsync({
       ...newReview,
+      reviewerId: user?.id || '',
       rating: Number(newReview.rating)
     });
     setShowCreateModal(false);
     setNewReview({
       employeeId: '',
-      period: '',
+      reviewPeriod: '',
       rating: 3,
       comments: '',
       strengths: '',
@@ -124,7 +127,7 @@ export default function ReviewsPage() {
                       </div>
                     </td>
                     <td className="px-10 py-8 text-xs font-black text-slate-900 tracking-widest uppercase">
-                      {review.period}
+                      {review.reviewPeriod}
                     </td>
                     <td className="px-10 py-8">
                       <div className="flex items-center gap-2">
@@ -206,8 +209,8 @@ export default function ReviewsPage() {
                <label className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] ml-1">Appraisal Period</label>
                <input
                  type="text"
-                 value={newReview.period}
-                 onChange={(e) => setNewReview({ ...newReview, period: e.target.value })}
+                 value={newReview.reviewPeriod}
+                 onChange={(e) => setNewReview({ ...newReview, reviewPeriod: e.target.value })}
                  className="w-full px-8 py-5 border border-white/60 rounded-3xl text-sm font-black text-slate-900 bg-white/40 focus:outline-none focus:ring-4 focus:ring-slate-100 transition-all uppercase tracking-widest placeholder:text-slate-300 shadow-inner"
                  placeholder="e.g., ANNUAL REVIEW 2024"
                />
@@ -270,7 +273,7 @@ export default function ReviewsPage() {
               size="lg"
               className="px-12 shadow-2xl shadow-indigo-500/20"
               onClick={handleCreate}
-              disabled={!newReview.employeeId || !newReview.period || createMutation.isPending}
+              disabled={!newReview.employeeId || !newReview.reviewPeriod || createMutation.isPending}
             >
               {createMutation.isPending ? 'Processing...' : 'Provision Appraisal'}
             </Button>

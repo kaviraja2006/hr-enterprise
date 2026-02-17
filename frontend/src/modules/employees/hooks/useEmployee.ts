@@ -91,15 +91,3 @@ export function useDeleteEmployee() {
   });
 }
 
-// Upload profile picture hook
-export function useUploadProfilePicture() {
-  const queryClient = useQueryClient();
-
-  return useMutation({
-    mutationFn: ({ id, file }: { id: string; file: File }) =>
-      employeeApi.uploadProfilePicture(id, file),
-    onSuccess: (_, { id }) => {
-      queryClient.invalidateQueries({ queryKey: employeeKeys.detail(id) });
-    },
-  });
-}

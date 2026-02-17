@@ -24,7 +24,7 @@ export const leaveApi = {
 
   // Leave Requests
   getLeaveRequests: (params?: LeaveListParams): Promise<PaginatedResponse<LeaveRequest>> => {
-    return apiClient.get('/leave-requests', { params });
+    return apiClient.getPaginated<LeaveRequest>('/leave-requests', { params });
   },
 
   getLeaveRequest: (id: string): Promise<LeaveRequest> => {
@@ -35,8 +35,8 @@ export const leaveApi = {
     return apiClient.post<LeaveRequest>('/leave-requests', data);
   },
 
-  approveLeaveRequest: (id: string, comments?: string): Promise<LeaveRequest> => {
-    return apiClient.patch<LeaveRequest>(`/leave-requests/${id}/approve`, { comments });
+  approveLeaveRequest: (id: string): Promise<LeaveRequest> => {
+    return apiClient.patch<LeaveRequest>(`/leave-requests/${id}/approve`);
   },
 
   rejectLeaveRequest: (id: string, rejectionReason: string): Promise<LeaveRequest> => {
@@ -52,7 +52,7 @@ export const leaveApi = {
   },
 
   getPendingApprovals: (): Promise<PaginatedResponse<LeaveRequest>> => {
-    return apiClient.get('/leave-requests', { params: { status: 'pending' } });
+    return apiClient.getPaginated<LeaveRequest>('/leave-requests', { params: { status: 'PENDING' } });
   },
 
   // Leave Balances & Summary

@@ -3,13 +3,12 @@ export interface User {
   email: string;
   firstName: string;
   lastName: string;
-  fullName: string;
   roleId: string;
-  roleName: string;
+  role?: {
+    id: string;
+    name: string;
+  };
   employeeId?: string;
-  isActive: boolean;
-  emailVerified: boolean;
-  lastLoginAt?: string;
   createdAt: string;
   updatedAt: string;
 }

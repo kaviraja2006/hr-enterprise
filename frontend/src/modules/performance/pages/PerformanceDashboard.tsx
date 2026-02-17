@@ -157,7 +157,7 @@ export default function PerformanceDashboard() {
                           </div>
                           <div>
                             <p className="text-sm font-black text-slate-900 tracking-tighter leading-none mb-1">{review.employee?.firstName} {review.employee?.lastName}</p>
-                            <p className="text-[9px] text-slate-400 font-black uppercase tracking-widest">{review.period}</p>
+                            <p className="text-[9px] text-slate-400 font-black uppercase tracking-widest">{review.reviewPeriod}</p>
                           </div>
                         </div>
                       </td>

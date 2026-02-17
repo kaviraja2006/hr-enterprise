@@ -36,13 +36,13 @@ export interface AttendanceStats {
 
 export interface CheckInDto {
   employeeId: string;
-  date?: string;
+  timestamp?: string;
   notes?: string;
 }
 
 export interface CheckOutDto {
   employeeId: string;
-  date?: string;
+  timestamp?: string;
   notes?: string;
 }
 

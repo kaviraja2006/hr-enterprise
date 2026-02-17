@@ -15,7 +15,16 @@ const statusColors: Record<string, 'success' | 'warning' | 'danger' | 'default'>
 };
 
 export default function AttendanceDashboard() {
-  const today = new Date().toISOString().split('T')[0];
+  // Calculate today in IST to match backend logic
+  const getISTDate = () => {
+    const IST_OFFSET = 5.5 * 60 * 60 * 1000;
+    const now = new Date();
+    // Use a temporary date shifted by the offset to get the correct YYYY-MM-DD for IST
+    // Note: This is a common trick to get local date string from ISO format
+    return new Date(now.getTime() + IST_OFFSET).toISOString().split('T')[0];
+  };
+
+  const today = getISTDate();
   const [currentTime, setCurrentTime] = useState(new Date());
   const { user } = useAuthContext();
   

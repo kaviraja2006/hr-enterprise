@@ -68,17 +68,7 @@ export const useMoveCandidateStage = useUpdateCandidateStage;
 export function useConvertToEmployee() {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: (id: string) => recruitmentApi.convertToEmployee(id, {
-      employeeCode: '', // Added missing required field
-      firstName: '',
-      lastName: '',
-      email: '',
-      departmentId: '',
-      managerId: '', // Added missing field
-      employmentType: 'FULL_TIME',
-      dateOfJoining: new Date().toISOString(), // Added missing field
-      designation: '',
-    }),
+    mutationFn: (id: string) => recruitmentApi.convertToEmployee(id),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: recruitmentKeys.candidates() });
     },

@@ -6,22 +6,25 @@ export type CandidateStage = 'APPLIED' | 'SCREENING' | 'INTERVIEW' | 'OFFERED' |
 export interface Job {
   id: string;
   title: string;
-  description: string;
-  departmentId: string;
-  positions: number;
+  description?: string;
+  departmentId?: string;
+  requirements?: string;
+  location?: string;
+  employmentType?: string;
+  minSalary?: number;
+  maxSalary?: number;
+  openings?: number;
   status: JobStatus;
   postedDate: string;
   closedDate?: string;
-  createdAt: string;
-  updatedAt: string;
-  postedAt?: string; // Add alias for postedDate
-  location?: string;
+  postedAt?: string;
   candidateCount?: number;
-  openings?: number;
   department?: {
     id: string;
     name: string;
   };
+  createdAt: string;
+  updatedAt: string;
 }
 
 export interface Candidate {
@@ -52,17 +55,26 @@ export interface CandidateListResponse {
 
 export interface CreateJobDto {
   title: string;
-  description: string;
-  departmentId: string;
-  positions: number;
+  description?: string;
+  departmentId?: string;
+  requirements?: string;
+  location?: string;
+  employmentType?: string;
+  minSalary?: number;
+  maxSalary?: number;
+  openings?: number;
 }
 
 export interface CreateCandidateDto {
   jobId: string;
-  name: string;
+  firstName: string;
+  lastName: string;
   email: string;
-  phone: string;
-  resume?: string;
+  phone?: string;
+  resumeUrl?: string;
+  coverLetter?: string;
+  source?: string;
+  notes?: string;
 }
 
 export interface RecruitmentSummary {

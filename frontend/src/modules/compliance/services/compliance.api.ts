@@ -20,8 +20,8 @@ export const complianceApi = {
   },
 
   // Acknowledgements
-  getAcknowledgements: (): Promise<PolicyAcknowledgement[]> => {
-    return apiClient.get<PolicyAcknowledgement[]>('/compliance/acknowledgements');
+  getAcknowledgements: (params?: { employeeId?: string; policyName?: string }): Promise<PolicyAcknowledgement[]> => {
+    return apiClient.get<PolicyAcknowledgement[]>('/compliance/policies/acknowledgements', { params });
   },
 
   getUpcomingFilings: (): Promise<FilingRecord[]> => {
@@ -29,6 +29,6 @@ export const complianceApi = {
   },
 
   createAcknowledgement: (data: { employeeId: string; policyName: string }): Promise<PolicyAcknowledgement> => {
-    return apiClient.post<PolicyAcknowledgement>('/compliance/acknowledgements', data);
+    return apiClient.post<PolicyAcknowledgement>('/compliance/policies/acknowledge', data);
   },
 };

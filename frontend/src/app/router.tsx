@@ -4,6 +4,7 @@ import { DashboardLayout } from '../core/layout/DashboardLayout';
 import { lazy } from 'react';
 import { SuspenseWrapper } from './components/loading-components';
 import PublicRoute from './components/public-route';
+import { ErrorBoundary } from '../shared/components/ui/ErrorBoundary';
 
 // Lazy load modules
 const LoginPage = lazy(() => import('../modules/auth/pages/LoginPage'));
@@ -38,6 +39,7 @@ const PermissionsPage = lazy(() => import('../modules/settings/pages/Permissions
 const SystemSettings = lazy(() => import('../modules/settings/pages/SystemSettings'));
 const ProfilePage = lazy(() => import('../modules/settings/pages/ProfilePage'));
 const UsersPage = lazy(() => import('../modules/users/pages/UsersPage'));
+const NotificationsPage = lazy(() => import('../modules/notifications/pages/NotificationsPage'));
 
 export const router = createBrowserRouter([
   {
@@ -63,9 +65,11 @@ export const router = createBrowserRouter([
   {
     path: '/',
     element: (
-      <ProtectedRoute>
-        <DashboardLayout />
-      </ProtectedRoute>
+      <ErrorBoundary>
+        <ProtectedRoute>
+          <DashboardLayout />
+        </ProtectedRoute>
+      </ErrorBoundary>
     ),
     children: [
       {
@@ -304,6 +308,27 @@ export const router = createBrowserRouter([
             element: (
               <SuspenseWrapper>
                 <DepartmentAnalytics />
+              </SuspenseWrapper>
+            ),
+          },
+        ],
+      },
+      {
+        path: 'notifications',
+        element: (
+          <SuspenseWrapper>
+            <NotificationsPage />
+          </SuspenseWrapper>
+        ),
+      },
+      {
+        path: 'workflow',
+        children: [
+          {
+            path: 'approvals',
+            element: (
+              <SuspenseWrapper>
+                <ApprovalsPage />
               </SuspenseWrapper>
             ),
           },

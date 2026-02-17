@@ -91,21 +91,16 @@ export interface EmployeeListResponse {
 }
 
 export interface CreateEmployeeDto {
-  employeeCode: string;
+  employeeCode: string; // Must match /^EMP\d{3,5}$/
   firstName: string;
   lastName: string;
   email: string;
   phone?: string;
-  gender?: Gender;
-  dateOfBirth?: string;
   departmentId?: string;
   designation?: string;
   managerId?: string;
-  employmentType: EmploymentType;
-  dateOfJoining: string;
-  address?: string;
-  emergencyContact?: string;
-  bankDetails?: string;
+  dateOfJoining: string; // ISO date string
+  employmentStatus?: string;
 }
 
 export interface UpdateEmployeeDto {

@@ -23,7 +23,7 @@ export default function JobsPage() {
     title: '',
     description: '',
     departmentId: '',
-    positions: 1,
+    openings: 1,
   });
 
   const handleCreate = async () => {
@@ -33,7 +33,7 @@ export default function JobsPage() {
       title: '',
       description: '',
       departmentId: '',
-      positions: 1,
+      openings: 1,
     });
   };
 
@@ -133,7 +133,7 @@ export default function JobsPage() {
                     <td className="px-10 py-8">
                       <div className="flex items-center gap-3">
                          <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest opacity-60">ALLOCATED NODES:</span>
-                         <span className="text-sm font-black text-slate-900 tracking-tighter">{job.positions}</span>
+                         <span className="text-sm font-black text-slate-900 tracking-tighter">{job.openings}</span>
                       </div>
                     </td>
                     <td className="px-10 py-8 whitespace-nowrap text-right">
@@ -208,8 +208,8 @@ export default function JobsPage() {
                <label className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] ml-1">Node Count</label>
                <input
                  type="number"
-                 value={newJob.positions}
-                 onChange={(e) => setNewJob({ ...newJob, positions: Number(e.target.value) })}
+                 value={newJob.openings}
+                 onChange={(e) => setNewJob({ ...newJob, openings: Number(e.target.value) })}
                  className="w-full px-8 py-5 border border-white/60 rounded-3xl text-sm font-black text-slate-900 bg-white/40 focus:outline-none focus:ring-4 focus:ring-slate-100 transition-all uppercase tracking-widest shadow-inner"
                  min={1}
                />

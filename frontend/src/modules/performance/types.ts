@@ -27,7 +27,7 @@ export interface PerformanceReview {
   id: string;
   employeeId: string;
   reviewerId: string;
-  period: string;
+  reviewPeriod: string;
   rating: number; // 1-5
   strengths: string;
   improvements: string;
@@ -64,9 +64,10 @@ export interface UpdateGoalProgressDto {
 
 export interface CreateReviewDto {
   employeeId: string;
-  period: string;
+  reviewerId: string;
+  reviewPeriod: string;
   rating: number;
-  strengths: string;
-  improvements: string;
-  comments: string;
+  comments?: string;
+  strengths?: string;
+  improvements?: string;
 }

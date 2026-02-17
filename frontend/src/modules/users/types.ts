@@ -1,16 +1,15 @@
-// User entity types
 export interface User {
   id: string;
   email: string;
-  isActive: boolean;
-  emailVerified: boolean;
-  lastLogin?: string;
   roleId?: string;
   employeeId?: string;
+  role?: {
+    id: string;
+    name: string;
+  };
+  employee?: Employee;
   createdAt: string;
   updatedAt: string;
-  role?: Role;
-  employee?: Employee;
 }
 
 // Role reference (simplified)

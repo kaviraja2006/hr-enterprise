@@ -23,6 +23,6 @@ export const departmentApi = {
   },
 
   assignHead: (id: string, headId: string): Promise<Department> => {
-    return apiClient.post<Department>(`/departments/${id}/head`, { headId });
+    return apiClient.post<Department>(`/departments/${id}/head/${headId}`);
   },
 };

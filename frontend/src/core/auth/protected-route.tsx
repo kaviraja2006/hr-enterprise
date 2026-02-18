@@ -30,7 +30,7 @@ export function ProtectedRoute({
 
   // Check role requirements
   if (requiredRoles && requiredRoles.length > 0) {
-    const hasRole = requiredRoles.includes(user.roleName);
+    const hasRole = requiredRoles.includes(user.role?.name || '');
     if (!hasRole) {
       return <Navigate to="/unauthorized" replace />;
     }

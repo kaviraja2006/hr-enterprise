@@ -1,27 +1,30 @@
 // Recruitment Types
 
-export type JobStatus = 'OPEN' | 'CLOSED' | 'ON_HOLD';
-export type CandidateStage = 'APPLIED' | 'SCREENING' | 'INTERVIEW' | 'OFFERED' | 'HIRED' | 'REJECTED';
+export type JobStatus = 'draft' | 'published' | 'closed';
+export type CandidateStage = 'applied' | 'screening' | 'interview' | 'offer' | 'hired' | 'rejected';
 
 export interface Job {
   id: string;
   title: string;
-  description: string;
-  departmentId: string;
-  positions: number;
+  description?: string;
+  departmentId?: string;
+  requirements?: string;
+  location?: string;
+  employmentType?: string;
+  minSalary?: number;
+  maxSalary?: number;
+  openings?: number;
   status: JobStatus;
   postedDate: string;
   closedDate?: string;
-  createdAt: string;
-  updatedAt: string;
-  postedAt?: string; // Add alias for postedDate
-  location?: string;
+  postedAt?: string;
   candidateCount?: number;
-  openings?: number;
   department?: {
     id: string;
     name: string;
   };
+  createdAt: string;
+  updatedAt: string;
 }
 
 export interface Candidate {
@@ -52,17 +55,26 @@ export interface CandidateListResponse {
 
 export interface CreateJobDto {
   title: string;
-  description: string;
-  departmentId: string;
-  positions: number;
+  description?: string;
+  departmentId?: string;
+  requirements?: string;
+  location?: string;
+  employmentType?: string;
+  minSalary?: number;
+  maxSalary?: number;
+  openings?: number;
 }
 
 export interface CreateCandidateDto {
   jobId: string;
-  name: string;
+  firstName: string;
+  lastName: string;
   email: string;
-  phone: string;
-  resume?: string;
+  phone?: string;
+  resumeUrl?: string;
+  coverLetter?: string;
+  source?: string;
+  notes?: string;
 }
 
 export interface RecruitmentSummary {
@@ -72,4 +84,29 @@ export interface RecruitmentSummary {
   avgTimeToHire: number;
   interviewsScheduled: number;
   candidatesByStage: Record<CandidateStage, number>;
+}
+
+export type InterviewType = 'screening' | 'technical' | 'behavioral' | 'final';
+export type InterviewStatus = 'scheduled' | 'completed' | 'cancelled' | 'pending_feedback';
+
+export interface Interview {
+  id: string;
+  candidateId: string;
+  interviewerId: string;
+  scheduledAt: string;
+  type: InterviewType;
+  status: InterviewStatus;
+  feedback?: string;
+  score?: number;
+  meetingLink?: string;
+  location?: string;
+  createdAt: string;
+  updatedAt: string;
+  candidate?: Candidate;
+  interviewer?: {
+    id: string;
+    firstName: string;
+    lastName: string;
+    email: string;
+  };
 }

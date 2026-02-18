@@ -219,7 +219,7 @@ export class WorkflowService {
     }
 
     // Find the current step
-    const currentStep = approval.steps.find((s) => s.stepNumber === approval.currentStep);
+    const currentStep = approval.steps.find((s: { stepNumber: number }) => s.stepNumber === approval.currentStep);
     if (!currentStep) {
       throw new BadRequestException('No current step found');
     }
@@ -290,7 +290,7 @@ export class WorkflowService {
     }
 
     // Find the current step
-    const currentStep = approval.steps.find((s) => s.stepNumber === approval.currentStep);
+    const currentStep = approval.steps.find((s: { stepNumber: number }) => s.stepNumber === approval.currentStep);
     if (!currentStep) {
       throw new BadRequestException('No current step found');
     }
@@ -327,6 +327,10 @@ export class WorkflowService {
   }
 
   async getPendingApprovalsForUser(approverId: string) {
+    if (!approverId) {
+      this.logger.warn('getPendingApprovalsForUser called with null/empty approverId');
+      return [];
+    }
     const approvals = await this.prisma.approval.findMany({
       where: {
         status: 'pending',
@@ -400,5 +404,115 @@ export class WorkflowService {
         },
       },
     });
+  }
+
+  async getApprovalStats(userId: string) {
+    if (!userId) {
+      this.logger.warn('getApprovalStats called with null/empty userId');
+      return {
+        pendingForMe: 0,
+        myRequestsPending: 0,
+        totalApproved: 0,
+        totalRejected: 0,
+        pendingTrend: { value: 0, isPositive: true },
+        requestsTrend: { value: 0, isPositive: true },
+        approvalRate: 0,
+        rejectionRate: 0,
+      };
+    }
+    const now = new Date();
+    const sevenDaysAgo = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
+    const fourteenDaysAgo = new Date(now.getTime() - 14 * 24 * 60 * 60 * 1000);
+
+    // Current period (last 7 days)
+    const pendingForMe = await this.prisma.approval.count({
+      where: {
+        status: 'pending',
+        steps: {
+          some: {
+            approverId: userId,
+            status: 'pending',
+          },
+        },
+      },
+    });
+
+    const myRequestsPending = await this.prisma.approval.count({
+      where: {
+        requesterId: userId,
+        status: 'pending',
+      },
+    });
+
+    const totalApproved = await this.prisma.approval.count({
+      where: {
+        status: 'approved',
+      },
+    });
+
+    const totalRejected = await this.prisma.approval.count({
+      where: {
+        status: 'rejected',
+      },
+    });
+
+    // Previous period (7-14 days ago) for trend calculation
+    const previousPendingForMe = await this.prisma.approval.count({
+      where: {
+        status: 'pending',
+        createdAt: {
+          gte: fourteenDaysAgo,
+          lt: sevenDaysAgo,
+        },
+        steps: {
+          some: {
+            approverId: userId,
+            status: 'pending',
+          },
+        },
+      },
+    });
+
+    const previousMyRequests = await this.prisma.approval.count({
+      where: {
+        requesterId: userId,
+        status: 'pending',
+        createdAt: {
+          gte: fourteenDaysAgo,
+          lt: sevenDaysAgo,
+        },
+      },
+    });
+
+    // Calculate trends
+    const pendingTrend = this.calculateTrend(pendingForMe, previousPendingForMe);
+    const requestsTrend = this.calculateTrend(myRequestsPending, previousMyRequests);
+
+    // Calculate approval and rejection rates
+    const totalProcessed = totalApproved + totalRejected;
+    const approvalRate = totalProcessed > 0 ? Math.round((totalApproved / totalProcessed) * 100) : 0;
+    const rejectionRate = totalProcessed > 0 ? Math.round((totalRejected / totalProcessed) * 100) : 0;
+
+    return {
+      pendingForMe,
+      myRequestsPending,
+      totalApproved,
+      totalRejected,
+      pendingTrend,
+      requestsTrend,
+      approvalRate,
+      rejectionRate,
+    };
+  }
+
+  private calculateTrend(current: number, previous: number): { value: number; isPositive: boolean } {
+    if (previous === 0) {
+      return { value: 0, isPositive: current >= 0 };
+    }
+    const percentChange = Math.round(((current - previous) / previous) * 100);
+    return {
+      value: Math.abs(percentChange),
+      isPositive: percentChange >= 0,
+    };
   }
 }

@@ -1,15 +1,15 @@
 // Leave Management Types
 
-export type LeaveRequestStatus = 'PENDING' | 'APPROVED' | 'REJECTED' | 'CANCELLED';
+export type LeaveRequestStatus = 'pending' | 'approved' | 'rejected' | 'cancelled';
 export type LeaveStatus = LeaveRequestStatus;
 
 export interface LeaveType {
   id: string;
   name: string;
   description?: string;
-  daysPerYear: number;
-  isPaid: boolean;
-  isCarryForward: boolean;
+  annualLimit: number;
+  carryForwardAllowed?: boolean;
+  maxCarryForward?: number;
   createdAt: string;
   updatedAt: string;
 }
@@ -55,11 +55,18 @@ export interface LeaveBalance {
 }
 
 export interface CreateLeaveRequestDto {
-  employeeId: string;
+  employeeId?: string;
   leaveTypeId: string;
   startDate: string;
   endDate: string;
   reason: string;
+}
+
+export interface LeaveSummary {
+  totalRequests: number;
+  totalDaysTaken: number;
+  pendingRequests: number;
+  approvedRequests: number;
 }
 
 export interface LeaveListParams {

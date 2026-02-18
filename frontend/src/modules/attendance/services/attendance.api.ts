@@ -31,21 +31,38 @@ export const attendanceApi = {
 
   // Get today's attendance stats
   getTodayStats: (): Promise<AttendanceStats> => {
-    return apiClient.get<AttendanceStats>('/analytics/attendance/today');
+    return apiClient.get<AttendanceStats>('/attendance/today-stats');
   },
 
   // Get employee attendance
-  getEmployeeAttendance: (employeeId: string, params?: AttendanceListParams): Promise<Attendance[]> => {
-    return apiClient.get<Attendance[]>(`/attendance/employee/${employeeId}`, { params });
+  getEmployeeAttendance: async (employeeId: string, params?: AttendanceListParams): Promise<Attendance[]> => {
+    const response = await apiClient.getPaginated<Attendance>('/attendance', { 
+      params: { ...params, employeeId } 
+    });
+    return response.data;
   },
 
   // Get employee attendance summary
-  getEmployeeSummary: (employeeId: string): Promise<AttendanceStats> => {
-    return apiClient.get<AttendanceStats>(`/attendance/summary/${employeeId}`);
+  getEmployeeSummary: (employeeId: string, month?: number, year?: number): Promise<AttendanceStats> => {
+    return apiClient.get<AttendanceStats>(`/attendance/summary/${employeeId}`, {
+      params: { month, year }
+    });
   },
 
   // Delete attendance record
   delete: (id: string): Promise<void> => {
     return apiClient.delete(`/attendance/${id}`);
+  },
+
+  getMyAttendance: (startDate?: string, endDate?: string): Promise<Attendance[]> => {
+    return apiClient.get<Attendance[]>('/attendance/my', { params: { startDate, endDate } });
+  },
+
+  get: (id: string): Promise<Attendance> => {
+    return apiClient.get<Attendance>(`/attendance/${id}`);
+  },
+
+  update: (id: string, data: Partial<Attendance>): Promise<Attendance> => {
+    return apiClient.patch<Attendance>(`/attendance/${id}`, data);
   },
 };

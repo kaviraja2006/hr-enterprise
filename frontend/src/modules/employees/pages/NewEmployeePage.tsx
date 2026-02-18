@@ -14,7 +14,6 @@ export default function NewEmployeePage() {
     lastName: '',
     email: '',
     phone: '',
-    dateOfBirth: '',
     dateOfJoining: new Date().toISOString().split('T')[0],
   });
 
@@ -95,18 +94,6 @@ export default function NewEmployeePage() {
               />
             </div>
 
-            <div>
-              <label className="block text-sm font-bold text-slate-700 mb-2">
-                Date of Birth *
-              </label>
-              <input
-                type="date"
-                required
-                value={formData.dateOfBirth}
-                onChange={(e) => handleChange('dateOfBirth', e.target.value)}
-                className="w-full px-4 py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-slate-900"
-              />
-            </div>
 
             <div>
               <label className="block text-sm font-bold text-slate-700 mb-2">

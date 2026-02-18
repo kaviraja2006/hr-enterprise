@@ -45,7 +45,6 @@ export default function UsersPage() {
     setEditingUser(user);
     setFormData({
       email: user.email,
-      isActive: user.isActive,
       roleId: user.roleId,
     });
     setIsModalOpen(true);
@@ -101,24 +100,16 @@ export default function UsersPage() {
                   <td className="p-4 text-slate-600">{user.role?.name || 'No role'}</td>
                   <td className="p-4">
                     <span
-                      className={`px-3 py-1 rounded-full text-xs font-bold ${
-                        user.isActive
-                          ? 'bg-green-100 text-green-800'
-                          : 'bg-red-100 text-red-800'
-                      }`}
+                      className="px-3 py-1 rounded-full text-xs font-bold bg-blue-100 text-blue-800"
                     >
-                      {user.isActive ? 'Active' : 'Inactive'}
+                      Provisioned
                     </span>
                   </td>
                   <td className="p-4">
                     <span
-                      className={`px-3 py-1 rounded-full text-xs font-bold ${
-                        user.emailVerified
-                          ? 'bg-blue-100 text-blue-800'
-                          : 'bg-gray-100 text-gray-800'
-                      }`}
+                      className="px-3 py-1 rounded-full text-xs font-bold bg-gray-100 text-gray-800"
                     >
-                      {user.emailVerified ? 'Verified' : 'Unverified'}
+                      Active
                     </span>
                   </td>
                   <td className="p-4 text-right space-x-2">
@@ -193,18 +184,7 @@ export default function UsersPage() {
                 </select>
               </div>
 
-              <div className="flex items-center">
-                <input
-                  type="checkbox"
-                  id="isActive"
-                  checked={formData.isActive}
-                  onChange={(e) => setFormData({ ...formData, isActive: e.target.checked })}
-                  className="mr-2"
-                />
-                <label htmlFor="isActive" className="text-sm font-bold text-slate-700">
-                  Active
-                </label>
-              </div>
+
 
               <div className="flex gap-4 pt-4">
                 <Button

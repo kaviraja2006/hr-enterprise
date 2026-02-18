@@ -1,22 +1,31 @@
 // Payroll Types
 
-export type PayrollRunStatus = 'DRAFT' | 'CALCULATED' | 'APPROVED' | 'PROCESSED';
+export type PayrollRunStatus = 'draft' | 'approved' | 'processed';
+
+export interface SalaryComponent {
+  id?: string;
+  name: string;
+  amount: number;
+  type?: 'allowance' | 'deduction';
+  isTaxable?: boolean;
+}
 
 export interface SalaryStructure {
   id: string;
-  employeeId: string;
+  name: string;
+  description?: string;
   basic: number;
+  baseSalary: number; // Alias for UI compatibility
   hra: number;
-  conveyance: number;
-  medicalAllowance: number;
-  specialAllowance: number;
-  professionalTax: number;
-  pf: number;
-  esi: number;
-  grossSalary: number;
-  totalDeductions: number;
-  netSalary: number;
-  effectiveFrom: string;
+  conveyance?: number;
+  medicalAllowance?: number;
+  specialAllowance?: number;
+  professionalTax?: number;
+  pf?: number;
+  esi?: number;
+  isActive?: boolean;
+  allowances?: SalaryComponent[];
+  deductions?: SalaryComponent[];
   createdAt: string;
   updatedAt: string;
 }
@@ -47,10 +56,12 @@ export interface PayrollEntry {
   payrollRunId: string;
   employeeId: string;
   grossSalary: number;
-  deductions: number;
-  netSalary: number;
   lopDays: number;
-  lopAmount: number;
+  lopDeduction: number;
+  totalDeductions: number;
+  netSalary: number;
+  additions?: Record<string, number>;
+  deductions?: Record<string, number>;
   employee?: {
     id: string;
     firstName: string;
@@ -70,13 +81,14 @@ export interface CreatePayrollRunDto {
 }
 
 export interface CreateSalaryStructureDto {
-  employeeId: string;
+  name: string;
+  description?: string;
   basic: number;
   hra: number;
-  conveyance: number;
-  medicalAllowance: number;
-  specialAllowance: number;
-  professionalTax: number;
-  pf: number;
-  esi: number;
+  conveyance?: number;
+  medicalAllowance?: number;
+  specialAllowance?: number;
+  professionalTax?: number;
+  pf?: number;
+  esi?: number;
 }

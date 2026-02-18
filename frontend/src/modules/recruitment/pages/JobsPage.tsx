@@ -8,7 +8,7 @@ import { Button } from '../../../shared/components/ui/Button';
 import { Modal } from '../../../shared/components/ui/Modal';
 import { Card } from '../../../shared/components/ui/Card';
 
-const jobStatuses: JobStatus[] = ['OPEN', 'CLOSED', 'ON_HOLD'];
+const jobStatuses: JobStatus[] = ['published', 'closed', 'draft'];
 
 export default function JobsPage() {
   const [status, setStatus] = useState<JobStatus | ''>('');
@@ -23,7 +23,7 @@ export default function JobsPage() {
     title: '',
     description: '',
     departmentId: '',
-    positions: 1,
+    openings: 1,
   });
 
   const handleCreate = async () => {
@@ -33,7 +33,7 @@ export default function JobsPage() {
       title: '',
       description: '',
       departmentId: '',
-      positions: 1,
+      openings: 1,
     });
   };
 
@@ -43,9 +43,9 @@ export default function JobsPage() {
 
   const getStatusColor = (status: JobStatus) => {
     const colors: Record<JobStatus, 'success' | 'warning' | 'default'> = {
-      OPEN: 'success',
-      ON_HOLD: 'warning',
-      CLOSED: 'default',
+      published: 'success',
+      draft: 'warning',
+      closed: 'default',
     };
     return colors[status] || 'default';
   };
@@ -133,12 +133,12 @@ export default function JobsPage() {
                     <td className="px-10 py-8">
                       <div className="flex items-center gap-3">
                          <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest opacity-60">ALLOCATED NODES:</span>
-                         <span className="text-sm font-black text-slate-900 tracking-tighter">{job.positions}</span>
+                         <span className="text-sm font-black text-slate-900 tracking-tighter">{job.openings}</span>
                       </div>
                     </td>
                     <td className="px-10 py-8 whitespace-nowrap text-right">
                       <div className="flex items-center justify-end gap-3 opacity-0 group-hover:opacity-100 transition-all transform translate-x-2 group-hover:translate-x-0">
-                        {job.status === 'OPEN' && (
+                        {job.status === 'published' && (
                           <button
                             onClick={() => handleClose(job.id)}
                             className="p-3 text-amber-500 bg-white/40 hover:bg-white hover:shadow-xl rounded-2xl border border-white/60 transition-all duration-500"
@@ -208,8 +208,8 @@ export default function JobsPage() {
                <label className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] ml-1">Node Count</label>
                <input
                  type="number"
-                 value={newJob.positions}
-                 onChange={(e) => setNewJob({ ...newJob, positions: Number(e.target.value) })}
+                 value={newJob.openings}
+                 onChange={(e) => setNewJob({ ...newJob, openings: Number(e.target.value) })}
                  className="w-full px-8 py-5 border border-white/60 rounded-3xl text-sm font-black text-slate-900 bg-white/40 focus:outline-none focus:ring-4 focus:ring-slate-100 transition-all uppercase tracking-widest shadow-inner"
                  min={1}
                />

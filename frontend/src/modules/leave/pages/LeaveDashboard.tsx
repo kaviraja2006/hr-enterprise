@@ -6,7 +6,7 @@ import { Button } from '../../../shared/components/ui/Button';
 import { StatCard, Card } from '../../../shared/components/ui/Card';
 import { DataTable, type Column } from '../../../shared/components/ui/DataTable';
 import { Modal } from '../../../shared/components/ui/Modal';
-import type { LeaveRequest, LeaveBalance } from '../types';
+import type { LeaveRequest, LeaveBalance, LeaveSummary } from '../types';
 
 const statusColors: Record<string, 'success' | 'warning' | 'danger' | 'default'> = {
   approved: 'success',
@@ -15,12 +15,7 @@ const statusColors: Record<string, 'success' | 'warning' | 'danger' | 'default'>
   cancelled: 'default',
 };
 
-interface LeaveSummary {
-  totalRequests: number;
-  totalDaysTaken: number;
-  pendingRequests: number;
-  approvedRequests: number;
-}
+// LeaveSummary interface removed from here as it is now in types.ts
 
 export default function LeaveDashboard() {
   const currentYear = new Date().getFullYear();
@@ -35,9 +30,12 @@ export default function LeaveDashboard() {
     reason: '',
   });
 
-  const { data: balance, isLoading: balanceLoading } = useLeaveBalance(selectedYear);
+  const { data: balanceData, isLoading: balanceLoading } = useLeaveBalance(selectedYear);
+  const balance = balanceData?.balances || ([] as LeaveBalance[]);
+  
   const { data: rawSummary } = useLeaveSummary(selectedYear);
-  const summary = rawSummary as LeaveSummary | undefined;
+  const summary: LeaveSummary | undefined = rawSummary?.summary;
+  
   const { data: recentRequests, isLoading: requestsLoading } = useMyLeaveRequests();
   const { data: leaveTypes } = useLeaveTypes();
   const createRequest = useCreateLeaveRequest();
@@ -49,7 +47,6 @@ export default function LeaveDashboard() {
     try {
       await createRequest.mutateAsync({
         ...formData,
-        employeeId: user.employeeId,
       });
       setIsModalOpen(false);
       setFormData({ leaveTypeId: '', startDate: '', endDate: '', reason: '' });
@@ -182,7 +179,7 @@ export default function LeaveDashboard() {
                    <p className="text-[11px] font-black text-slate-300 uppercase tracking-[0.3em]">No Reserves Allocated</p>
                 </div>
               ) : (
-                balance.map((item) => (
+                balance.map((item: LeaveBalance) => (
                    <BalanceRecord key={item.id} balance={item} />
                 ))
               )}

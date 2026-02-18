@@ -30,6 +30,9 @@ import { SchedulerModule } from './scheduler/scheduler.module';
 import { UploadModule } from './modules/upload/upload.module';
 import { NotificationsModule } from './modules/notifications/notifications.module';
 import { HealthModule } from './modules/health/health.module';
+import { ShiftsModule } from './shifts/shifts.module';
+import { HolidaysModule } from './holidays/holidays.module';
+import { HelpdeskModule } from './helpdesk/helpdesk.module';
 import { JwtAuthGuard, RolesGuard, PermissionsGuard } from './common/guards';
 
 @Module({
@@ -85,6 +88,9 @@ import { JwtAuthGuard, RolesGuard, PermissionsGuard } from './common/guards';
     UploadModule,
     NotificationsModule,
     HealthModule,
+    ShiftsModule,
+    HolidaysModule,
+    HelpdeskModule,
   ],
   controllers: [AppController],
   providers: [

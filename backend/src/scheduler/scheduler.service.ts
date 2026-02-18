@@ -33,7 +33,7 @@ export class SchedulerService {
         select: { employeeId: true },
       });
 
-      const markedEmployeeIds = new Set(existingAttendance.map((a) => a.employeeId));
+      const markedEmployeeIds = new Set(existingAttendance.map((a: { employeeId: string }) => a.employeeId));
 
       // Get employees on approved leave
       const approvedLeaves = await this.prisma.leaveRequest.findMany({
@@ -45,16 +45,16 @@ export class SchedulerService {
         select: { employeeId: true },
       });
 
-      const employeesOnLeave = new Set(approvedLeaves.map((l) => l.employeeId));
+      const employeesOnLeave = new Set(approvedLeaves.map((l: { employeeId: string }) => l.employeeId));
 
       // Mark absent for employees without attendance
       const absentEmployees = activeEmployees.filter(
-        (e) => !markedEmployeeIds.has(e.id) && !employeesOnLeave.has(e.id),
+        (e: { id: string }) => !markedEmployeeIds.has(e.id) && !employeesOnLeave.has(e.id),
       );
 
       if (absentEmployees.length > 0) {
         await this.prisma.attendance.createMany({
-          data: absentEmployees.map((e) => ({
+          data: absentEmployees.map((e: { id: string }) => ({
             employeeId: e.id,
             date: today,
             status: 'absent',
@@ -70,12 +70,12 @@ export class SchedulerService {
 
       // Mark on-leave for employees with approved leave
       const leaveEmployees = activeEmployees.filter(
-        (e) => !markedEmployeeIds.has(e.id) && employeesOnLeave.has(e.id),
+        (e: { id: string }) => !markedEmployeeIds.has(e.id) && employeesOnLeave.has(e.id),
       );
 
       if (leaveEmployees.length > 0) {
         await this.prisma.attendance.createMany({
-          data: leaveEmployees.map((e) => ({
+          data: leaveEmployees.map((e: { id: string }) => ({
             employeeId: e.id,
             date: today,
             status: 'on-leave',
@@ -183,7 +183,7 @@ export class SchedulerService {
       });
 
       for (const prevBalance of previousBalances) {
-        const leaveType = leaveTypes.find((lt) => lt.id === prevBalance.leaveTypeId);
+        const leaveType = leaveTypes.find((lt: { id: string }) => lt.id === prevBalance.leaveTypeId);
         if (!leaveType) continue;
 
         const carryForwardDays = leaveType.maxCarryForward

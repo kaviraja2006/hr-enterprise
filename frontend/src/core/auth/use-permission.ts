@@ -12,7 +12,7 @@ export function usePermission() {
     hasPermission,
     hasAnyPermission,
     allPermissions: permissions,
-    userRole: user?.roleName,
-    isAdmin: user?.roleName === 'Admin',
+    userRole: user?.role?.name,
+    isAdmin: user?.role?.name === 'Admin',
   };
 }

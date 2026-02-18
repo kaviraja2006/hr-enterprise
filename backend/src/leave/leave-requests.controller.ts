@@ -147,6 +147,9 @@ export class LeaveRequestsController {
     @Param('id') id: string,
     @CurrentUser() user: CurrentUserPayload,
   ) {
-    return this.leaveService.cancelLeaveRequest(id, user.userId);
+    if (!user.employeeId) {
+      throw new Error('User is not linked to an employee');
+    }
+    return this.leaveService.cancelLeaveRequest(id, user.employeeId);
   }
 }

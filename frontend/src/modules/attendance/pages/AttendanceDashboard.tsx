@@ -7,15 +7,24 @@ import { DataTable, type Column } from '../../../shared/components/ui/DataTable'
 import type { Attendance } from '../types';
 
 const statusColors: Record<string, 'success' | 'warning' | 'danger' | 'default'> = {
-  PRESENT: 'success',
-  ABSENT: 'danger',
-  LATE: 'warning',
-  HALF_DAY: 'warning',
-  ON_LEAVE: 'default',
+  present: 'success',
+  absent: 'danger',
+  late: 'warning',
+  'half-day': 'warning',
+  'on-leave': 'default',
 };
 
 export default function AttendanceDashboard() {
-  const today = new Date().toISOString().split('T')[0];
+  // Calculate today in IST to match backend logic
+  const getISTDate = () => {
+    const IST_OFFSET = 5.5 * 60 * 60 * 1000;
+    const now = new Date();
+    // Use a temporary date shifted by the offset to get the correct YYYY-MM-DD for IST
+    // Note: This is a common trick to get local date string from ISO format
+    return new Date(now.getTime() + IST_OFFSET).toISOString().split('T')[0];
+  };
+
+  const today = getISTDate();
   const [currentTime, setCurrentTime] = useState(new Date());
   const { user } = useAuthContext();
   
@@ -29,13 +38,20 @@ export default function AttendanceDashboard() {
   const checkInMutation = useCheckIn();
   const checkOutMutation = useCheckOut();
 
+  const userAttendance = recentAttendance?.data?.find(a => a.employeeId === user?.employeeId);
+  const isCheckedIn = !!userAttendance?.checkIn;
+  const isCheckedOut = !!userAttendance?.checkOut;
+
   const handlePunchIn = async () => {
     if (!user?.employeeId) {
       alert('No employee record found for your user account.');
       return;
     }
     try {
-      await checkInMutation.mutateAsync({ employeeId: user.employeeId });
+      await checkInMutation.mutateAsync({ 
+        employeeId: user.employeeId,
+        timestamp: new Date().toISOString()
+      });
     } catch (err) {
       console.error('Punch In failed:', err);
     }
@@ -47,7 +63,10 @@ export default function AttendanceDashboard() {
       return;
     }
     try {
-      await checkOutMutation.mutateAsync({ employeeId: user.employeeId });
+      await checkOutMutation.mutateAsync({ 
+        employeeId: user.employeeId,
+        timestamp: new Date().toISOString()
+      });
     } catch (err) {
       console.error('Punch Out failed:', err);
     }
@@ -122,7 +141,7 @@ export default function AttendanceDashboard() {
     {
        header: 'Protocol Status',
        accessor: (record) => (
-         <Badge variant={statusColors[record.status]} className="font-black text-[9px] uppercase tracking-[0.2em] px-3 py-1.5 shadow-xl backdrop-blur-md">
+         <Badge variant={statusColors[record.status.toLowerCase()]} className="font-black text-[9px] uppercase tracking-[0.2em] px-3 py-1.5 shadow-xl backdrop-blur-md">
            {record.status}
          </Badge>
        )
@@ -152,9 +171,9 @@ export default function AttendanceDashboard() {
         <div className="lg:col-span-1 space-y-10">
           <Card title="Operational Terminal" subtitle="Manual override & protocol logic">
             <div className="grid grid-cols-2 gap-8">
-               <button 
+                <button 
                   onClick={handlePunchIn}
-                  disabled={checkInMutation.isPending || !user?.employeeId}
+                  disabled={checkInMutation.isPending || isCheckedIn || !user?.employeeId}
                   className="group flex flex-col items-center justify-center p-12 bg-white/40 border border-white/60 rounded-[3rem] hover:bg-white hover:border-white/80 transition-all duration-700 shadow-[0_20px_40px_-15px_rgba(0,0,0,0.08)] hover:shadow-[0_30px_60px_-15px_rgba(0,0,0,0.12)] hover:-translate-y-2 active:scale-95 text-slate-400 hover:text-slate-900 disabled:opacity-50 disabled:cursor-not-allowed ring-1 ring-white/10 backdrop-blur-md gloss-overlay"
                >
                   <div className="w-20 h-20 bg-white/60 rounded-[1.5rem] shadow-sm flex items-center justify-center text-slate-400 group-hover:bg-emerald-500 group-hover:text-white transition-all duration-700 border border-white group-hover:scale-110 group-hover:rotate-3">
@@ -167,12 +186,12 @@ export default function AttendanceDashboard() {
                     )}
                   </div>
                   <span className="mt-8 text-[11px] font-black group-hover:text-slate-900 uppercase tracking-[0.4em] transition-colors leading-none">
-                    {checkInMutation.isPending ? 'PROCESSING' : 'PUNCH IN'}
+                    {checkInMutation.isPending ? 'PROCESSING' : isCheckedIn ? 'CHECKED IN' : 'PUNCH IN'}
                   </span>
                </button>
                <button 
                   onClick={handlePunchOut}
-                  disabled={checkOutMutation.isPending || !user?.employeeId}
+                  disabled={checkOutMutation.isPending || isCheckedOut || !isCheckedIn || !user?.employeeId}
                   className="group flex flex-col items-center justify-center p-12 bg-white/40 border border-white/60 rounded-[3rem] hover:bg-white hover:border-white/80 transition-all duration-700 shadow-[0_20px_40px_-15px_rgba(0,0,0,0.08)] hover:shadow-[0_30px_60px_-15px_rgba(0,0,0,0.12)] hover:-translate-y-2 active:scale-95 text-slate-400 hover:text-rose-600 disabled:opacity-50 disabled:cursor-not-allowed ring-1 ring-white/10 backdrop-blur-md gloss-overlay"
                >
                   <div className="w-20 h-20 bg-white/60 rounded-[1.5rem] shadow-sm flex items-center justify-center text-slate-400 group-hover:bg-rose-500 group-hover:text-white transition-all duration-700 border border-white group-hover:scale-110 group-hover:-rotate-3">
@@ -185,7 +204,7 @@ export default function AttendanceDashboard() {
                      )}
                   </div>
                   <span className="mt-8 text-[11px] font-black group-hover:text-rose-600 uppercase tracking-[0.4em] transition-colors leading-none">
-                    {checkOutMutation.isPending ? 'PROCESSING' : 'PUNCH OUT'}
+                    {checkOutMutation.isPending ? 'PROCESSING' : isCheckedOut ? 'CHECKED OUT' : 'PUNCH OUT'}
                   </span>
                </button>
             </div>

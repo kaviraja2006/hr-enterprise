@@ -11,8 +11,16 @@ export const complianceApi = {
     return apiClient.post<FilingRecord>('/compliance/filings', data);
   },
 
-  fileFiling: (id: string, data: { filedDate: string; referenceNumber: string }): Promise<FilingRecord> => {
-    return apiClient.post<FilingRecord>(`/compliance/filings/${id}/file`, data);
+  fileFiling: (id: string, receiptNo: string): Promise<FilingRecord> => {
+    return apiClient.post<FilingRecord>(`/compliance/filings/${id}/file`, { receiptNo });
+  },
+
+  getFiling: (id: string): Promise<FilingRecord> => {
+    return apiClient.get<FilingRecord>(`/compliance/filings/${id}`);
+  },
+
+  acknowledgeFiling: (id: string): Promise<FilingRecord> => {
+    return apiClient.post<FilingRecord>(`/compliance/filings/${id}/acknowledge`);
   },
 
   getDashboard: (): Promise<ComplianceDashboard> => {
@@ -20,8 +28,8 @@ export const complianceApi = {
   },
 
   // Acknowledgements
-  getAcknowledgements: (): Promise<PolicyAcknowledgement[]> => {
-    return apiClient.get<PolicyAcknowledgement[]>('/compliance/acknowledgements');
+  getAcknowledgements: (params?: { employeeId?: string; policyName?: string }): Promise<PolicyAcknowledgement[]> => {
+    return apiClient.get<PolicyAcknowledgement[]>('/compliance/policies/acknowledgements', { params });
   },
 
   getUpcomingFilings: (): Promise<FilingRecord[]> => {
@@ -29,6 +37,10 @@ export const complianceApi = {
   },
 
   createAcknowledgement: (data: { employeeId: string; policyName: string }): Promise<PolicyAcknowledgement> => {
-    return apiClient.post<PolicyAcknowledgement>('/compliance/acknowledgements', data);
+    return apiClient.post<PolicyAcknowledgement>('/compliance/policies/acknowledge', data);
+  },
+
+  getPolicyReport: (policyName: string): Promise<any> => {
+    return apiClient.get(`/compliance/policies/${policyName}/report`);
   },
 };

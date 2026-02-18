@@ -73,7 +73,7 @@ export default function AttritionAnalytics() {
           <div className="bg-white rounded-xl border border-gray-200 shadow-sm p-6">
             <h3 className="text-lg font-semibold text-gray-900 mb-4">Monthly Attrition Trend</h3>
             <div className="space-y-4">
-              {attrition.monthlyData.map((month) => (
+              {attrition?.monthlyData?.map((month) => (
                 <div key={month.month} className="flex items-center gap-4">
                   <div className="w-24 text-sm text-gray-600">
                     {new Date(selectedYear, month.month - 1).toLocaleString('default', { month: 'short' })}

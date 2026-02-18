@@ -1,0 +1,502 @@
+[2026-02-17T21:53:48.274Z] DENIAL - Required: analytics:read - User Perms: 
+[2026-02-17T21:53:49.311Z] DENIAL - Required: analytics:read - User Perms: 
+[2026-02-17T21:55:35.163Z] DENIAL - Required: analytics:read - User Perms: 
+[2026-02-17T21:55:36.195Z] DENIAL - Required: analytics:read - User Perms: 
+[2026-02-17T21:55:41.893Z] DENIAL - Required: analytics:read - User Perms: 
+[2026-02-17T21:55:42.917Z] DENIAL - Required: analytics:read - User Perms: 
+[2026-02-17T21:57:24.540Z] DENIAL - Required: analytics:read - User Perms: 
+[2026-02-17T21:57:25.564Z] DENIAL - Required: analytics:read - User Perms: 
+[2026-02-17T21:58:06.032Z] DENIAL - Required: analytics:read - User Perms: 
+[2026-02-17T21:58:07.079Z] DENIAL - Required: analytics:read - User Perms: 
+[2026-02-17T21:58:16.548Z] DENIAL - Required: analytics:read - User Perms: 
+[2026-02-17T21:58:17.568Z] DENIAL - Required: analytics:read - User Perms: 
+[2026-02-17T21:58:32.455Z] DENIAL - Required: analytics:read - User Perms: 
+[2026-02-17T21:58:33.530Z] DENIAL - Required: analytics:read - User Perms: 
+[2026-02-17T21:59:18.788Z] DENIAL - Required: analytics:read - User Perms: 
+[2026-02-17T21:59:19.816Z] DENIAL - Required: analytics:read - User Perms: 
+[2026-02-17T22:00:47.990Z] DENIAL - Required: analytics:read - User Perms: 
+[2026-02-17T22:00:49.050Z] DENIAL - Required: analytics:read - User Perms: 
+[2026-02-17T22:01:41.811Z] DENIAL - Required: analytics:read - User Perms: 
+[2026-02-17T22:01:42.844Z] DENIAL - Required: analytics:read - User Perms: 
+[2026-02-17T22:01:53.978Z] DENIAL - Required: analytics:read - User Perms: 
+[2026-02-17T22:01:55.009Z] DENIAL - Required: analytics:read - User Perms: 
+[2026-02-17T22:02:14.770Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-17T22:02:14.788Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-17T22:03:35.410Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-17T22:03:35.430Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-17T22:06:01.185Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-17T22:06:01.198Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-17T22:10:14.384Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-17T22:10:14.399Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-17T22:11:56.214Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-17T22:11:56.224Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-17T22:24:25.495Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-17T22:24:25.522Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-17T22:27:21.045Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-17T22:27:21.063Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-17T22:30:21.188Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-17T22:30:21.209Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-17T22:30:44.302Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-17T22:30:44.313Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-17T22:30:45.190Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-17T22:30:45.210Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-17T22:30:45.218Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-17T22:30:45.247Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-17T22:30:48.334Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-17T22:30:48.343Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-17T22:30:48.349Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-17T22:30:48.372Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-17T22:30:48.388Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-17T22:30:48.399Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-17T22:30:48.595Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-17T22:30:48.615Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-17T22:30:49.157Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-17T22:30:49.172Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-17T22:30:53.357Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-17T22:30:53.373Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-17T22:30:53.380Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-17T22:30:53.393Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-17T22:30:54.345Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-17T22:30:54.359Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-17T22:31:36.676Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-17T22:31:36.690Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-17T22:37:26.962Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-17T22:37:27.022Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-17T22:37:54.661Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-17T22:37:54.673Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-17T22:38:18.082Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-17T22:38:18.087Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-17T22:38:18.100Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-17T22:38:18.107Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-17T22:38:21.833Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-17T22:38:21.845Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-17T22:39:00.139Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-17T22:39:00.151Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-17T22:39:00.157Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-17T22:39:00.175Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-17T22:39:17.954Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-17T22:39:17.964Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-17T22:39:40.443Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-17T22:39:40.456Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-17T22:40:06.000Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-17T22:40:06.035Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-17T22:40:06.042Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-17T22:40:06.051Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-17T22:40:06.058Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-17T22:40:06.119Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-17T22:40:06.139Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-17T22:40:06.150Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-17T22:40:46.532Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-17T22:40:46.545Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-17T22:43:55.485Z] DENIAL - Required: analytics:read - User Perms: users:read, users:create, users:update, users:delete, employees:read, employees:create, employees:update, employees:delete, departments:read, departments:create, departments:update, departments:delete, attendance:read, attendance:create, attendance:update, attendance:delete, leave:read, leave:create, leave:approve, leave:manage
+[2026-02-17T22:43:56.560Z] DENIAL - Required: analytics:read - User Perms: users:read, users:create, users:update, users:delete, employees:read, employees:create, employees:update, employees:delete, departments:read, departments:create, departments:update, departments:delete, attendance:read, attendance:create, attendance:update, attendance:delete, leave:read, leave:create, leave:approve, leave:manage
+[2026-02-17T22:44:45.719Z] DENIAL - Required: analytics:read - User Perms: users:read, users:create, users:update, users:delete, employees:read, employees:create, employees:update, employees:delete, departments:read, departments:create, departments:update, departments:delete, attendance:read, attendance:create, attendance:update, attendance:delete, leave:read, leave:create, leave:approve, leave:manage
+[2026-02-17T22:44:46.752Z] DENIAL - Required: analytics:read - User Perms: users:read, users:create, users:update, users:delete, employees:read, employees:create, employees:update, employees:delete, departments:read, departments:create, departments:update, departments:delete, attendance:read, attendance:create, attendance:update, attendance:delete, leave:read, leave:create, leave:approve, leave:manage
+[2026-02-17T22:44:51.247Z] ACCESS - User: sarah.johnson@hrenterprise.com - Perms Count: 20
+[2026-02-17T22:44:51.264Z] ACCESS - User: sarah.johnson@hrenterprise.com - Perms Count: 20
+[2026-02-17T22:44:51.349Z] ACCESS - User: sarah.johnson@hrenterprise.com - Perms Count: 20
+[2026-02-17T22:44:51.363Z] ACCESS - User: sarah.johnson@hrenterprise.com - Perms Count: 20
+[2026-02-17T22:44:54.735Z] ACCESS - User: sarah.johnson@hrenterprise.com - Perms Count: 20
+[2026-02-17T22:44:54.747Z] ACCESS - User: sarah.johnson@hrenterprise.com - Perms Count: 20
+[2026-02-17T22:44:59.066Z] ACCESS - User: sarah.johnson@hrenterprise.com - Perms Count: 20
+[2026-02-17T22:44:59.071Z] ACCESS - User: sarah.johnson@hrenterprise.com - Perms Count: 20
+[2026-02-17T22:44:59.094Z] ACCESS - User: sarah.johnson@hrenterprise.com - Perms Count: 20
+[2026-02-17T22:44:59.099Z] ACCESS - User: sarah.johnson@hrenterprise.com - Perms Count: 20
+[2026-02-17T22:44:59.222Z] ACCESS - User: sarah.johnson@hrenterprise.com - Perms Count: 20
+[2026-02-17T22:44:59.229Z] ACCESS - User: sarah.johnson@hrenterprise.com - Perms Count: 20
+[2026-02-17T22:44:59.248Z] ACCESS - User: sarah.johnson@hrenterprise.com - Perms Count: 20
+[2026-02-17T22:44:59.254Z] ACCESS - User: sarah.johnson@hrenterprise.com - Perms Count: 20
+[2026-02-17T22:45:22.284Z] ACCESS - User: sarah.johnson@hrenterprise.com - Perms Count: 20
+[2026-02-17T22:45:22.296Z] ACCESS - User: sarah.johnson@hrenterprise.com - Perms Count: 20
+[2026-02-17T22:45:22.417Z] ACCESS - User: sarah.johnson@hrenterprise.com - Perms Count: 20
+[2026-02-17T22:45:22.438Z] ACCESS - User: sarah.johnson@hrenterprise.com - Perms Count: 20
+[2026-02-17T22:45:22.543Z] ACCESS - User: sarah.johnson@hrenterprise.com - Perms Count: 20
+[2026-02-17T22:45:22.551Z] ACCESS - User: sarah.johnson@hrenterprise.com - Perms Count: 20
+[2026-02-17T22:45:22.571Z] ACCESS - User: sarah.johnson@hrenterprise.com - Perms Count: 20
+[2026-02-17T22:45:22.576Z] ACCESS - User: sarah.johnson@hrenterprise.com - Perms Count: 20
+[2026-02-17T22:45:28.684Z] ACCESS - User: sarah.johnson@hrenterprise.com - Perms Count: 20
+[2026-02-17T22:45:28.696Z] ACCESS - User: sarah.johnson@hrenterprise.com - Perms Count: 20
+[2026-02-17T22:45:56.427Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-17T22:45:56.441Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-17T22:45:59.818Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-17T22:45:59.828Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-17T22:46:13.642Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-17T22:46:13.653Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-17T22:55:09.700Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-17T22:55:09.718Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-17T22:55:50.310Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-17T22:55:50.323Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-17T22:59:38.985Z] DENIAL - Required: analytics:read - User Perms: employees:read, departments:read, attendance:read, attendance:create, leave:read, leave:create
+[2026-02-17T22:59:40.017Z] DENIAL - Required: analytics:read - User Perms: employees:read, departments:read, attendance:read, attendance:create, leave:read, leave:create
+[2026-02-17T22:59:45.208Z] DENIAL - Required: analytics:read - User Perms: employees:read, departments:read, attendance:read, attendance:create, leave:read, leave:create
+[2026-02-17T22:59:46.237Z] DENIAL - Required: analytics:read - User Perms: employees:read, departments:read, attendance:read, attendance:create, leave:read, leave:create
+[2026-02-17T22:59:49.971Z] DENIAL - Required: analytics:read - User Perms: employees:read, departments:read, attendance:read, attendance:create, leave:read, leave:create
+[2026-02-17T22:59:51.019Z] DENIAL - Required: analytics:read - User Perms: employees:read, departments:read, attendance:read, attendance:create, leave:read, leave:create
+[2026-02-17T22:59:53.395Z] DENIAL - Required: analytics:read - User Perms: employees:read, departments:read, attendance:read, attendance:create, leave:read, leave:create
+[2026-02-17T22:59:55.142Z] DENIAL - Required: analytics:read - User Perms: employees:read, departments:read, attendance:read, attendance:create, leave:read, leave:create
+[2026-02-17T22:59:58.439Z] ACCESS - User: emily.davis@hrenterprise.com - Perms Count: 6
+[2026-02-17T22:59:58.445Z] ACCESS - User: emily.davis@hrenterprise.com - Perms Count: 6
+[2026-02-17T22:59:58.451Z] ACCESS - User: emily.davis@hrenterprise.com - Perms Count: 6
+[2026-02-17T22:59:58.457Z] ACCESS - User: emily.davis@hrenterprise.com - Perms Count: 6
+[2026-02-17T22:59:58.485Z] ACCESS - User: emily.davis@hrenterprise.com - Perms Count: 6
+[2026-02-17T22:59:58.495Z] ACCESS - User: emily.davis@hrenterprise.com - Perms Count: 6
+[2026-02-17T22:59:58.519Z] ACCESS - User: emily.davis@hrenterprise.com - Perms Count: 6
+[2026-02-17T22:59:58.534Z] ACCESS - User: emily.davis@hrenterprise.com - Perms Count: 6
+[2026-02-17T23:00:23.188Z] ACCESS - User: emily.davis@hrenterprise.com - Perms Count: 6
+[2026-02-17T23:00:23.201Z] ACCESS - User: emily.davis@hrenterprise.com - Perms Count: 6
+[2026-02-17T23:00:28.686Z] ACCESS - User: emily.davis@hrenterprise.com - Perms Count: 6
+[2026-02-17T23:00:28.700Z] ACCESS - User: emily.davis@hrenterprise.com - Perms Count: 6
+[2026-02-17T23:00:29.729Z] ACCESS - User: emily.davis@hrenterprise.com - Perms Count: 6
+[2026-02-17T23:00:29.743Z] ACCESS - User: emily.davis@hrenterprise.com - Perms Count: 6
+[2026-02-17T23:00:31.054Z] ACCESS - User: emily.davis@hrenterprise.com - Perms Count: 6
+[2026-02-17T23:00:31.074Z] ACCESS - User: emily.davis@hrenterprise.com - Perms Count: 6
+[2026-02-17T23:00:42.484Z] ACCESS - User: emily.davis@hrenterprise.com - Perms Count: 6
+[2026-02-17T23:00:42.495Z] ACCESS - User: emily.davis@hrenterprise.com - Perms Count: 6
+[2026-02-17T23:01:21.547Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-17T23:01:21.559Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-17T23:01:25.940Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-17T23:01:25.951Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-17T23:04:21.280Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-17T23:04:21.293Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-17T23:06:40.924Z] DENIAL - Required: analytics:read - User Perms: employees:read, departments:read, attendance:read, attendance:create, leave:read, leave:create
+[2026-02-17T23:06:41.967Z] DENIAL - Required: analytics:read - User Perms: employees:read, departments:read, attendance:read, attendance:create, leave:read, leave:create
+[2026-02-17T23:06:45.036Z] DENIAL - Required: analytics:read - User Perms: employees:read, departments:read, attendance:read, attendance:create, leave:read, leave:create
+[2026-02-17T23:06:46.063Z] DENIAL - Required: analytics:read - User Perms: employees:read, departments:read, attendance:read, attendance:create, leave:read, leave:create
+[2026-02-17T23:06:49.996Z] ACCESS - User: emily.davis@hrenterprise.com - Perms Count: 6
+[2026-02-17T23:06:50.006Z] ACCESS - User: emily.davis@hrenterprise.com - Perms Count: 6
+[2026-02-17T23:06:50.014Z] ACCESS - User: emily.davis@hrenterprise.com - Perms Count: 6
+[2026-02-17T23:06:50.019Z] ACCESS - User: emily.davis@hrenterprise.com - Perms Count: 6
+[2026-02-17T23:06:50.038Z] ACCESS - User: emily.davis@hrenterprise.com - Perms Count: 6
+[2026-02-17T23:06:50.049Z] ACCESS - User: emily.davis@hrenterprise.com - Perms Count: 6
+[2026-02-17T23:06:50.062Z] ACCESS - User: emily.davis@hrenterprise.com - Perms Count: 6
+[2026-02-17T23:06:50.068Z] ACCESS - User: emily.davis@hrenterprise.com - Perms Count: 6
+[2026-02-17T23:07:28.165Z] ACCESS - User: emily.davis@hrenterprise.com - Perms Count: 6
+[2026-02-17T23:07:28.181Z] ACCESS - User: emily.davis@hrenterprise.com - Perms Count: 6
+[2026-02-17T23:07:37.070Z] ACCESS - User: emily.davis@hrenterprise.com - Perms Count: 6
+[2026-02-17T23:07:37.076Z] ACCESS - User: emily.davis@hrenterprise.com - Perms Count: 6
+[2026-02-17T23:07:37.084Z] ACCESS - User: emily.davis@hrenterprise.com - Perms Count: 6
+[2026-02-17T23:07:37.120Z] ACCESS - User: emily.davis@hrenterprise.com - Perms Count: 6
+[2026-02-17T23:07:37.174Z] ACCESS - User: emily.davis@hrenterprise.com - Perms Count: 6
+[2026-02-17T23:07:37.201Z] ACCESS - User: emily.davis@hrenterprise.com - Perms Count: 6
+[2026-02-17T23:07:37.222Z] ACCESS - User: emily.davis@hrenterprise.com - Perms Count: 6
+[2026-02-17T23:07:37.254Z] ACCESS - User: emily.davis@hrenterprise.com - Perms Count: 6
+[2026-02-17T23:08:16.125Z] ACCESS - User: emily.davis@hrenterprise.com - Perms Count: 6
+[2026-02-17T23:08:16.140Z] ACCESS - User: emily.davis@hrenterprise.com - Perms Count: 6
+[2026-02-17T23:08:17.925Z] ACCESS - User: emily.davis@hrenterprise.com - Perms Count: 6
+[2026-02-17T23:08:17.993Z] ACCESS - User: emily.davis@hrenterprise.com - Perms Count: 6
+[2026-02-17T23:08:40.994Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-17T23:08:41.006Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-17T23:08:45.178Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-17T23:08:45.193Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-17T23:11:34.119Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-17T23:11:34.129Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-17T23:14:50.404Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-17T23:14:50.417Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T03:38:14.699Z] ACCESS - User: sarah.johnson@hrenterprise.com - Perms Count: 21
+[2026-02-18T03:38:14.710Z] ACCESS - User: sarah.johnson@hrenterprise.com - Perms Count: 21
+[2026-02-18T03:38:38.773Z] ACCESS - User: sarah.johnson@hrenterprise.com - Perms Count: 21
+[2026-02-18T03:38:38.779Z] ACCESS - User: sarah.johnson@hrenterprise.com - Perms Count: 21
+[2026-02-18T03:38:42.756Z] ACCESS - User: sarah.johnson@hrenterprise.com - Perms Count: 21
+[2026-02-18T03:38:42.762Z] ACCESS - User: sarah.johnson@hrenterprise.com - Perms Count: 21
+[2026-02-18T03:38:42.768Z] ACCESS - User: sarah.johnson@hrenterprise.com - Perms Count: 21
+[2026-02-18T03:38:42.772Z] ACCESS - User: sarah.johnson@hrenterprise.com - Perms Count: 21
+[2026-02-18T03:44:57.803Z] ACCESS - User: sarah.johnson@hrenterprise.com - Perms Count: 21
+[2026-02-18T03:44:57.813Z] ACCESS - User: sarah.johnson@hrenterprise.com - Perms Count: 21
+[2026-02-18T03:44:57.816Z] ACCESS - User: sarah.johnson@hrenterprise.com - Perms Count: 21
+[2026-02-18T03:44:57.825Z] ACCESS - User: sarah.johnson@hrenterprise.com - Perms Count: 21
+[2026-02-18T03:45:06.662Z] ACCESS - User: sarah.johnson@hrenterprise.com - Perms Count: 21
+[2026-02-18T03:45:06.676Z] ACCESS - User: sarah.johnson@hrenterprise.com - Perms Count: 21
+[2026-02-18T03:49:09.828Z] ACCESS - User: sarah.johnson@hrenterprise.com - Perms Count: 21
+[2026-02-18T03:49:09.832Z] ACCESS - User: sarah.johnson@hrenterprise.com - Perms Count: 21
+[2026-02-18T03:52:30.331Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T03:52:30.334Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T03:55:31.153Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T03:55:31.171Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T03:57:54.949Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T03:57:54.963Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T03:58:03.270Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T03:58:03.293Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T03:59:19.035Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T03:59:19.067Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T04:02:46.831Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T04:02:46.861Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T04:05:50.198Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T04:05:50.224Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T04:05:57.729Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T04:05:57.742Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T04:08:52.079Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T04:08:52.153Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T04:09:38.015Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T04:09:38.023Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T04:10:27.126Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T04:10:27.133Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T04:12:17.107Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T04:12:17.114Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T04:15:37.846Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T04:15:37.863Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T04:24:34.836Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T04:24:34.844Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T06:21:27.361Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T06:21:27.408Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T06:21:38.465Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T06:21:38.485Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T06:21:39.768Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T06:21:39.811Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T06:22:15.389Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T06:22:15.400Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T06:25:45.344Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T06:25:45.354Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T06:26:02.129Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T06:26:02.138Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T06:26:02.144Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T06:26:02.156Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T06:26:09.297Z] DENIAL - Required: shifts:read - User Perms: users:read, users:create, users:update, users:delete, roles:read, roles:create, roles:update, roles:delete, employees:read, employees:create, employees:update, employees:delete, departments:read, departments:create, departments:update, departments:delete, attendance:read, attendance:create, attendance:update, attendance:delete, leave:read, leave:create, leave:approve, leave:manage, analytics:read
+[2026-02-18T06:26:10.159Z] DENIAL - Required: holidays:read - User Perms: users:read, users:create, users:update, users:delete, roles:read, roles:create, roles:update, roles:delete, employees:read, employees:create, employees:update, employees:delete, departments:read, departments:create, departments:update, departments:delete, attendance:read, attendance:create, attendance:update, attendance:delete, leave:read, leave:create, leave:approve, leave:manage, analytics:read
+[2026-02-18T06:26:11.185Z] DENIAL - Required: holidays:read - User Perms: users:read, users:create, users:update, users:delete, roles:read, roles:create, roles:update, roles:delete, employees:read, employees:create, employees:update, employees:delete, departments:read, departments:create, departments:update, departments:delete, attendance:read, attendance:create, attendance:update, attendance:delete, leave:read, leave:create, leave:approve, leave:manage, analytics:read
+[2026-02-18T06:26:13.337Z] DENIAL - Required: shifts:read - User Perms: users:read, users:create, users:update, users:delete, roles:read, roles:create, roles:update, roles:delete, employees:read, employees:create, employees:update, employees:delete, departments:read, departments:create, departments:update, departments:delete, attendance:read, attendance:create, attendance:update, attendance:delete, leave:read, leave:create, leave:approve, leave:manage, analytics:read
+[2026-02-18T06:26:14.370Z] DENIAL - Required: shifts:read - User Perms: users:read, users:create, users:update, users:delete, roles:read, roles:create, roles:update, roles:delete, employees:read, employees:create, employees:update, employees:delete, departments:read, departments:create, departments:update, departments:delete, attendance:read, attendance:create, attendance:update, attendance:delete, leave:read, leave:create, leave:approve, leave:manage, analytics:read
+[2026-02-18T06:27:05.901Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T06:27:05.908Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T06:27:05.921Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T06:27:05.927Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T06:27:44.848Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T06:27:44.857Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T06:30:08.007Z] ACCESS - User: emily.davis@hrenterprise.com - Perms Count: 6
+[2026-02-18T06:30:08.040Z] ACCESS - User: emily.davis@hrenterprise.com - Perms Count: 6
+[2026-02-18T06:30:09.091Z] ACCESS - User: emily.davis@hrenterprise.com - Perms Count: 6
+[2026-02-18T06:30:09.103Z] ACCESS - User: emily.davis@hrenterprise.com - Perms Count: 6
+[2026-02-18T06:30:18.113Z] DENIAL - Required: analytics:read - User Perms: employees:read, departments:read, attendance:read, attendance:create, leave:read, leave:create
+[2026-02-18T06:30:19.189Z] DENIAL - Required: analytics:read - User Perms: employees:read, departments:read, attendance:read, attendance:create, leave:read, leave:create
+[2026-02-18T06:30:23.302Z] DENIAL - Required: analytics:read - User Perms: employees:read, departments:read, attendance:read, attendance:create, leave:read, leave:create
+[2026-02-18T06:30:24.334Z] DENIAL - Required: analytics:read - User Perms: employees:read, departments:read, attendance:read, attendance:create, leave:read, leave:create
+[2026-02-18T06:30:25.491Z] DENIAL - Required: analytics:read - User Perms: employees:read, departments:read, attendance:read, attendance:create, leave:read, leave:create
+[2026-02-18T06:30:26.522Z] DENIAL - Required: analytics:read - User Perms: employees:read, departments:read, attendance:read, attendance:create, leave:read, leave:create
+[2026-02-18T06:31:38.046Z] DENIAL - Required: analytics:read - User Perms: employees:read, departments:read, attendance:read, attendance:create, leave:read, leave:create
+[2026-02-18T06:31:39.076Z] DENIAL - Required: analytics:read - User Perms: employees:read, departments:read, attendance:read, attendance:create, leave:read, leave:create
+[2026-02-18T06:31:52.286Z] DENIAL - Required: analytics:read - User Perms: 
+[2026-02-18T06:31:53.315Z] DENIAL - Required: analytics:read - User Perms: 
+[2026-02-18T06:32:06.510Z] DENIAL - Required: analytics:read - User Perms: 
+[2026-02-18T06:32:07.528Z] DENIAL - Required: analytics:read - User Perms: 
+[2026-02-18T06:32:16.988Z] DENIAL - Required: analytics:read - User Perms: 
+[2026-02-18T06:32:18.014Z] DENIAL - Required: analytics:read - User Perms: 
+[2026-02-18T06:34:35.882Z] DENIAL - Required: analytics:read - User Perms: 
+[2026-02-18T06:34:37.051Z] DENIAL - Required: analytics:read - User Perms: 
+[2026-02-18T06:34:53.732Z] DENIAL - Required: analytics:read - User Perms: employees:read, departments:read, attendance:read, attendance:create, leave:read, leave:create
+[2026-02-18T06:34:54.755Z] DENIAL - Required: analytics:read - User Perms: employees:read, departments:read, attendance:read, attendance:create, leave:read, leave:create
+[2026-02-18T06:36:45.144Z] DENIAL - Required: analytics:read - User Perms: employees:read, departments:read, attendance:read, attendance:create, leave:read, leave:create
+[2026-02-18T06:37:32.143Z] DENIAL - Required: analytics:read - User Perms: employees:read, departments:read, attendance:read, attendance:create, leave:read, leave:create
+[2026-02-18T06:37:33.172Z] DENIAL - Required: analytics:read - User Perms: employees:read, departments:read, attendance:read, attendance:create, leave:read, leave:create
+[2026-02-18T06:39:58.414Z] DENIAL - Required: analytics:read - User Perms: employees:read, departments:read, attendance:read, attendance:create, leave:read, leave:create
+[2026-02-18T06:39:59.458Z] DENIAL - Required: analytics:read - User Perms: employees:read, departments:read, attendance:read, attendance:create, leave:read, leave:create
+[2026-02-18T06:40:11.937Z] DENIAL - Required: analytics:read - User Perms: employees:read, departments:read, attendance:read, attendance:create, leave:read, leave:create
+[2026-02-18T06:40:12.962Z] DENIAL - Required: analytics:read - User Perms: employees:read, departments:read, attendance:read, attendance:create, leave:read, leave:create
+[2026-02-18T06:40:18.862Z] ACCESS - User: emily.davis@hrenterprise.com - Perms Count: 6
+[2026-02-18T06:40:18.880Z] ACCESS - User: emily.davis@hrenterprise.com - Perms Count: 6
+[2026-02-18T06:40:20.002Z] ACCESS - User: emily.davis@hrenterprise.com - Perms Count: 6
+[2026-02-18T06:40:20.017Z] ACCESS - User: emily.davis@hrenterprise.com - Perms Count: 6
+[2026-02-18T06:40:21.345Z] ACCESS - User: emily.davis@hrenterprise.com - Perms Count: 6
+[2026-02-18T06:40:21.359Z] ACCESS - User: emily.davis@hrenterprise.com - Perms Count: 6
+[2026-02-18T06:40:22.409Z] ACCESS - User: emily.davis@hrenterprise.com - Perms Count: 6
+[2026-02-18T06:40:22.421Z] ACCESS - User: emily.davis@hrenterprise.com - Perms Count: 6
+[2026-02-18T06:40:24.192Z] ACCESS - User: emily.davis@hrenterprise.com - Perms Count: 6
+[2026-02-18T06:40:24.207Z] ACCESS - User: emily.davis@hrenterprise.com - Perms Count: 6
+[2026-02-18T06:40:25.248Z] ACCESS - User: emily.davis@hrenterprise.com - Perms Count: 6
+[2026-02-18T06:40:25.265Z] ACCESS - User: emily.davis@hrenterprise.com - Perms Count: 6
+[2026-02-18T06:40:29.002Z] ACCESS - User: emily.davis@hrenterprise.com - Perms Count: 6
+[2026-02-18T06:40:29.016Z] ACCESS - User: emily.davis@hrenterprise.com - Perms Count: 6
+[2026-02-18T06:40:30.079Z] ACCESS - User: emily.davis@hrenterprise.com - Perms Count: 6
+[2026-02-18T06:40:30.092Z] ACCESS - User: emily.davis@hrenterprise.com - Perms Count: 6
+[2026-02-18T06:40:31.838Z] DENIAL - Required: roles:read - User Perms: employees:read, departments:read, attendance:read, attendance:create, leave:read, leave:create
+[2026-02-18T06:40:31.930Z] DENIAL - Required: roles:read - User Perms: employees:read, departments:read, attendance:read, attendance:create, leave:read, leave:create
+[2026-02-18T06:40:32.891Z] DENIAL - Required: roles:read - User Perms: employees:read, departments:read, attendance:read, attendance:create, leave:read, leave:create
+[2026-02-18T06:40:32.985Z] DENIAL - Required: roles:read - User Perms: employees:read, departments:read, attendance:read, attendance:create, leave:read, leave:create
+[2026-02-18T06:40:33.082Z] DENIAL - Required: roles:read - User Perms: employees:read, departments:read, attendance:read, attendance:create, leave:read, leave:create
+[2026-02-18T06:40:33.129Z] DENIAL - Required: users:read - User Perms: employees:read, departments:read, attendance:read, attendance:create, leave:read, leave:create
+[2026-02-18T06:40:34.119Z] DENIAL - Required: roles:read - User Perms: employees:read, departments:read, attendance:read, attendance:create, leave:read, leave:create
+[2026-02-18T06:40:34.168Z] DENIAL - Required: users:read - User Perms: employees:read, departments:read, attendance:read, attendance:create, leave:read, leave:create
+[2026-02-18T06:40:35.282Z] DENIAL - Required: shifts:read - User Perms: employees:read, departments:read, attendance:read, attendance:create, leave:read, leave:create
+[2026-02-18T06:40:36.305Z] DENIAL - Required: shifts:read - User Perms: employees:read, departments:read, attendance:read, attendance:create, leave:read, leave:create
+[2026-02-18T06:40:38.427Z] DENIAL - Required: holidays:read - User Perms: employees:read, departments:read, attendance:read, attendance:create, leave:read, leave:create
+[2026-02-18T06:40:39.467Z] DENIAL - Required: holidays:read - User Perms: employees:read, departments:read, attendance:read, attendance:create, leave:read, leave:create
+[2026-02-18T06:41:05.127Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T06:41:05.137Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T06:44:00.126Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T06:44:00.140Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T06:44:23.592Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T06:44:23.599Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T06:44:23.619Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T06:44:23.626Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T06:49:21.948Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T06:49:21.959Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T06:51:31.503Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T06:51:31.516Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T06:51:39.863Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T06:51:39.868Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T06:51:39.894Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T06:51:39.898Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T06:56:39.991Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T06:56:40.005Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T06:57:16.318Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T06:57:16.332Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T06:57:16.338Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T06:57:16.354Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T07:05:47.832Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T07:05:47.846Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T07:05:56.707Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T07:05:56.719Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T07:06:00.442Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T07:06:00.459Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T07:06:05.179Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T07:06:05.191Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T07:06:31.008Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T07:06:31.013Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T07:06:31.025Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T07:06:31.032Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T07:06:44.939Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T07:06:44.957Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T07:06:44.981Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T07:06:45.010Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T07:06:45.017Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T07:06:45.040Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T07:06:45.050Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T07:06:45.085Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T07:06:55.732Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T07:06:55.743Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T07:07:00.956Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T07:07:00.971Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T07:07:01.066Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T07:07:01.087Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T07:08:51.742Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T07:08:51.748Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T07:08:51.762Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T07:08:51.767Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T07:09:09.268Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T07:09:09.278Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T07:09:09.366Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T07:09:09.382Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T07:09:37.380Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T07:09:37.394Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T07:14:02.115Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T07:14:02.124Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T07:14:03.981Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T07:14:04.000Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T07:14:04.111Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T07:14:04.138Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T07:14:08.787Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T07:14:08.798Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T07:14:17.986Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T07:14:18.001Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T07:14:18.004Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T07:14:18.021Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T07:16:07.875Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T07:16:07.890Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T07:16:28.987Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T07:16:28.996Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T07:16:29.006Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T07:16:29.022Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T07:16:29.030Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T07:16:29.039Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T07:16:29.178Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T07:16:29.197Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T07:16:43.133Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T07:16:43.142Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T07:16:48.387Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T07:16:48.400Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T07:18:06.723Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T07:18:06.741Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T07:18:13.144Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T07:18:13.157Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T08:32:29.417Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T08:32:29.432Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T08:32:43.959Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T08:32:43.969Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T08:32:49.138Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T08:32:49.151Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T08:32:49.156Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T08:32:49.168Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T08:38:58.041Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T08:38:58.066Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T08:38:58.089Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T08:38:58.118Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T08:38:59.689Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T08:38:59.696Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T08:38:59.711Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T08:38:59.716Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T08:39:19.238Z] DENIAL - Required: analytics:read - User Perms: employees:read, departments:read, attendance:read, attendance:create, leave:read, leave:create
+[2026-02-18T08:39:20.268Z] DENIAL - Required: analytics:read - User Perms: employees:read, departments:read, attendance:read, attendance:create, leave:read, leave:create
+[2026-02-18T08:40:03.028Z] DENIAL - Required: analytics:read - User Perms: employees:read, departments:read, attendance:read, attendance:create, leave:read, leave:create
+[2026-02-18T08:40:04.076Z] DENIAL - Required: analytics:read - User Perms: employees:read, departments:read, attendance:read, attendance:create, leave:read, leave:create
+[2026-02-18T08:40:14.614Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T08:40:14.627Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T08:40:29.472Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T08:40:29.482Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T08:41:13.699Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T08:41:13.708Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T10:12:54.586Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T10:12:54.624Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T10:13:51.864Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T10:13:51.942Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T10:13:57.511Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T10:13:57.564Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T10:14:00.185Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T10:14:00.215Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T10:14:00.366Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T10:14:00.797Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T10:14:05.126Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T10:14:05.159Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T10:14:05.194Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T10:14:05.273Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T10:14:05.324Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T10:14:05.763Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T10:14:07.082Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T10:14:07.339Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T10:14:07.858Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T10:14:07.939Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T10:14:53.731Z] DENIAL - Required: shifts:read - User Perms: users:read, users:create, users:update, users:delete, roles:read, roles:create, roles:update, roles:delete, employees:read, employees:create, employees:update, employees:delete, departments:read, departments:create, departments:update, departments:delete, attendance:read, attendance:create, attendance:update, attendance:delete, leave:read, leave:create, leave:approve, leave:manage, analytics:read
+[2026-02-18T10:14:54.804Z] DENIAL - Required: shifts:read - User Perms: users:read, users:create, users:update, users:delete, roles:read, roles:create, roles:update, roles:delete, employees:read, employees:create, employees:update, employees:delete, departments:read, departments:create, departments:update, departments:delete, attendance:read, attendance:create, attendance:update, attendance:delete, leave:read, leave:create, leave:approve, leave:manage, analytics:read
+[2026-02-18T10:15:20.155Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T10:15:20.211Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T10:15:27.798Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T10:15:27.831Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T10:15:27.882Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T10:15:27.936Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T10:15:32.375Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T10:15:32.438Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T10:15:32.477Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T10:15:32.532Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T10:15:32.596Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T10:15:32.756Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T10:15:33.595Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T10:15:33.676Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T10:15:48.992Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T10:15:49.186Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T10:16:17.933Z] DENIAL - Required: holidays:read - User Perms: users:read, users:create, users:update, users:delete, roles:read, roles:create, roles:update, roles:delete, employees:read, employees:create, employees:update, employees:delete, departments:read, departments:create, departments:update, departments:delete, attendance:read, attendance:create, attendance:update, attendance:delete, leave:read, leave:create, leave:approve, leave:manage, analytics:read
+[2026-02-18T10:16:19.001Z] DENIAL - Required: holidays:read - User Perms: users:read, users:create, users:update, users:delete, roles:read, roles:create, roles:update, roles:delete, employees:read, employees:create, employees:update, employees:delete, departments:read, departments:create, departments:update, departments:delete, attendance:read, attendance:create, attendance:update, attendance:delete, leave:read, leave:create, leave:approve, leave:manage, analytics:read
+[2026-02-18T10:16:20.551Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T10:16:20.590Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T10:16:20.709Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T10:16:20.734Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T10:16:22.426Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T10:16:22.451Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T10:16:22.507Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T10:16:22.523Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T10:16:24.821Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T10:16:24.842Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T10:18:12.524Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T10:18:12.544Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T10:18:44.229Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T10:18:44.252Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T10:18:46.956Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T10:18:47.022Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T10:18:47.223Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T10:18:47.267Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T10:21:52.264Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T10:21:52.291Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T10:26:52.264Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T10:26:52.298Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T10:29:03.334Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T10:29:03.352Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T10:32:36.746Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T10:32:36.758Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T11:51:41.517Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25
+[2026-02-18T11:51:41.532Z] ACCESS - User: admin@hrenterprise.com - Perms Count: 25

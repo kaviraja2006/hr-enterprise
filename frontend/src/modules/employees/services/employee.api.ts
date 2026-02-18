@@ -36,41 +36,21 @@ export const employeeApi = {
 
   // Get employee statistics
   getStats: async (): Promise<EmployeeStats> => {
-    return apiClient.get<EmployeeStats>('/employees/stats');
+    return apiClient.get<EmployeeStats>('/employees/statistics');
   },
 
   // Get employees by department
   getByDepartment: async (departmentId: string): Promise<Employee[]> => {
-    return apiClient.get<Employee[]>(`/departments/${departmentId}/employees`);
+    return apiClient.get<Employee[]>('/employees', { params: { departmentId } });
   },
 
   // Get employees reporting to a manager
   getSubordinates: async (managerId: string): Promise<Employee[]> => {
-    return apiClient.get<Employee[]>(`/employees/${managerId}/subordinates`);
+    return apiClient.get<Employee[]>(`/employees/${managerId}/team`);
   },
 
-  // Upload profile picture
-  uploadProfilePicture: async (id: string, file: File): Promise<{ url: string }> => {
-    const formData = new FormData();
-    formData.append('file', file);
-    return apiClient.post<{ url: string }>(
-      `/employees/${id}/profile-picture`,
-      formData,
-      {
-        headers: { 'Content-Type': 'multipart/form-data' },
-      }
-    );
-  },
-
-  // Export employees to CSV
-  exportCsv: async (params?: EmployeeListParams): Promise<Blob> => {
-    // We use directly axios for blob responses as apiClient.get unwraps data
-    // actually, let's keep it simple or implement getBlob in apiClient if needed
-    // for now, use the raw axiosInstance via apiClient for special cases if needed
-    // but better to have it in apiClient
-    return apiClient.get<Blob>('/employees/export', {
-      params,
-      responseType: 'blob',
-    });
+  // Get full organization hierarchy
+  getHierarchy: async (): Promise<any> => {
+    return apiClient.get('/employees/hierarchy');
   },
 };

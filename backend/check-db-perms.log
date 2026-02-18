@@ -1,0 +1,28 @@
+Admin has 25 permissions:
+[
+  "analytics:read",
+  "attendance:create",
+  "attendance:delete",
+  "attendance:read",
+  "attendance:update",
+  "departments:create",
+  "departments:delete",
+  "departments:read",
+  "departments:update",
+  "employees:create",
+  "employees:delete",
+  "employees:read",
+  "employees:update",
+  "leave:approve",
+  "leave:create",
+  "leave:manage",
+  "leave:read",
+  "roles:create",
+  "roles:delete",
+  "roles:read",
+  "roles:update",
+  "users:create",
+  "users:delete",
+  "users:read",
+  "users:update"
+]

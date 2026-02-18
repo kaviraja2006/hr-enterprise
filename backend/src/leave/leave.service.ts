@@ -7,6 +7,7 @@ import {
   ForbiddenException,
 } from '@nestjs/common';
 import { PrismaService } from '../database/prisma.service';
+import { WorkflowService } from '../workflow/workflow.service';
 import { CreateLeaveTypeDto } from './dto/create-leave-type.dto';
 import { UpdateLeaveTypeDto } from './dto/update-leave-type.dto';
 import { CreateLeaveRequestDto } from './dto/create-leave-request.dto';
@@ -15,7 +16,10 @@ import { CreateLeaveRequestDto } from './dto/create-leave-request.dto';
 export class LeaveService {
   private readonly logger = new Logger(LeaveService.name);
 
-  constructor(private readonly prisma: PrismaService) { }
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly workflowService: WorkflowService,
+  ) { }
 
   // ============ Leave Type Methods ============
 
@@ -240,6 +244,28 @@ export class LeaveService {
       },
     });
 
+    // Get admin employee ID for workflow approval
+    const adminUser = await this.prisma.user.findUnique({
+      where: { email: 'admin@hrenterprise.com' },
+      select: { employeeId: true },
+    });
+
+    // Create workflow approval for admin
+    if (adminUser?.employeeId) {
+      try {
+        await this.workflowService.createApproval({
+          entityType: 'leave_request',
+          entityId: leaveRequest.id,
+          requesterId: employeeId,
+          approverIds: [adminUser.employeeId],
+          comments: `Leave request for ${days} day(s) from ${start.toLocaleDateString()} to ${end.toLocaleDateString()}`,
+        });
+        this.logger.log(`Workflow approval created for leave request ${leaveRequest.id}`);
+      } catch (error) {
+        this.logger.warn(`Failed to create workflow approval: ${error instanceof Error ? error.message : 'Unknown error'}`);
+      }
+    }
+
     this.logger.log(`Leave request created for employee ${employeeId}`);
 
     return leaveRequest;
@@ -295,7 +321,15 @@ export class LeaveService {
     if (startDate || endDate) {
       where.startDate = {};
       if (startDate) where.startDate.gte = startDate;
-      if (endDate) where.startDate.lte = endDate;
+      if (endDate) {
+        // If endDate is provided, ensure it covers the full day if it's just a date
+        // However, startDate/endDate params are typed as Date. 
+        // If passed as query params, they might be strings transformed.
+        // Let's ensure strict comparison.
+        const end = new Date(endDate);
+        end.setHours(23, 59, 59, 999);
+        where.startDate.lte = end;
+      }
     }
 
     const [requests, total] = await Promise.all([
@@ -630,10 +664,12 @@ export class LeaveService {
       employeeId,
       year: targetYear,
       requests,
-      summary: stats.reduce((acc, s) => {
-        acc[s.status] = s._sum.days || 0;
-        return acc;
-      }, {} as Record<string, number>),
+      summary: {
+        totalRequests: requests.length,
+        totalDaysTaken: stats.find(s => s.status === 'approved')?._sum.days || 0,
+        pendingRequests: requests.filter(r => r.status === 'pending').length,
+        approvedRequests: requests.filter(r => r.status === 'approved').length,
+      }
     };
   }
 }

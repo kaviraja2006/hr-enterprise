@@ -54,12 +54,7 @@ export const useRejectApproval = useRejectStep;
 export const useApprovalStats = () => {
   return useQuery({
     queryKey: ['workflow', 'stats'],
-    queryFn: () => Promise.resolve({
-      pendingForMe: 0,
-      myRequestsPending: 0,
-      totalApproved: 0,
-      totalRejected: 0,
-    }),
+    queryFn: () => workflowApi.getApprovalStats(),
     enabled: true,
   });
 };

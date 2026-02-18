@@ -39,7 +39,7 @@ export class NotificationsService {
   constructor(private readonly prisma: PrismaService) {}
 
   async createNotification(data: CreateNotificationData): Promise<Notification> {
-    const notification = await (this.prisma as any).notification.create({
+    const notification = await this.prisma.notification.create({
       data: {
         userId: data.userId,
         type: data.type,
@@ -69,16 +69,16 @@ export class NotificationsService {
     };
 
     const [notifications, unreadCount, total] = await Promise.all([
-      (this.prisma as any).notification.findMany({
+      this.prisma.notification.findMany({
         where,
         orderBy: { createdAt: 'desc' },
         take: limit,
         skip: offset,
       }),
-      (this.prisma as any).notification.count({
+      this.prisma.notification.count({
         where: { userId, read: false },
       }),
-      (this.prisma as any).notification.count({
+      this.prisma.notification.count({
         where: { userId },
       }),
     ]);
@@ -87,7 +87,7 @@ export class NotificationsService {
   }
 
   async markAsRead(userId: string, notificationId: string): Promise<Notification> {
-    const notification = await (this.prisma as any).notification.findFirst({
+    const notification = await this.prisma.notification.findFirst({
       where: {
         id: notificationId,
         userId,
@@ -98,14 +98,14 @@ export class NotificationsService {
       throw new Error('Notification not found');
     }
 
-    return (this.prisma as any).notification.update({
+    return this.prisma.notification.update({
       where: { id: notificationId },
       data: { read: true, readAt: new Date() },
     });
   }
 
   async markAllAsRead(userId: string): Promise<void> {
-    await (this.prisma as any).notification.updateMany({
+    await this.prisma.notification.updateMany({
       where: {
         userId,
         read: false,
@@ -118,7 +118,7 @@ export class NotificationsService {
   }
 
   async deleteNotification(userId: string, notificationId: string): Promise<void> {
-    await (this.prisma as any).notification.deleteMany({
+    await this.prisma.notification.deleteMany({
       where: {
         id: notificationId,
         userId,
@@ -127,7 +127,7 @@ export class NotificationsService {
   }
 
   async getUnreadCount(userId: string): Promise<number> {
-    return (this.prisma as any).notification.count({
+    return this.prisma.notification.count({
       where: {
         userId,
         read: false,

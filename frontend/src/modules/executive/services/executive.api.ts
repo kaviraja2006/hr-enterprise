@@ -10,6 +10,7 @@ export const executiveApi = {
       leave?: { pendingRequests?: number };
       payroll?: { pendingRuns?: number };
       attendance?: { present?: number; absent?: number; late?: number; onLeave?: number; totalEmployees?: number };
+      departmentBreakdown?: Array<{ department: string; count: number }>;
     };
     
     // Transform backend nested structure to frontend flat interface
@@ -27,7 +28,12 @@ export const executiveApi = {
         onLeave: data.attendance?.onLeave ?? 0,
         totalEmployees: data.attendance?.totalEmployees ?? 0,
       },
-      departmentBreakdown: [],
+      departmentBreakdown: Array.isArray(data.departmentBreakdown) 
+        ? data.departmentBreakdown.map(d => ({
+            ...d,
+            percentage: data.employees?.total ? Math.round((d.count / data.employees.total) * 100) : 0
+          }))
+        : [],
     };
   },
 };

@@ -1,4 +1,4 @@
-import api from '../../../core/api/axios';
+import { apiClient } from '../../../core/api/api-client';
 import type {
   Role,
   Permission,
@@ -12,59 +12,58 @@ import type {
 export const settingsApi = {
   // Roles
   getRoles: async (): Promise<Role[]> => {
-    const response = await api.get<Role[]>('/rbac/roles');
-    return response.data;
+    return apiClient.get<Role[]>('/rbac/roles');
   },
 
   getRole: async (id: string): Promise<Role> => {
-    const response = await api.get<Role>(`/rbac/roles/${id}`);
-    return response.data;
+    return apiClient.get<Role>(`/rbac/roles/${id}`);
   },
 
   createRole: async (data: CreateRoleDto): Promise<Role> => {
-    const response = await api.post<Role>('/rbac/roles', data);
-    return response.data;
+    return apiClient.post<Role>('/rbac/roles', data);
   },
 
   updateRole: async (id: string, data: UpdateRoleDto): Promise<Role> => {
-    const response = await api.patch<Role>(`/rbac/roles/${id}`, data);
-    return response.data;
+    return apiClient.patch<Role>(`/rbac/roles/${id}`, data);
   },
 
   deleteRole: async (id: string): Promise<void> => {
-    await api.delete(`/rbac/roles/${id}`);
+    return apiClient.delete(`/rbac/roles/${id}`);
   },
 
   assignPermissions: async (roleId: string, data: AssignPermissionsDto): Promise<Role> => {
-    const response = await api.post<Role>(`/rbac/roles/${roleId}/permissions`, data);
-    return response.data;
+    return apiClient.post<Role>(`/rbac/roles/${roleId}/permissions`, data);
   },
 
   // Permissions
   getPermissions: async (): Promise<Permission[]> => {
-    const response = await api.get<Permission[]>('/rbac/permissions');
-    return response.data;
+    return apiClient.get<Permission[]>('/rbac/permissions');
   },
 
   createPermission: async (data: CreatePermissionDto): Promise<Permission> => {
-    const response = await api.post<Permission>('/rbac/permissions', data);
-    return response.data;
+    return apiClient.post<Permission>('/rbac/permissions', data);
   },
 
   // Seed
   seedDefaultRoles: async (): Promise<{ message: string }> => {
-    const response = await api.post<{ message: string }>('/rbac/seed');
-    return response.data;
+    return apiClient.post<{ message: string }>('/rbac/seed');
   },
 
-  // System Settings
+  // System Settings (Stubbed - no backend endpoint)
   getSystemSettings: async (): Promise<SystemSettings> => {
-    const response = await api.get<SystemSettings>('/settings');
-    return response.data;
+    return Promise.resolve({
+      companyName: 'HR Enterprise',
+      timezone: 'UTC',
+      dateFormat: 'DD/MM/YYYY',
+      currency: 'INR',
+      emailNotifications: true,
+      smsNotifications: false,
+      workingHours: { start: '09:00', end: '18:00', workingDays: [1, 2, 3, 4, 5] },
+    });
   },
 
   updateSystemSettings: async (data: Partial<SystemSettings>): Promise<SystemSettings> => {
-    const response = await api.patch<SystemSettings>('/settings', data);
-    return response.data;
+    const current = await settingsApi.getSystemSettings();
+    return Promise.resolve({ ...current, ...data });
   },
 };

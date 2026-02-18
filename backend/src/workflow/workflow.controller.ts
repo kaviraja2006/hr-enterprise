@@ -53,6 +53,11 @@ export class WorkflowController {
     });
   }
 
+  @Get('approvals/stats')
+  async getApprovalStats(@Request() req: any) {
+    return this.workflowService.getApprovalStats(req.user.employeeId);
+  }
+
   @Get('approvals/pending')
   async getPendingApprovals(@Request() req: any) {
     return this.workflowService.getPendingApprovalsForUser(req.user.employeeId);

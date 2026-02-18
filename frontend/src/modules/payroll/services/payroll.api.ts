@@ -33,8 +33,13 @@ export const payrollApi = {
     return apiClient.post<PayrollRun>(`/payroll/runs/${id}/process`);
   },
 
-  getPayrollEntries: (runId: string): Promise<PayrollEntry[]> => {
-    return apiClient.get<PayrollEntry[]>(`/payroll/runs/${runId}/entries`);
+  getPayrollEntries: async (runId: string): Promise<PayrollEntry[]> => {
+    const run = await apiClient.get<PayrollRun>(`/payroll/runs/${runId}`);
+    return run.entries || [];
+  },
+
+  getMyPayslips: (): Promise<PayrollEntry[]> => {
+    return apiClient.get<PayrollEntry[]>('/payroll/my-payslips');
   },
 
   // Salary Structures
@@ -54,11 +59,41 @@ export const payrollApi = {
     return apiClient.patch<SalaryStructure>(`/payroll/structures/${id}`, data);
   },
 
+  deleteSalaryStructure: (id: string): Promise<void> => {
+    return apiClient.delete(`/payroll/structures/${id}`);
+  },
+
   deletePayrollRun: (id: string): Promise<void> => {
     return apiClient.delete(`/payroll/runs/${id}`);
   },
 
+  updatePayrollEntry: (id: string, data: { lopDays?: number; notes?: string }): Promise<PayrollEntry> => {
+    return apiClient.patch<PayrollEntry>(`/payroll/entries/${id}`, data);
+  },
+
   getPayrollSummary: (id: string): Promise<Record<string, unknown>> => {
     return apiClient.get(`/payroll/runs/${id}/summary`);
+  },
+
+  downloadPayslip: async (entryId: string): Promise<void> => {
+    const blob = await apiClient.getBlob(`/payroll/entries/${entryId}/pdf`);
+    const url = window.URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.setAttribute('download', `payslip-${entryId}.pdf`);
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+  },
+
+  downloadBankExport: async (runId: string): Promise<void> => {
+    const blob = await apiClient.getBlob(`/payroll/runs/${runId}/bank-export`);
+    const url = window.URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.setAttribute('download', `bank-export-${runId}.xlsx`);
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
   },
 };

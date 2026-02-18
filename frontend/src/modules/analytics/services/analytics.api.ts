@@ -9,16 +9,16 @@ import type {
 } from '../types';
 
 export const analyticsApi = {
-  getAttendanceMetrics: (): Promise<AttendanceMetrics> => {
-    return apiClient.get<AttendanceMetrics>('/analytics/attendance');
+  getAttendanceMetrics: (params?: { startDate?: string; endDate?: string; departmentId?: string }): Promise<AttendanceMetrics> => {
+    return apiClient.get<AttendanceMetrics>('/analytics/attendance/metrics', { params });
   },
 
-  getLeaveMetrics: (): Promise<LeaveMetrics> => {
-    return apiClient.get<LeaveMetrics>('/analytics/leave');
+  getLeaveMetrics: (params?: { year?: number; departmentId?: string }): Promise<LeaveMetrics> => {
+    return apiClient.get<LeaveMetrics>('/analytics/leave/metrics', { params });
   },
 
-  getPayrollMetrics: (): Promise<PayrollMetrics> => {
-    return apiClient.get<PayrollMetrics>('/analytics/payroll');
+  getPayrollMetrics: (params?: { year?: number }): Promise<PayrollMetrics> => {
+    return apiClient.get<PayrollMetrics>('/analytics/payroll/metrics', { params });
   },
 
   getAttritionAnalysis: (): Promise<AttritionAnalysis> => {

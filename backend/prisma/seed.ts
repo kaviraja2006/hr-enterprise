@@ -804,6 +804,59 @@ async function main() {
   console.log(`✅ Created ${leaveRequests.length} leave requests\n`);
 
   // ============================================
+  // 12. Create Sample Approvals
+  // ============================================
+  console.log('🔗 Creating sample workflow approvals...');
+
+  const pendingLeave = leaveRequests.find(r => r.status === 'pending' && r.employeeId === engineers[0].id);
+  if (pendingLeave) {
+    await prisma.approval.create({
+      data: {
+        entityType: 'leave_request',
+        entityId: pendingLeave.id,
+        requesterId: engineers[0].id,
+        approverId: engManager.id,
+        status: 'pending',
+        totalSteps: 1,
+        currentStep: 1,
+        steps: {
+          create: {
+            stepNumber: 1,
+            approverId: engManager.id,
+            status: 'pending',
+          }
+        }
+      }
+    });
+  }
+
+  const approvedLeave = leaveRequests.find(r => r.status === 'approved');
+  if (approvedLeave) {
+    await prisma.approval.create({
+      data: {
+        entityType: 'leave_request',
+        entityId: approvedLeave.id,
+        requesterId: approvedLeave.employeeId,
+        approverId: engManager.id,
+        status: 'approved',
+        totalSteps: 1,
+        currentStep: 1,
+        approvedAt: new Date(),
+        steps: {
+          create: {
+            stepNumber: 1,
+            approverId: engManager.id,
+            status: 'approved',
+            approvedAt: new Date(),
+          }
+        }
+      }
+    });
+  }
+
+  console.log('✅ Created workflow approvals\n');
+
+  // ============================================
   // Summary
   // ============================================
   console.log('🎉 Seed completed successfully!\n');

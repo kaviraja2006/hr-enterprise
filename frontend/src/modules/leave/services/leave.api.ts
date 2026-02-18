@@ -1,8 +1,9 @@
-import { apiClient } from '../../../core/api/api-client';
+import { apiClient, type PaginatedResponse } from '../../../core/api/api-client';
 import type {
   LeaveType,
   LeaveRequest,
   LeaveBalance,
+  LeaveSummary,
   CreateLeaveRequestDto,
   LeaveListParams,
 } from '../types';
@@ -21,9 +22,13 @@ export const leaveApi = {
     return apiClient.patch<LeaveType>(`/leave-types/${id}`, data);
   },
 
+  deleteLeaveType: (id: string): Promise<void> => {
+    return apiClient.delete(`/leave-types/${id}`);
+  },
+
   // Leave Requests
-  getLeaveRequests: (params?: LeaveListParams): Promise<LeaveRequest[]> => {
-    return apiClient.get<LeaveRequest[]>('/leave-requests', { params });
+  getLeaveRequests: (params?: LeaveListParams): Promise<PaginatedResponse<LeaveRequest>> => {
+    return apiClient.getPaginated<LeaveRequest>('/leave-requests', { params });
   },
 
   getLeaveRequest: (id: string): Promise<LeaveRequest> => {
@@ -34,8 +39,8 @@ export const leaveApi = {
     return apiClient.post<LeaveRequest>('/leave-requests', data);
   },
 
-  approveLeaveRequest: (id: string, comments?: string): Promise<LeaveRequest> => {
-    return apiClient.patch<LeaveRequest>(`/leave-requests/${id}/approve`, { comments });
+  approveLeaveRequest: (id: string): Promise<LeaveRequest> => {
+    return apiClient.patch<LeaveRequest>(`/leave-requests/${id}/approve`);
   },
 
   rejectLeaveRequest: (id: string, rejectionReason: string): Promise<LeaveRequest> => {
@@ -46,22 +51,20 @@ export const leaveApi = {
     return apiClient.patch<LeaveRequest>(`/leave-requests/${id}/cancel`);
   },
 
-  getMyLeaveRequests: (): Promise<LeaveRequest[]> => {
-    return apiClient.get<LeaveRequest[]>('/leave-requests/my-requests');
+  getMyLeaveRequests: (params?: LeaveListParams): Promise<PaginatedResponse<LeaveRequest>> => {
+    return apiClient.getPaginated<LeaveRequest>('/leave-requests/my-requests', { params });
   },
 
-  getPendingApprovals: (): Promise<LeaveRequest[]> => {
-    // Backend uses findAll with status=pending for this generally, 
-    // or a specialized endpoint. For now, let's use the list with status pending.
-    return apiClient.get<LeaveRequest[]>('/leave-requests', { params: { status: 'pending' } });
+  getPendingApprovals: (): Promise<PaginatedResponse<LeaveRequest>> => {
+    return apiClient.getPaginated<LeaveRequest>('/leave-requests', { params: { status: 'pending' } });
   },
 
   // Leave Balances & Summary
-  getLeaveBalance: (year: number): Promise<LeaveBalance[]> => {
-    return apiClient.get<LeaveBalance[]>('/leave-requests/balance', { params: { year } });
+  getLeaveBalance: (year: number): Promise<{ balances: LeaveBalance[] }> => {
+    return apiClient.get('/leave-requests/balance', { params: { year } });
   },
 
-  getLeaveSummary: (year: number): Promise<Record<string, unknown>> => {
-    return apiClient.get<Record<string, unknown>>('/leave-requests/summary', { params: { year } });
+  getLeaveSummary: (year: number): Promise<{ summary: LeaveSummary }> => {
+    return apiClient.get('/leave-requests/summary', { params: { year } });
   },
 };

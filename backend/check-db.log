@@ -1,0 +1,11 @@
+Roles: [ 'admin', 'manager', 'employee', 'hr', 'hr_manager' ]
+Total Role-Permission Links: 81
+Admin (7a9ad135-06eb-4409-b5cb-184c33d14bb4) has 25 permissions
+Sample Admin Perms: [
+  'users:read',
+  'users:create',
+  'users:update',
+  'users:delete',
+  'roles:read'
+]
+Admin User Role: admin (ID: 7a9ad135-06eb-4409-b5cb-184c33d14bb4)
